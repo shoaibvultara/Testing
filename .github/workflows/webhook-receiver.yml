@@ -1,42 +1,16 @@
-name: JIRA Issue Transition
+name: Automation Testing Parallel
 
 on:
-  repository_dispatch:
-    types:
-      - jira_issue_transition
+  pull_request:
+    branches:
+      - pre-master
 
 jobs:
-  process-jira-event:
+  prepare:
+    if: "!contains(github.event.pull_request.labels.*.name, 'skip testing')"
     runs-on: ubuntu-latest
-
+    outputs:
+      integration-tests: ${{ steps.parse.outputs.integration-tests }}
     steps:
-      - name: Check out code 
-        uses: actions/checkout@v2
-
-      - name: Update JIRA Custom Field
-        run: |
-          # Extract issueKey from the payload
-          issueKey=${{ github.event.client_payload.issueKey }}
-          
-          # Your JIRA API URL
-          jiraUrl="https://gittest.atlassian.net/rest/api/3/issue/${issueKey}"
-          
-          # Your JIRA Custom Field ID
-          customFieldId="customfield_10044"
-          
-          # JIRA username (email)
-          jiraUsername="shoaib40ce@gmail.com"
-          
-          # JIRA API token or password
-          jiraToken=${{secrets.JIRA_API}}
-          
-          # Update the custom field using JIRA REST API
-          curl -X PUT \
-            -H "Content-Type: application/json" \
-            -u "${jiraUsername}:${jiraToken}" \
-            -d '{
-              "fields": {
-                "'${customFieldId}'": "tested"
-              }
-            }' \
-            "${jiraUrl}"
+      - name: Say hello
+        run: echo "successfully completed"
