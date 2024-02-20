@@ -3,7 +3,7 @@ name: Automation Testing Parallel
 on:
   pull_request:
     branches:
-      - pre-master
+      - main
 
 jobs:
   prepare:
