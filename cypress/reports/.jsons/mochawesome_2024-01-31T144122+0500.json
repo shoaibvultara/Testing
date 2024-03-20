@@ -1,0 +1,170 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-01-31T09:39:13.274Z",
+    "end": "2024-01-31T09:41:22.925Z",
+    "duration": 129651,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "b02b22d3-a1b6-4cb5-a71d-96e109e81c34",
+      "title": "",
+      "fullFile": "cypress\\e2e\\loading-project.cy.js",
+      "file": "cypress\\e2e\\loading-project.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "b433e0b9-1755-4a37-89e4-dbe2af2e0919",
+          "title": "Loading a Project",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Test Case 1: No Project is loaded After loaging In(MAIN-TC-1455, MAIN-TC-249)",
+              "fullTitle": "Loading a Project Test Case 1: No Project is loaded After loaging In(MAIN-TC-1455, MAIN-TC-249)",
+              "timedOut": null,
+              "duration": 23838,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(2000);\ncy.visit(Cypress.env('baseURL'));\ncy.get(navBarSelector.navBarViewButton).click();\ncy.get(navBarSelector.viewListAssumptionButton).should('not.be.enabled'); // Checking Modeling button is not enabled (project not loaded)\ncy.wait(200);\ncy.get(navBarSelector.viewListThreatListButton).should('not.be.enabled'); // Checking Threat List is not enabled (project not loaded)\ncy.wait(200);\ncy.get(navBarSelector.viewListVulnerabilityButton).should('not.be.enabled'); // Checking Vulnerability is not enabled (project not loaded)\ncy.wait(200);\ncy.get(navBarSelector.viewListDashboardButton).click();\ncy.wait(500);\ncy.get(navBarSelector.navBarProfileIcon).click();\ncy.wait(500);\ncy.get(navBarSelector.profileListMilestoneHeader).should('have.text', 'Milestone: ');",
+              "err": {},
+              "uuid": "df9e27de-0f98-4785-8181-af1408d657ef",
+              "parentUUID": "b433e0b9-1755-4a37-89e4-dbe2af2e0919",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 2 : Creating a New Project (MAIN-TC-846, MAIN-TC-2281)",
+              "fullTitle": "Loading a Project Test Case 2 : Creating a New Project (MAIN-TC-846, MAIN-TC-2281)",
+              "timedOut": null,
+              "duration": 28790,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.createProject(projectName);\n// Get the project ID from local storage\ncy.window().then(win => {\n  const newDesignData = JSON.parse(win.localStorage.getItem('newDesign'));\n  expect(newDesignData).to.not.be.null;\n  expect(newDesignData.project).to.not.be.undefined;\n  // Extract the project ID from the nested structure\n  projectId = newDesignData.project.id;\n  expect(projectId).to.not.be.undefined;\n  cy.log(\"Project ID is: \" + projectId);\n  cy.getCookie('accessToken').should('exist');\n});",
+              "err": {},
+              "uuid": "2a4171a5-aba0-41e0-803d-88a0df18785b",
+              "parentUUID": "b433e0b9-1755-4a37-89e4-dbe2af2e0919",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 3: Creating a New Model (MAIN-TC-1986)",
+              "fullTitle": "Loading a Project Test Case 3: Creating a New Model (MAIN-TC-1986)",
+              "timedOut": null,
+              "duration": 17573,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loadProject(projectId);\n// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\ncy.url().should('contain', '/modeling');\ncy.wait(1000);\n//Drag and Drop if req.\ncy.get(navBarSelector.navBarProfileIcon).click();\n// Testing if the cursor remains at default \ncy.get(navBarSelector.profileListUsernameHeader) // Index 4 represents the 5th element (0-based index)\n.should('have.css', 'cursor', 'default');\ncy.get(navBarSelector.profileListRoleHeader) // Index 4 represents the 5th element (0-based index)\n.should('have.css', 'cursor', 'default');\ncy.get(navBarSelector.profileListMilestoneHeader) // Index 4 represents the 5th element (0-based index)\n.should('have.css', 'cursor', 'default'); // Ensure the cursor style is 'auto'",
+              "err": {},
+              "uuid": "9ff62952-3791-4bcb-8438-95ca6333a2ce",
+              "parentUUID": "b433e0b9-1755-4a37-89e4-dbe2af2e0919",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 4: Deleting the Created Project (MAIN-TC-847)",
+              "fullTitle": "Loading a Project Test Case 4: Deleting the Created Project (MAIN-TC-847)",
+              "timedOut": null,
+              "duration": 46318,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "6499bd0f-1eed-411b-a92d-e78ed7f4d618",
+              "parentUUID": "b433e0b9-1755-4a37-89e4-dbe2af2e0919",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "df9e27de-0f98-4785-8181-af1408d657ef",
+            "2a4171a5-aba0-41e0-803d-88a0df18785b",
+            "9ff62952-3791-4bcb-8438-95ca6333a2ce",
+            "6499bd0f-1eed-411b-a92d-e78ed7f4d618"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 116519,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

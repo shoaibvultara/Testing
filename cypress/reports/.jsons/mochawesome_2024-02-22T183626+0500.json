@@ -1,0 +1,272 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 1,
+    "pending": 1,
+    "failures": 5,
+    "start": "2024-02-22T13:30:46.254Z",
+    "end": "2024-02-22T13:36:26.468Z",
+    "duration": 340214,
+    "testsRegistered": 8,
+    "passPercent": 14.285714285714285,
+    "pendingPercent": 12.5,
+    "other": 1,
+    "hasOther": true,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "64438319-d73b-4b7c-bdbe-fa1ecb56cf4f",
+      "title": "",
+      "fullFile": "cypress\\e2e\\Threat-Generation\\feasibility.cy.js",
+      "file": "cypress\\e2e\\Threat-Generation\\feasibility.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0009ade5-55ec-4349-9c8e-2b94284c0d7b",
+          "title": "Feasibility",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Feasibility Pop-up (MAIN-TC-1593, MAIN-TC-1594)",
+              "fullTitle": "Feasibility Feasibility Pop-up (MAIN-TC-1593, MAIN-TC-1594)",
+              "timedOut": null,
+              "duration": 132987,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\feasibility.cy.js\\\\Feasibility -- Feasibility Pop-up (MAIN-TC-1593, MAIN-TC-1594) (failed) (1).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopupTitle).invoke('text').should('include', 'Threat #1');\n    cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n      force: true\n    }); //clicking confirm button\n  });\n  cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopupTitle).invoke('text').should('include', 'Threat #1');\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `td.mat-column-attackFeasibility`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `td.mat-column-attackFeasibility`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/Threat-Generation/feasibility.cy.js:37:9)",
+                "diff": null
+              },
+              "uuid": "d48537cd-d32a-455b-8d85-67dcc81218a9",
+              "parentUUID": "0009ade5-55ec-4349-9c8e-2b94284c0d7b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "feasibility pop-up window w.r.t to Review Threats(MAIN-TC-1608, MAIN-TC-1582)",
+              "fullTitle": "Feasibility feasibility pop-up window w.r.t to Review Threats(MAIN-TC-1608, MAIN-TC-1582)",
+              "timedOut": null,
+              "duration": 28824,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\feasibility.cy.js\\\\Feasibility -- feasibility pop-up window w.r.t to Review Threats(MAIN-TC-1608, MAIN-TC-1582) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    //Mark the threat as ready\n    cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).should('not.be.enabled');\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupCriteria).eq(0).should('not.be.enabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupRationaleText).eq(0).should('not.be.enabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupCancelButton).click();\n    });\n  }).then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopup).should(\"not.exist\");\n  });\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    //Mark the threat as reviewed\n    cy.get(threatListViewSelector.threatListViewReviewCheckBox).click(); //Mark the threat as unreviewed\n    cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n      force: true\n    });\n  }).then(() => {\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupCriteria).eq(0).should('not.be.disabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupRationaleText).eq(0).should('not.be.disabled');\n    });\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[id=mat-mdc-checkbox-3-input]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[id=mat-mdc-checkbox-3-input]`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/Threat-Generation/feasibility.cy.js:49:9)",
+                "diff": null
+              },
+              "uuid": "8d399f17-2c62-4a1b-acbd-8c40d65e12c8",
+              "parentUUID": "0009ade5-55ec-4349-9c8e-2b94284c0d7b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "feasibility pop-up window w.r.t Treatment (MAIN-TC-1584)",
+              "fullTitle": "Feasibility feasibility pop-up window w.r.t Treatment (MAIN-TC-1584)",
+              "timedOut": null,
+              "duration": 31241,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\feasibility.cy.js\\\\Feasibility -- feasibility pop-up window w.r.t Treatment (MAIN-TC-1584) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click().then(() => {\n    cy.get(threatListViewSelector.threatTreatmentRetaintOption).click();\n  });\n  cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopupThreatlistHeading).invoke('text').should('include', 'Before Treatmentarrow_right_altAfter Treatment');\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `mat-select-trigger`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `mat-select-trigger`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/Threat-Generation/feasibility.cy.js:73:9)",
+                "diff": null
+              },
+              "uuid": "689f2350-85dc-49e4-8df1-bf91a1663cd0",
+              "parentUUID": "0009ade5-55ec-4349-9c8e-2b94284c0d7b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Treatment in Threats(MAIN-TC-1609)",
+              "fullTitle": "Feasibility Treatment in Threats(MAIN-TC-1609)",
+              "timedOut": null,
+              "duration": 41095,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\feasibility.cy.js\\\\Feasibility -- Treatment in Threats(MAIN-TC-1609) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click().then(() => {\n    cy.get(threatListViewSelector.threatTreatmentShareOption).click(); //changing treatment option\n  }).then(() => {\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupThreatlistHeading).invoke('text').should('include', 'Before Treatmentarrow_right_altAfter Treatment');\n    });\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `mat-select-trigger`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `mat-select-trigger`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/Threat-Generation/feasibility.cy.js:85:9)",
+                "diff": null
+              },
+              "uuid": "90e43f4b-fd5e-46d7-bdee-2903d2b45430",
+              "parentUUID": "0009ade5-55ec-4349-9c8e-2b94284c0d7b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Feasibility pop-up functionality (MAIN-TC-1581)",
+              "fullTitle": "Feasibility Feasibility pop-up functionality (MAIN-TC-1581)",
+              "timedOut": null,
+              "duration": 32070,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\feasibility.cy.js\\\\Feasibility -- Feasibility pop-up functionality (MAIN-TC-1581) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click(); //Mark the threat as ready\n  cy.wait(1000);\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click(); //Mark the threat as reviewed\n  cy.wait(800);\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    //Mark the threat as unreviewed\n    cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n      force: true\n    });\n  });\n  let riskValue;\n  let feasibility;\n  cy.get(threatListViewSelector.threatListViewRiskButton).eq(0).invoke('text').then(text => {\n    riskValue = text.trim();\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).invoke('text').then(text => {\n      feasibility = text.trim();\n      cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n        cy.get(feasibilityPopupselector.feasibilityPopup).should('be.visible');\n        cy.get(feasibilityPopupselector.feasibilityPopupTitle).invoke('text').should('include', 'Threat #1');\n        cy.get(feasibilityPopupselector.feasibilityPopupFeasibilityRating).invoke('text').should('include', feasibility);\n      });\n    }).then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupRiskLevelTitle).invoke('text').should('include', riskValue);\n      cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n        force: true\n      });\n    });\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[id=mat-mdc-checkbox-3-input]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[id=mat-mdc-checkbox-3-input]`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/Threat-Generation/feasibility.cy.js:97:9)",
+                "diff": null
+              },
+              "uuid": "80cf3c66-5681-4c61-94be-29379b234337",
+              "parentUUID": "0009ade5-55ec-4349-9c8e-2b94284c0d7b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Threats w.r.t to treatment value for \"After treatment\"(MAIN-TC-1587)",
+              "fullTitle": "Feasibility Threats w.r.t to treatment value for \"After treatment\"(MAIN-TC-1587)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": true,
+              "context": null,
+              "code": "//skip for the time being until developer fix the issue\ncy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  // Get the initial treatment\n  cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).invoke('text').then(initialTreatment => {\n    cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click().then(() => {\n      cy.get(threatListViewSelector.threatTreatmentAvoidOption).click();\n    });\n    // Get the final treatment\n    cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).invoke('text').then(finalTreatment => {\n      // Assertions: final treatment should not be equal to initial treatment\n      expect(finalTreatment).not.to.equal(initialTreatment); //Test Case assertion\n    });\n  });\n  //Mark the threat as reviewed\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).should('not.be.enabled'); //Test Case assertion\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click();\n  });\n  cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).should('not.be.enabled'); //Test Case assertion\n});",
+              "err": {},
+              "uuid": "68a933e2-e8a5-465a-9ddc-ff677475cfde",
+              "parentUUID": "0009ade5-55ec-4349-9c8e-2b94284c0d7b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Threats w.r.t to treatment value for \"Before treatment\" (MAIN-TC-1588)",
+              "fullTitle": "Feasibility Threats w.r.t to treatment value for \"Before treatment\" (MAIN-TC-1588)",
+              "timedOut": null,
+              "duration": 32590,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\feasibility.cy.js\\\\Feasibility -- Threats w.r.t to treatment value for Before treatment (MAIN-TC-1588) (failed) (1).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  //marking threats as unreviewed\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    //Mark the threat as ready\n    cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n      //Mark the threat as reviewed\n      cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n        force: true\n      });\n    });\n  });\n  cy.get(threatListViewSelector.threatListValidatedCheckbox).click().then(() => {\n    //clicking the validated checkbox\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).should('not.be.enabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupRationaleText).eq(0).should('not.be.enabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupCancelButton).click();\n    });\n  });\n  //Mark the threat as review\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click();\n  cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).should('not.be.enabled');\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[id=mat-mdc-checkbox-3-input]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[id=mat-mdc-checkbox-3-input]`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/Threat-Generation/feasibility.cy.js:148:9)",
+                "diff": null
+              },
+              "uuid": "7a41f3e1-9dfa-4adc-8142-4fb7479a74a4",
+              "parentUUID": "0009ade5-55ec-4349-9c8e-2b94284c0d7b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Delete Project",
+              "fullTitle": "Feasibility Delete Project",
+              "timedOut": null,
+              "duration": 30089,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "5c98f051-1974-42d3-8b38-e6553186d648",
+              "parentUUID": "0009ade5-55ec-4349-9c8e-2b94284c0d7b",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "5c98f051-1974-42d3-8b38-e6553186d648"
+          ],
+          "failures": [
+            "d48537cd-d32a-455b-8d85-67dcc81218a9",
+            "8d399f17-2c62-4a1b-acbd-8c40d65e12c8",
+            "689f2350-85dc-49e4-8df1-bf91a1663cd0",
+            "90e43f4b-fd5e-46d7-bdee-2903d2b45430",
+            "80cf3c66-5681-4c61-94be-29379b234337",
+            "7a41f3e1-9dfa-4adc-8142-4fb7479a74a4"
+          ],
+          "pending": [
+            "68a933e2-e8a5-465a-9ddc-ff677475cfde"
+          ],
+          "skipped": [],
+          "duration": 328896,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

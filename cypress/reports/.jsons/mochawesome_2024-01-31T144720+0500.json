@@ -1,0 +1,208 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 6,
+    "passes": 6,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-01-31T09:38:49.321Z",
+    "end": "2024-01-31T09:47:20.177Z",
+    "duration": 510856,
+    "testsRegistered": 6,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "fe12b69c-2429-4385-9b4a-2bfba031bf16",
+      "title": "",
+      "fullFile": "cypress\\e2e\\modeling-view\\modeling-view.cy.js",
+      "file": "cypress\\e2e\\modeling-view\\modeling-view.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "4fa9b354-2ce8-4f80-89b6-b7bb20e80712",
+          "title": "Modeling Automation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Creating a New Model (MAIN-TC-827, MAIN-TC-1915, MAIN-TC-1564, MAIN-TC-72)",
+              "fullTitle": "Modeling Automation Creating a New Model (MAIN-TC-827, MAIN-TC-1915, MAIN-TC-1564, MAIN-TC-72)",
+              "timedOut": null,
+              "duration": 261747,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\").then(() => {\n  cy.url().should('include', '/modeling');\n}).then(() => {\n  //Test Case to verify DFD-Process is visible\n  cy.get(modelingViewSelector.componentLibraryDfdProcess, {\n    timeout: 10000\n  }).should('have.text', 'DFD-Process');\n});\n//Working on Drag and Drop  \nconst dataTransfer = new DataTransfer();\n// Test case to check if the module is empty\ncy.get(modelingViewSelector.componentLibraryModule, {\n  timeout: 10000\n}).trigger('dragstart', {\n  dataTransfer,\n  force: true\n}).then(() => {\n  cy.get(modelingViewSelector.modelingViewCanvas, {\n    timeout: 10000\n  }).trigger('drop', {\n    dataTransfer,\n    force: true,\n    clientX: 250,\n    clientY: 250\n  });\n}).then(() => {\n  cy.get(modelingViewSelector.drawingCanvasModuleText).should('exist');\n}).then(() => {\n  cy.get(modelingViewSelector.drawingCanvasModule).rightclick().then(() => {\n    cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect).should('have.value', '');\n  });\n});\nconst numMicrocontrollers = 52;\nconst controllersPerRow = 10;\nconst distanceBetweenWireAndController = 100;\nconst startX = 250; // Starting x-coordinate\nconst startY = 120; // Starting y-coordinate\nconst rowGap = 400; // Gap between rows\nfor (let i = 0; i < numMicrocontrollers; i++) {\n  const row = Math.floor(i / controllersPerRow);\n  const col = i % controllersPerRow;\n  const x = startX + col * distanceBetweenWireAndController;\n  const y = startY + row * rowGap;\n  cy.get(modelingViewSelector.componentLibraryMicrocontroller).trigger('dragstart', {\n    dataTransfer,\n    force: true\n  }).then(() => {\n    cy.get(modelingViewSelector.modelingViewCanvas).trigger('drop', {\n      dataTransfer,\n      force: true,\n      clientX: x,\n      clientY: y\n    });\n  });\n  // If there are more controllers than wires, add a wire\n  if (i < 42) {\n    const wireX = x + distanceBetweenWireAndController / 2;\n    const wireY = y + distanceBetweenWireAndController / 2 + 30;\n    cy.get(modelingViewSelector.componentLibraryCommunicationLine).trigger('dragstart', {\n      dataTransfer,\n      force: true\n    }).then(() => {\n      cy.get(modelingViewSelector.modelingViewCanvas).trigger('drop', {\n        dataTransfer,\n        force: true,\n        clientX: wireX,\n        clientY: wireY\n      });\n    });\n  }\n}\ncy.then(() => {\n  cy.get(modelingViewSelector.modelingViewSaveIcon, {\n    timeout: 10000\n  }).click().then(() => {\n    cy.get(modelingViewSelector.modelingViewSnackBar, {\n      timeout: 10000\n    }).should('contain', 'successfully saved');\n  });\n});",
+              "err": {},
+              "uuid": "be1adb7f-a2f8-4ca8-9526-a3998af63857",
+              "parentUUID": "4fa9b354-2ce8-4f80-89b6-b7bb20e80712",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Modeling Test Cases (MAIN-TC-1115, MAIN-TC-793)",
+              "fullTitle": "Modeling Automation Modeling Test Cases (MAIN-TC-1115, MAIN-TC-793)",
+              "timedOut": null,
+              "duration": 26756,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\ncy.url().should('contain', '/modeling').then(() => {\n  cy.wait(500);\n  cy.get(modelingViewSelector.drawingCanvasCommunicationLine, {\n    timeout: 10000\n  }).eq(0).rightclick({\n    force: true\n  });\n  cy.wait(1000);\n  cy.get(modelingViewSelector.communicationLineSpecNameInput, {\n    timeout: 10000\n  }).clear().type(\"Communication Line 1\");\n  cy.get(modelingViewSelector.communicationLineSpecTransmissionSelect, {\n    timeout: 10000\n  }).click();\n  cy.get(modelingViewSelector.transmissionMediaShortRangeWirelessOption, {\n    timeout: 10000\n  }).click();\n  cy.wait(1000);\n  cy.get(modelingViewSelector.communicationLineSpecBaseProtocolSelect, {\n    timeout: 10000\n  }).click();\n  cy.get(modelingViewSelector.baseProtocolBluetoothLeOption, {\n    timeout: 10000\n  }).click();\n  cy.wait(1000);\n  cy.get(modelingViewSelector.communicationLineSpecTransmissionSelect, {\n    timeout: 10000\n  }).click();\n  cy.get(modelingViewSelector.transmissionMediaPhysicalWireOption, {\n    timeout: 10000\n  }).click();\n});\ncy.wait(500);\ncy.get(modelingViewSelector.communicationLineSpecBaseProtocolSelect, {\n  timeout: 10000\n}).should('have.value', '').then(() => {\n  cy.get(modelingViewSelector.drawingCanvasCommunicationLine, {\n    timeout: 10000\n  }).eq(0).rightclick({\n    force: true\n  });\n});\ncy.wait(500);\ncy.get(modelingViewSelector.drawingCanvasCommunicationLine, {\n  timeout: 10000\n}).eq(0).rightclick({\n  force: true\n}).then(() => {\n  cy.get(modelingViewSelector.componentSpecRemoveLineButton, {\n    timeout: 10000\n  }).click();\n  cy.wait(500);\n  cy.get(navBarSelector.confirmDialogueParagraph, {\n    timeout: 10000\n  }).invoke('text').should('contain', 'Communication Line 1');\n}).then(() => {\n  cy.get(navBarSelector.confirmDialogueCancelButton, {\n    timeout: 10000\n  }).click();\n});",
+              "err": {},
+              "uuid": "d82e56fd-f1e8-4449-a260-8391f18c35db",
+              "parentUUID": "4fa9b354-2ce8-4f80-89b6-b7bb20e80712",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Modeling-View Cases: Save Button on the Canvas, Modeling view button opens modeling view page (MAIN-TC-2047, MAIN-TC-148)",
+              "fullTitle": "Modeling Automation Modeling-View Cases: Save Button on the Canvas, Modeling view button opens modeling view page (MAIN-TC-2047, MAIN-TC-148)",
+              "timedOut": null,
+              "duration": 30810,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\").then(() => {\n  cy.get(modelingViewSelector.drawingCanvasMicrocontroller).eq(51).rightclick().then(() => {\n    cy.get(modelingViewSelector.modelingViewSaveIcon).should('exist');\n  });\n}).then(() => {\n  cy.get(modelingViewSelector.drawingCanvasMicrocontroller).eq(51).rightclick();\n}).then(() => {\n  cy.visit(Cypress.env(\"baseURL\"));\n}).then(() => {\n  cy.get(navBarSelector.navBarModelingViewIcon, {\n    timeout: 10000\n  }).click();\n}).then(() => {\n  cy.url().should('contain', '/modeling');\n});",
+              "err": {},
+              "uuid": "376a8f27-26c3-42b8-af77-e7ae1614622c",
+              "parentUUID": "4fa9b354-2ce8-4f80-89b6-b7bb20e80712",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verifying the Drop-down Menus of Navigation bar Project, Edit, View, Export, Setting(MAIN-TC-142, MAIN-TC-143,MAIN-TC-144, MAIN-TC-145, MAIN-TC-146 )",
+              "fullTitle": "Modeling Automation Verifying the Drop-down Menus of Navigation bar Project, Edit, View, Export, Setting(MAIN-TC-142, MAIN-TC-143,MAIN-TC-144, MAIN-TC-145, MAIN-TC-146 )",
+              "timedOut": null,
+              "duration": 70523,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\").wait(2000).then(() => {\n  cy.get(navBarSelector.navBarEditButton).click();\n  cy.get(navBarSelector.editListNewDesignButton, {\n    timeout: 10000\n  }).should('include.text', 'New Design'); //Verifying the Edit Drop down\n}).wait(500).then(() => {\n  cy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\n  cy.get(navBarSelector.navBarExportButton).click();\n  cy.get(navBarSelector.exportListGenerateReportButton, {\n    timeout: 10000\n  }).should('include.text', 'Generate Report'); //Verifying the Export Drop down\n}).then(() => {\n  cy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\n  cy.get(navBarSelector.navBarProjectButton).click();\n  cy.get(navBarSelector.projectListNewProjectButton, {\n    timeout: 10000\n  }).should('include.text', 'New Project'); //Verifying the Project Drop down\n}).then(() => {\n  cy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\n  cy.get(navBarSelector.navBarSettingsButton).click();\n  cy.get(navBarSelector.settingsListAdminButton, {\n    timeout: 10000\n  }).should('include.text', 'Admin'); //Verifying the Settings Drop down\n}).then(() => {\n  cy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\n  cy.get(navBarSelector.navBarViewButton).click();\n  cy.get(navBarSelector.viewListAssumptionButton, {\n    timeout: 10000\n  }).should('include.text', 'Assumption'); //Verifying the View Drop down\n});",
+              "err": {},
+              "uuid": "52960794-d805-43d5-86cc-dd35ed0814fd",
+              "parentUUID": "4fa9b354-2ce8-4f80-89b6-b7bb20e80712",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verifying the Navigation Bar Buttons and Shortcuts (MAIN-TC-154, MAIN-TC-1326, MAIN-TC-153, MAIN-TC-149, MAIN-TC-150)",
+              "fullTitle": "Modeling Automation Verifying the Navigation Bar Buttons and Shortcuts (MAIN-TC-154, MAIN-TC-1326, MAIN-TC-153, MAIN-TC-149, MAIN-TC-150)",
+              "timedOut": null,
+              "duration": 62164,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\").then(() => {\n  cy.get(navBarSelector.navBarProfileIcon).click({\n    force: true\n  }).get(navBarSelector.profileListUserProfileHeader, {\n    timeout: 10000\n  }).should('include.text', 'User Profile'); //Verifying the User Profile Drop down\n});\ncy.visit(Cypress.env(\"baseURL\")).then(() => {\n  cy.get(navBarSelector.navBarProfileIcon).click().get(navBarSelector.profileListChangePasswordHeader).click() //Change Password \n  .get(navBarSelector.changePasswordForm, {\n    timeout: 10000\n  }).should('exist');\n});\ncy.visit(Cypress.env(\"baseURL\")).then(() => {\n  cy.get(navBarSelector.navBarNotificationIcon).click().get(navBarSelector.notificationMenu, {\n    timeout: 10000\n  }).should('exist'); //Notification Test \n});\ncy.visit(Cypress.env(\"baseURL\")).then(() => {\n  cy.get(navBarSelector.navBarThreatListViewIcon).click({\n    force: true\n  }).wait(2000).url().should('include', '/threats', {\n    timeout: 10000\n  }); //Threat List\n});\ncy.visit(Cypress.env(\"baseURL\")).then(() => {\n  cy.get(navBarSelector.navBarVulnerabilityListViewIcon).click({\n    force: true\n  }).wait(2000).url().should('include', '/vulnerabilities', {\n    timeout: 10000\n  }); //Culnerability List\n});",
+              "err": {},
+              "uuid": "f34e4062-189f-44a8-811f-2ee8af11689a",
+              "parentUUID": "4fa9b354-2ce8-4f80-89b6-b7bb20e80712",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deleting the Created Project (MAIN-TC-847)",
+              "fullTitle": "Modeling Automation Deleting the Created Project (MAIN-TC-847)",
+              "timedOut": null,
+              "duration": 45837,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "87002bd9-79b5-4608-87f0-8480af3b5a63",
+              "parentUUID": "4fa9b354-2ce8-4f80-89b6-b7bb20e80712",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "be1adb7f-a2f8-4ca8-9526-a3998af63857",
+            "d82e56fd-f1e8-4449-a260-8391f18c35db",
+            "376a8f27-26c3-42b8-af77-e7ae1614622c",
+            "52960794-d805-43d5-86cc-dd35ed0814fd",
+            "f34e4062-189f-44a8-811f-2ee8af11689a",
+            "87002bd9-79b5-4608-87f0-8480af3b5a63"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 497837,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

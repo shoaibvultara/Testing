@@ -1,0 +1,183 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 1,
+    "pending": 0,
+    "failures": 3,
+    "start": "2024-01-30T07:23:11.385Z",
+    "end": "2024-01-30T07:34:02.932Z",
+    "duration": 651547,
+    "testsRegistered": 4,
+    "passPercent": 25,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "45521006-05c6-41fb-9a15-87e7ba56c5c9",
+      "title": "",
+      "fullFile": "cypress\\e2e\\modeling-view\\model-creation-threat-generation.cy.js",
+      "file": "cypress\\e2e\\modeling-view\\model-creation-threat-generation.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0178c193-e8bb-46a0-94b6-355f916391d6",
+          "title": "Modeling Automation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Test Case 1: Creating a new Model (MAIN-TC-789, MAIN-TC-790, MAIN-TC-792, MAIN-TC-785, MAIN-TC-151)",
+              "fullTitle": "Modeling Automation Test Case 1: Creating a new Model (MAIN-TC-789, MAIN-TC-790, MAIN-TC-792, MAIN-TC-785, MAIN-TC-151)",
+              "timedOut": null,
+              "duration": 367541,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\model-creation-threat-generation.cy.js\\\\Modeling Automation -- Test Case 1 Creating a new Model (MAIN-TC-789, MAIN-TC-790, MAIN-TC-792, MAIN-TC-785, MAIN-TC-151) (failed) (1).png\"\n      }\n    ]\n  ]\n}",
+              "code": "// Opem Modeling Page\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\ncy.url().should('contain', '/modeling'); //Assertion to check if modeiing page is opened\n//Working on Drag and Drop\ncy.wait(1000);\n// Get the source element you want to drag\nconst dataTransfer = new DataTransfer();\ncy.get(modelingViewSelector.componentLibraryMicrocontroller, {\n  timeout: 10000\n}).trigger('dragstart', {\n  dataTransfer,\n  force: true\n}).then(() => {\n  cy.get(modelingViewSelector.modelingViewCanvas, {\n    timeout: 10000\n  }).trigger('drop', {\n    dataTransfer,\n    force: true,\n    clientX: 400,\n    clientY: 400\n  });\n})\n// Checking if the Name is present on microcontroller\n//cy.get('.module-text').eq(1).should('contain','Microcontroller');\n.then(() => {\n  // Continue chaining other actions as needed\n  cy.get(modelingViewSelector.componentLibraryModule, {\n    timeout: 10000\n  }).trigger('dragstart', {\n    dataTransfer,\n    force: true\n  });\n  cy.get(modelingViewSelector.modelingViewCanvas, {\n    timeout: 10000\n  }).trigger('drop', {\n    dataTransfer,\n    force: true,\n    clientX: 800,\n    clientY: 400\n  });\n}).then(() => {\n  cy.get(modelingViewSelector.componentLibraryUserAttacker, {\n    timeout: 10000\n  }).trigger('dragstart', {\n    dataTransfer,\n    force: true\n  });\n  cy.get(modelingViewSelector.modelingViewCanvas).trigger('drop', {\n    dataTransfer,\n    force: true,\n    clientX: 600,\n    clientY: 800\n  });\n}).then(() => {\n  cy.get(modelingViewSelector.componentLibraryCommunicationLine, {\n    timeout: 10000\n  }).trigger('dragstart', {\n    dataTransfer,\n    force: true\n  });\n  cy.get(modelingViewSelector.modelingViewCanvas, {\n    timeout: 10000\n  }).trigger('drop', {\n    dataTransfer,\n    force: true,\n    clientX: 600,\n    clientY: 400\n  });\n  cy.wait(2000);\n}).then(() => {\n  cy.get(modelingViewSelector.componentLibraryCommunicationLine, {\n    timeout: 10000\n  }).trigger('dragstart', {\n    dataTransfer,\n    force: true\n  });\n  cy.get(modelingViewSelector.modelingViewCanvas).trigger('drop', {\n    dataTransfer,\n    force: true,\n    clientX: 500,\n    clientY: 600\n  });\n})\n// Asserting the Delete dialog box when deleting the Communication Line\n// Have to delete this line\n.then(() => {\n  cy.get(modelingViewSelector.componentLibraryCommunicationLine, {\n    timeout: 10000\n  }).trigger('dragstart', {\n    dataTransfer,\n    force: true\n  });\n  cy.get(modelingViewSelector.modelingViewCanvas, {\n    timeout: 10000\n  }).trigger('drop', {\n    dataTransfer,\n    force: true,\n    clientX: 700,\n    clientY: 600\n  });\n});\ncy.get(modelingViewSelector.drawingCanvasCommunicationLine, {\n  timeout: 10000\n}).eq(2).rightclick({\n  force: true\n}).then(() => {\n  cy.get(modelingViewSelector.componentSpecRemoveLineButton, {\n    timeout: 10000\n  }).click({\n    force: true\n  });\n  cy.get(navBarSelector.confirmDialogueParagraph, {\n    timeout: 10000\n  }).should('contain', 'Are you sure you want to delete');\n}).then(() => {\n  cy.get(navBarSelector.confirmDialogueDeleteButton, {\n    timeout: 10000\n  }).click({\n    force: true\n  });\n}).then(() => {\n  // Connecting the Wire with Actor and Module\n  cy.get(modelingViewSelector.drawingCanvasLineStartCircle, {\n    timeout: 10000\n  }).eq(0).realClick().realMouseDown().realMouseMove(-250, 0).get(modelingViewSelector.drawingCanvasMicrocontroller).realMouseUp();\n  cy.get(modelingViewSelector.drawingCanvasLineEndCircle, {\n    timeout: 10000\n  }).eq(0).realClick().realMouseDown().realMouseMove(50, 0).get(modelingViewSelector.drawingCanvasModule).eq(0).realMouseUp();\n  cy.get(modelingViewSelector.drawingCanvasLineStartCircle, {\n    timeout: 10000\n  }).eq(1).realClick().realMouseDown().realMouseMove(-20, -250).get(modelingViewSelector.drawingCanvasMicrocontroller).realMouseUp();\n  cy.get(modelingViewSelector.drawingCanvasLineEndCircle, {\n    timeout: 10000\n  }).eq(1).realClick().realMouseDown().realMouseMove(20, -250).get(modelingViewSelector.drawingCanvasModule).eq(1).realMouseUp();\n  cy.wait(1000);\n}).then(() => {\n  cy.get(modelingViewSelector.modelingViewSaveIcon, {\n    timeout: 10000\n  }).click(); // save\n  return cy.wait(1000);\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[id=microcontroller]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[id=microcontroller]`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/modeling-view/model-creation-threat-generation.cy.js:45:15)",
+                "diff": null
+              },
+              "uuid": "08cbcca2-6521-4718-aeec-203d3f480bfc",
+              "parentUUID": "0178c193-e8bb-46a0-94b6-355f916391d6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 2: Add Project BOM (MAIN-TC-1839)",
+              "fullTitle": "Modeling Automation Test Case 2: Add Project BOM (MAIN-TC-1839)",
+              "timedOut": null,
+              "duration": 182456,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(1000);\ncy.visit(Cypress.env('baseURL'));\ncy.wait(5000);\ncy.get(navBarSelector.navBarViewButton, {\n  timeout: 10000\n}).click();\ncy.get(navBarSelector.viewListProjectBomButton, {\n  timeout: 10000\n}).click();\ncy.wait(1000);\ncy.get(projectBomSelector.projectBomAddNewBomButton, {\n  timeout: 10000\n}).should('not.be.disabled').click().then(() => {\n  cy.get(projectBomSelector.addnewBomFormVersionInput, {\n    timeout: 15000\n  }).type('Automation ID 1');\n  cy.get(projectBomSelector.addNewBomDialogProductInput, {\n    timeout: 10000\n  }).type('Product ID 1');\n  cy.get(projectBomSelector.addNewBomDialogVendorInput, {\n    timeout: 10000\n  }).type('Vendor ID 1');\n  cy.get(projectBomSelector.addNewBomDialogPartSelect).click();\n  cy.get(projectBomSelector.addNewBomDialogPartOption, {\n    timeout: 10000\n  }).eq(1).click();\n  cy.get(projectBomSelector.addNewBomDialogConfirmButton, {\n    timeout: 10000\n  }).click();\n  cy.wait(5000); // Adjust timing based on actual page reload time\n}).then(() => {\n  cy.get(projectBomSelector.projectBomAddFromMicroLibraryButton, {\n    timeout: 15000\n  }).should('not.be.disabled').click({\n    force: true\n  }); // Add BOM from Micro Library\n  cy.get(projectBomSelector.addFromMicroLibraryFilterListOption).eq(2).click();\n  cy.get(projectBomSelector.addnewBomFormVersionInput).type('Version1');\n  cy.get(navBarSelector.confirmDialogueConfirmButton, {\n    timeout: 10000\n  }).click();\n  cy.wait(3000);\n});",
+              "err": {},
+              "uuid": "51cf1d55-de4c-4851-9547-1d530703c9b3",
+              "parentUUID": "0178c193-e8bb-46a0-94b6-355f916391d6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 3: Adding Features to Project & Generating Threats (MAIN-TC-152, MAIN-TC-1674)",
+              "fullTitle": "Modeling Automation Test Case 3: Adding Features to Project & Generating Threats (MAIN-TC-152, MAIN-TC-1674)",
+              "timedOut": null,
+              "duration": 25522,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\model-creation-threat-generation.cy.js\\\\Modeling Automation -- Test Case 3 Adding Features to Project & Generating Threats (MAIN-TC-152, MAIN-TC-1674) (failed) (1).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.wait(1000);\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\n//Adding project Features \ncy.get(modelingViewSelector.drawingCanvasMicrocontroller, {\n  timeout: 10000\n}).rightclick();\ncy.wait(500);\ncy.get(modelingViewSelector.componentSpecComponentNameInput).clear().type('Automation Test Micro');\n//componenet model\ncy.get(modelingViewSelector.componentSpecComponentModelInput, {\n  timeout: 10000\n}).click();\n//cy.get('.mdc-list-item__primary-text').click()\n//Test Case \n// cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect).click()\n// cy.get(\"mat-option[ng-reflect-value='aws']\").click()\n// cy.wait(5000);\n// cy.get('#microFeatureInput').clear(); {force: true}\n// cy.get(modelingViewSelector.componentSpecFeatureSettingsSubmitButton).click();\n// cy.get('.mat-mdc-simple-snack-bar > .mat-mdc-snack-bar-label').should(\"exist\");//Assertion to check Error Message is shown\n//Feature Setting\ncy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect, {\n  timeout: 10000\n}).click().then(() => {\n  cy.get(modelingViewSelector.componentSpectFeatureSettingsTesteOption, {\n    timeout: 10000\n  }).click();\n}).then(() => {\n  //Selecting Tested \n  cy.get(modelingViewSelector.componentSpecFeatureSettingsSubmitButton, {\n    timeout: 10000\n  }).click();\n});\n//software BOM\n//cy.get('.mdc-list-item__primary-text').click();\ncy.wait(1000);\n//Adding Feature to Communication Line\n//Line 1\ncy.get(modelingViewSelector.drawingCanvasCommunicationLine, {\n  timeout: 10000\n}).eq(0).rightclick({\n  force: true\n});\ncy.wait(1000);\ncy.get(modelingViewSelector.communicationLineSpecNameInput, {\n  timeout: 10000\n}).clear().type(\"Communication Line 1\");\ncy.get(modelingViewSelector.communicationLineSpecTransmissionSelect, {\n  timeout: 10000\n}).click();\ncy.get(modelingViewSelector.transmissionMediaShortRangeWirelessOption, {\n  timeout: 10000\n}).click();\ncy.wait(1000);\ncy.get(modelingViewSelector.communicationLineSpecBaseProtocolSelect, {\n  timeout: 10000\n}).click();\ncy.get(modelingViewSelector.baseProtocolBluetoothOption, {\n  timeout: 10000\n}).click();\ncy.wait(500);\n//Line 2\ncy.get(modelingViewSelector.drawingCanvasCommunicationLine, {\n  timeout: 10000\n}).eq(1).rightclick({\n  force: true\n});\ncy.wait(500);\ncy.get(modelingViewSelector.communicationLineSpecNameInput, {\n  timeout: 10000\n}).clear().type(\"Communication Line 2\");\ncy.get(modelingViewSelector.communicationLineSpecTransmissionSelect, {\n  timeout: 10000\n}).click();\ncy.get(modelingViewSelector.transmissionMediaShortRangeWirelessOption).click();\ncy.wait(500);\ncy.get(modelingViewSelector.communicationLineSpecBaseProtocolSelect, {\n  timeout: 10000\n}).click();\ncy.get(modelingViewSelector.baseProtocolBluetoothOption, {\n  timeout: 10000\n}).click();\ncy.wait(1000);\n//Generating Threats\ncy.get(navBarSelector.navBarRunTheModelIcon).click();\ncy.get(navBarSelector.loader, {\n  timeout: 10000\n}).should('exist'); //assertion to check if the loader is being shown\ncy.wait(10000);\ncy.url().should('contain', '/threats');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `#drawingCanvas > .micro-container`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `#drawingCanvas > .micro-container`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/modeling-view/model-creation-threat-generation.cy.js:137:15)",
+                "diff": null
+              },
+              "uuid": "7fbc02f4-0ae0-4293-a775-cbc8f422967b",
+              "parentUUID": "0178c193-e8bb-46a0-94b6-355f916391d6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test Case 4: Deleting the Created Project (MAIN-TC-847)",
+              "fullTitle": "Modeling Automation Test Case 4: Deleting the Created Project (MAIN-TC-847)",
+              "timedOut": null,
+              "duration": 35552,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\model-creation-threat-generation.cy.js\\\\Modeling Automation -- Test Case 4 Deleting the Created Project (MAIN-TC-847) (failed) (1).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.deleteProject(projectName);",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: Expected to find content: 'Automation_Project: 1_30_2024,_12_23_57_PM>SvgRf' within the element: <mat-list-option.mat-mdc-list-item.mat-mdc-list-option.mdc-list-item.nav_bar_dialog_list_item.mat-mdc-list-item-interactive.mdc-list-item--with-trailing-radio.mat-accent.mat-mdc-list-item-single-line.mdc-list-item--with-one-line.ng-star-inserted> but never did.",
+                "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find content: 'Automation_Project: 1_30_2024,_12_23_57_PM>SvgRf' within the element: <mat-list-option.mat-mdc-list-item.mat-mdc-list-option.mdc-list-item.nav_bar_dialog_list_item.mat-mdc-list-item-interactive.mdc-list-item--with-trailing-radio.mat-accent.mat-mdc-list-item-single-line.mdc-list-item--with-one-line.ng-star-inserted> but never did.\n    at Context.eval (webpack://cypress/./cypress/support/commands.js:48:53)",
+                "diff": null
+              },
+              "uuid": "a92c19f2-7d2f-4de5-9e22-4e69d65ea255",
+              "parentUUID": "0178c193-e8bb-46a0-94b6-355f916391d6",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "51cf1d55-de4c-4851-9547-1d530703c9b3"
+          ],
+          "failures": [
+            "08cbcca2-6521-4718-aeec-203d3f480bfc",
+            "7fbc02f4-0ae0-4293-a775-cbc8f422967b",
+            "a92c19f2-7d2f-4de5-9e22-4e69d65ea255"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 611071,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

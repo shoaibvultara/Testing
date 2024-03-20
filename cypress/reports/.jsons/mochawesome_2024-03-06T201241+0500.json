@@ -1,0 +1,113 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-03-06T15:11:19.382Z",
+    "end": "2024-03-06T15:12:41.404Z",
+    "duration": 82022,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "58d8cc6f-9822-4260-8fe9-168f03634398",
+      "title": "",
+      "fullFile": "cypress\\e2e\\attack-tree\\attack-tree-canvas.cy.js",
+      "file": "cypress\\e2e\\attack-tree\\attack-tree-canvas.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "4b6410d9-db12-4eb0-8336-70f7a23eff9d",
+          "title": "Attack Tree",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Link Vulnerability from tree drop down (MAIN-TC-3217)",
+              "fullTitle": "Attack Tree Link Vulnerability from tree drop down (MAIN-TC-3217)",
+              "timedOut": null,
+              "duration": 42782,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\attack-tree-canvas.cy.js\\\\Attack Tree -- Link Vulnerability from tree drop down (MAIN-TC-3217) (failed).png\"\n      }\n    ],\n    []\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click({\n    force: true\n  }).then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).click().then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n              cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLinkVulnerability).click().then(() => {\n                cy.get(attackTreeSelector.attackTreeDialogLinkVulnerabilityPathPopup).should('exist');\n              });\n            });\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "cba007fe-6e30-4226-b500-da65d557dfd9",
+              "parentUUID": "4b6410d9-db12-4eb0-8336-70f7a23eff9d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "cba007fe-6e30-4226-b500-da65d557dfd9"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 42782,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

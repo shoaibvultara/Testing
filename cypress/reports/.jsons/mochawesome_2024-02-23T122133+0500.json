@@ -1,0 +1,98 @@
+{
+  "stats": {
+    "suites": 0,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2024-02-23T07:21:32.377Z",
+    "end": "2024-02-23T07:21:33.163Z",
+    "duration": 786,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "59095987-674f-4c58-b695-6e12507383f3",
+      "title": "",
+      "fullFile": "cypress\\e2e\\Threat-Generation\\impact.cy.js",
+      "file": "cypress\\e2e\\Threat-Generation\\impact.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [
+        {
+          "title": "An uncaught error was detected outside of a test",
+          "fullTitle": "An uncaught error was detected outside of a test",
+          "timedOut": null,
+          "duration": 575,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\impact.cy.js\\\\An uncaught error was detected outside of a test (failed).png\"\n      }\n    ]\n  ]\n}",
+          "code": "throw err;",
+          "err": {
+            "message": "TypeError: The following error originated from your test code, not from Cypress.\n\n  > Cannot read properties of undefined (reading 'retries')\n\nWhen Cypress detects uncaught errors originating from your test code it will automatically fail the current test.\n\nCypress could not associate this error to any specific test.\n\nWe dynamically generated a new test to display this failure.",
+            "estack": "TypeError: The following error originated from your test code, not from Cypress.\n\n  > Cannot read properties of undefined (reading 'retries')\n\nWhen Cypress detects uncaught errors originating from your test code it will automatically fail the current test.\n\nCypress could not associate this error to any specific test.\n\nWe dynamically generated a new test to display this failure.\n    at Suite.eval (webpack://cypress/./cypress/e2e/Threat-Generation/impact.cy.js:7:7)\n    at eval (webpack://cypress/./cypress/e2e/Threat-Generation/impact.cy.js:6:0)\n    at eval (http://localhost:56888/__cypress/tests?p=cypress\\e2e\\Threat-Generation\\impact.cy.js:423:3)\n    at eval (http://localhost:56888/__cypress/tests?p=cypress\\e2e\\Threat-Generation\\impact.cy.js:425:12)\n    at eval (<anonymous>)",
+            "diff": null
+          },
+          "uuid": "a16b2cf0-5cfe-4537-83c0-5a65dda3da6a",
+          "parentUUID": "59095987-674f-4c58-b695-6e12507383f3",
+          "isHook": false,
+          "skipped": false
+        }
+      ],
+      "suites": [],
+      "passes": [],
+      "failures": [
+        "a16b2cf0-5cfe-4537-83c0-5a65dda3da6a"
+      ],
+      "pending": [],
+      "skipped": [],
+      "duration": 575,
+      "root": true,
+      "rootEmpty": false,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

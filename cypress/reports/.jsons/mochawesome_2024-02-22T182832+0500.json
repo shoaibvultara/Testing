@@ -1,0 +1,251 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2024-02-22T13:27:53.884Z",
+    "end": "2024-02-22T13:28:32.131Z",
+    "duration": 38247,
+    "testsRegistered": 8,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 7,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "31fba8c2-ba25-4f1b-9601-30e7934d160e",
+      "title": "",
+      "fullFile": "cypress\\e2e\\Threat-Generation\\feasibility.cy.js",
+      "file": "cypress\\e2e\\Threat-Generation\\feasibility.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "df149192-525b-4957-9e5c-cabb4e67c531",
+          "title": "Feasibility",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Feasibility Pop-up (MAIN-TC-1593, MAIN-TC-1594)",
+              "fullTitle": "Feasibility Feasibility Pop-up (MAIN-TC-1593, MAIN-TC-1594)",
+              "timedOut": null,
+              "duration": 29877,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\feasibility.cy.js\\\\Feasibility -- Feasibility Pop-up (MAIN-TC-1593, MAIN-TC-1594) -- before all hook (failed) (2).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopupTitle).invoke('text').should('include', 'Threat #1');\n    cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n      force: true\n    }); //clicking confirm button\n  });\n  cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopupTitle).invoke('text').should('include', 'Threat #1');\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `button:contains(\"Project\")`, but never found it.\n\nBecause this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Feasibility`",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `button:contains(\"Project\")`, but never found it.\n\nBecause this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Feasibility`\n    at eval (webpack://cypress/./cypress/support/commands.js:37:59)\n    at Context.cypressRecurse (webpack://cypress/./node_modules/cypress-recurse/src/index.js:197:0)",
+                "diff": null
+              },
+              "uuid": "169c01d0-09d5-4412-b220-e49b7d0745df",
+              "parentUUID": "df149192-525b-4957-9e5c-cabb4e67c531",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "feasibility pop-up window w.r.t to Review Threats(MAIN-TC-1608, MAIN-TC-1582)",
+              "fullTitle": "Feasibility feasibility pop-up window w.r.t to Review Threats(MAIN-TC-1608, MAIN-TC-1582)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    //Mark the threat as ready\n    cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).should('not.be.enabled');\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupCriteria).eq(0).should('not.be.enabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupRationaleText).eq(0).should('not.be.enabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupCancelButton).click();\n    });\n  }).then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopup).should(\"not.exist\");\n  });\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    //Mark the threat as reviewed\n    cy.get(threatListViewSelector.threatListViewReviewCheckBox).click(); //Mark the threat as unreviewed\n    cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n      force: true\n    });\n  }).then(() => {\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupCriteria).eq(0).should('not.be.disabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupRationaleText).eq(0).should('not.be.disabled');\n    });\n  });\n});",
+              "err": {},
+              "uuid": "1f7fca46-31f1-4ec9-93ae-72312c36e227",
+              "parentUUID": "df149192-525b-4957-9e5c-cabb4e67c531",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "feasibility pop-up window w.r.t Treatment (MAIN-TC-1584)",
+              "fullTitle": "Feasibility feasibility pop-up window w.r.t Treatment (MAIN-TC-1584)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click().then(() => {\n    cy.get(threatListViewSelector.threatTreatmentRetaintOption).click();\n  });\n  cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopupThreatlistHeading).invoke('text').should('include', 'Before Treatmentarrow_right_altAfter Treatment');\n  });\n});",
+              "err": {},
+              "uuid": "b1dd5fa6-51e0-4efe-a0aa-0828251d0a0b",
+              "parentUUID": "df149192-525b-4957-9e5c-cabb4e67c531",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Treatment in Threats(MAIN-TC-1609)",
+              "fullTitle": "Feasibility Treatment in Threats(MAIN-TC-1609)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click().then(() => {\n    cy.get(threatListViewSelector.threatTreatmentShareOption).click(); //changing treatment option\n  }).then(() => {\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupThreatlistHeading).invoke('text').should('include', 'Before Treatmentarrow_right_altAfter Treatment');\n    });\n  });\n});",
+              "err": {},
+              "uuid": "14f2d34b-82c4-4407-abfe-39d27e4e70d2",
+              "parentUUID": "df149192-525b-4957-9e5c-cabb4e67c531",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Feasibility pop-up functionality (MAIN-TC-1581)",
+              "fullTitle": "Feasibility Feasibility pop-up functionality (MAIN-TC-1581)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click(); //Mark the threat as ready\n  cy.wait(1000);\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click(); //Mark the threat as reviewed\n  cy.wait(800);\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    //Mark the threat as unreviewed\n    cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n      force: true\n    });\n  });\n  let riskValue;\n  let feasibility;\n  cy.get(threatListViewSelector.threatListViewRiskButton).eq(0).invoke('text').then(text => {\n    riskValue = text.trim();\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).invoke('text').then(text => {\n      feasibility = text.trim();\n      cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n        cy.get(feasibilityPopupselector.feasibilityPopup).should('be.visible');\n        cy.get(feasibilityPopupselector.feasibilityPopupTitle).invoke('text').should('include', 'Threat #1');\n        cy.get(feasibilityPopupselector.feasibilityPopupFeasibilityRating).invoke('text').should('include', feasibility);\n      });\n    }).then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupRiskLevelTitle).invoke('text').should('include', riskValue);\n      cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n        force: true\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "58b9fbad-2402-4eb0-829e-3bdeb0fd891e",
+              "parentUUID": "df149192-525b-4957-9e5c-cabb4e67c531",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Threats w.r.t to treatment value for \"After treatment\"(MAIN-TC-1587)",
+              "fullTitle": "Feasibility Threats w.r.t to treatment value for \"After treatment\"(MAIN-TC-1587)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//skip for the time being until developer fix the issue\ncy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  // Get the initial treatment\n  cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).invoke('text').then(initialTreatment => {\n    cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click().then(() => {\n      cy.get(threatListViewSelector.threatTreatmentAvoidOption).click();\n    });\n    // Get the final treatment\n    cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).invoke('text').then(finalTreatment => {\n      // Assertions: final treatment should not be equal to initial treatment\n      expect(finalTreatment).not.to.equal(initialTreatment); //Test Case assertion\n    });\n  });\n  //Mark the threat as reviewed\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).should('not.be.enabled'); //Test Case assertion\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click();\n  });\n  cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).should('not.be.enabled'); //Test Case assertion\n});",
+              "err": {},
+              "uuid": "c2bbb5da-634f-4019-8f34-14f8903224c0",
+              "parentUUID": "df149192-525b-4957-9e5c-cabb4e67c531",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Threats w.r.t to treatment value for \"Before treatment\" (MAIN-TC-1588)",
+              "fullTitle": "Feasibility Threats w.r.t to treatment value for \"Before treatment\" (MAIN-TC-1588)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  //marking threats as unreviewed\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n    //Mark the threat as ready\n    cy.get(threatListViewSelector.threatListViewReviewCheckBox).click().then(() => {\n      //Mark the threat as reviewed\n      cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).click({\n        force: true\n      });\n    });\n  });\n  cy.get(threatListViewSelector.threatListValidatedCheckbox).click().then(() => {\n    //clicking the validated checkbox\n    cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n      cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).should('not.be.enabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupRationaleText).eq(0).should('not.be.enabled');\n      cy.get(feasibilityPopupselector.feasibilityPopupCancelButton).click();\n    });\n  });\n  //Mark the threat as review\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).click();\n  cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click().then(() => {\n    cy.get(feasibilityPopupselector.feasibilityPopupConfirmButton).should('not.be.enabled');\n  });\n});",
+              "err": {},
+              "uuid": "26a8dc16-adac-4f0b-b8db-9be59a0d5649",
+              "parentUUID": "df149192-525b-4957-9e5c-cabb4e67c531",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Delete Project",
+              "fullTitle": "Feasibility Delete Project",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "f936f8a7-5dc5-499f-ae5b-23e038d30cf7",
+              "parentUUID": "df149192-525b-4957-9e5c-cabb4e67c531",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "169c01d0-09d5-4412-b220-e49b7d0745df"
+          ],
+          "pending": [],
+          "skipped": [
+            "1f7fca46-31f1-4ec9-93ae-72312c36e227",
+            "b1dd5fa6-51e0-4efe-a0aa-0828251d0a0b",
+            "14f2d34b-82c4-4407-abfe-39d27e4e70d2",
+            "58b9fbad-2402-4eb0-829e-3bdeb0fd891e",
+            "c2bbb5da-634f-4019-8f34-14f8903224c0",
+            "26a8dc16-adac-4f0b-b8db-9be59a0d5649",
+            "f936f8a7-5dc5-499f-ae5b-23e038d30cf7"
+          ],
+          "duration": 29877,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

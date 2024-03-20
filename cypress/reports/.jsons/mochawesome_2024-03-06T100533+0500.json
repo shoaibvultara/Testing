@@ -1,0 +1,313 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 2,
+    "passes": 0,
+    "pending": 0,
+    "failures": 2,
+    "start": "2024-03-06T05:03:44.909Z",
+    "end": "2024-03-06T05:05:33.553Z",
+    "duration": 108644,
+    "testsRegistered": 10,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 8,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "5c769f89-867f-46b2-995f-827360b3836e",
+      "title": "",
+      "fullFile": "cypress\\e2e\\attack-tree\\attack-tree-canvas.cy.js",
+      "file": "cypress\\e2e\\attack-tree\\attack-tree-canvas.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "19baf53b-3204-4517-a9f0-9006a2975df6",
+          "title": "Attack Tree",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "“Save Tree As” header option(MAIN-TC-2029, MAIN-TC-2030)",
+              "fullTitle": "Attack Tree “Save Tree As” header option(MAIN-TC-2029, MAIN-TC-2030)",
+              "timedOut": null,
+              "duration": 29810,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\attack-tree-canvas.cy.js\\\\Attack Tree -- “Save Tree As” header option(MAIN-TC-2029, MAIN-TC-2030) -- before all hook (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click().then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownNewTree).click().then(() => {\n        (0, _cypressRecurse.recurse)(() => cy.get(attackTreeSelector.attackTreeDialogNewTreePopupName).clear().type('Automation Tree'), $inputField => $inputField.val() == 'Automation Tree', {\n          delay: 1000\n        });\n        cy.get(attackTreeSelector.attackTreeDialogNewTreePopupConfirmButton).click().then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogTreeDropDownSaveTree).click().then(() => {\n              cy.get(attackTreeSelector.attackTreeDialogSaveTreeAsPopup).should('exist');\n              cy.get(attackTreeSelector.attackTreeDialogSaveTreeAsPopupConfirmButton).should('be.enabled');\n              cy.get(attackTreeSelector.attackTreeDialogSaveTreeAsPopupName).clear().then(() => {\n                cy.get(attackTreeSelector.attackTreeDialogSaveTreeAsPopupConfirmButton).should('not.be.enabled');\n              });\n            });\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {
+                "message": "CypressError: `cy.then()` timed out after waiting `20000ms`.\n\nYour callback function returned a promise that never resolved.\n\nThe callback function was:\n\ncurrentUrl => {\n    if (currentUrl !== url) {\n      return originalFn(url, options);\n    }\n  }\n\nhttps://on.cypress.io/then\n\nBecause this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Attack Tree`\n\nAlthough you have test retries enabled, we do not retry tests when `before all` or `after all` hooks fail",
+                "estack": "CypressError: `cy.then()` timed out after waiting `20000ms`.\n\nYour callback function returned a promise that never resolved.\n\nThe callback function was:\n\ncurrentUrl => {\n    if (currentUrl !== url) {\n      return originalFn(url, options);\n    }\n  }\n\nhttps://on.cypress.io/then\n\nBecause this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Attack Tree`\n\nAlthough you have test retries enabled, we do not retry tests when `before all` or `after all` hooks fail\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:118353:75)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1807:23)\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:4186:41)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1807:23)\n    at Promise._settlePromiseFromHandler (http://localhost:4200/__cypress/runner/cypress_runner.js:1519:31)\n    at Promise._settlePromise (http://localhost:4200/__cypress/runner/cypress_runner.js:1576:18)\n    at Promise._settlePromise0 (http://localhost:4200/__cypress/runner/cypress_runner.js:1621:10)\n    at Promise._settlePromises (http://localhost:4200/__cypress/runner/cypress_runner.js:1697:18)\n    at _drainQueueStep (http://localhost:4200/__cypress/runner/cypress_runner.js:2407:12)\n    at _drainQueue (http://localhost:4200/__cypress/runner/cypress_runner.js:2400:9)\n    at Async._drainQueues (http://localhost:4200/__cypress/runner/cypress_runner.js:2416:5)\n    at Async.drainQueues (http://localhost:4200/__cypress/runner/cypress_runner.js:2286:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://cypress/./cypress/support/commands.js:26:4)",
+                "diff": null
+              },
+              "uuid": "5209ec2b-ba84-4f8a-b92a-69e0cd068ae0",
+              "parentUUID": "19baf53b-3204-4517-a9f0-9006a2975df6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Creating Model then Save As and Save Button Color (MAIN-TC-2031, MAIN-TC-2034)",
+              "fullTitle": "Attack Tree Creating Model then Save As and Save Button Color (MAIN-TC-2031, MAIN-TC-2034)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click().then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownNewTree).click().then(() => {\n        (0, _cypressRecurse.recurse)(() => cy.get(attackTreeSelector.attackTreeDialogNewTreePopupName).clear().type('Automation Tree'), $inputField => $inputField.val() == 'Automation Tree', {\n          delay: 1000\n        }).then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogNewTreePopupConfirmButton).click().then(() => {\n            cy.wait(3000);\n            cy.get(attackTreeSelector.attackTreeDialogNode).eq(0).realClick().realMouseDown().realMouseMove(50, -300).get(attackTreeSelector.attackTreeDialogCanvas).realMouseUp().then(() => {\n              cy.wait(3000);\n              cy.get(attackTreeSelector.attackTreeDialogNode).eq(1).realClick().realMouseDown().realMouseMove(-20, -280).get(attackTreeSelector.attackTreeDialogCanvasElement).eq(0).realMouseUp();\n            });\n          });\n        });\n        cy.get(attackTreeSelector.attackTreeButtonColor).should('have.css', 'background-image').and('include', 'attack-tree-unsaved-changes-icon.svg');\n        cy.get(attackTreeSelector.attackTreeDialogSaveIcon).click({\n          force: true\n        }).then(() => {\n          cy.get(attackTreeSelector.attackTreeButtonColor).should('have.css', 'background-image').and('include', 'attack-tree-button.svg');\n          cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogTreeDropDownSaveTree).click().then(() => {\n              (0, _cypressRecurse.recurse)(() => cy.get(attackTreeSelector.attackTreeDialogSaveTreeAsPopupName).clear().type('Save As Automation Tree'), $inputField => $inputField.val() == 'Save As Automation Tree', {\n                delay: 1000\n              }).then(() => {\n                cy.get(attackTreeSelector.attackTreeDialogSaveTreeAsPopupConfirmButton).click().then(() => {\n                  cy.get(attackTreeSelector.attackTreeDialogLoadedTreeButton).invoke('text').should('include', 'Save As Automation');\n                  cy.get(attackTreeSelector.attackTreeDialogCanvasElement).eq(0).should('exist');\n                  cy.get(attackTreeSelector.attackTreeDialogCanvasElement).eq(1).should('exist');\n                });\n              });\n            });\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "3f850139-638e-46f8-a19a-24e099f5eba1",
+              "parentUUID": "19baf53b-3204-4517-a9f0-9006a2975df6",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Confirm Button Functionality Test when Panel is “Loaded”(MAIN-TC-2033)",
+              "fullTitle": "Attack Tree Confirm Button Functionality Test when Panel is “Loaded”(MAIN-TC-2033)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click().then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).click().then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogNode).eq(0).realClick({\n              force: true\n            }).realMouseDown().realMouseMove(50, -200).get(attackTreeSelector.attackTreeDialogCanvas).realMouseUp();\n          }).then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n              cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n                cy.get(attackTreeSelector.attackTreeDialogLoadTreePopup).should('exist');\n                cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).should('exist').should('be.enabled');\n                cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupCancelButton).click();\n              });\n            });\n            cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n              cy.get(attackTreeSelector.attackTreeDialogTreeDropDownSaveTree).click().then(() => {\n                cy.get(attackTreeSelector.attackTreeDialogLoadTreePopup).should('exist');\n                cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).should('exist').should('be.enabled');\n                cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupCancelButton).click();\n              });\n            });\n          });\n          cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogTreeDropDownNewTree).click().then(() => {\n              cy.get(attackTreeSelector.attackTreeDialogLoadTreePopup).should('exist');\n              cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).click().then(() => {\n                (0, _cypressRecurse.recurse)(() => cy.get(attackTreeSelector.attackTreeDialogNewTreePopupName).clear().type('New Tree'), $inputField => $inputField.val() == 'New Tree', {\n                  delay: 1000\n                });\n                cy.get(attackTreeSelector.attackTreeDialogNewTreePopupConfirmButton).click();\n                cy.get(attackTreeSelector.attackTreeDialogCanvasElement).eq(0).should('not.be.visible');\n                cy.get(attackTreeSelector.attackTreeDialogCanvasElement).eq(1).should('not.be.visible');\n              });\n            });\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "3ab7b704-6f5a-4839-9bb6-0c2bdb9914f6",
+              "parentUUID": "19baf53b-3204-4517-a9f0-9006a2975df6",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Panel State Verification Test when changes are unsaved(MAIN-TC-2035)",
+              "fullTitle": "Attack Tree Panel State Verification Test when changes are unsaved(MAIN-TC-2035)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click({\n    force: true\n  }).then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).click().then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogLoadedTreeButton).invoke('text').should('include', 'Automation Tree');\n            cy.get(attackTreeSelector.attackTreeDialogSaveIcon).should('exist');\n            cy.get(attackTreeSelector.attackTreeDialogFooter).should('exist');\n            cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n              cy.get(attackTreeSelector.attackTreeDialogTreeDropDownSaveTree).should('be.enabled');\n              cy.get(attackTreeSelector.attackTreeDialogTreeDropDownChange).should('be.enabled');\n            });\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "064427de-6a41-43a1-a218-51513ac90a12",
+              "parentUUID": "19baf53b-3204-4517-a9f0-9006a2975df6",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Verify 4 Components in Footer (MAIN-TC-2036)",
+              "fullTitle": "Attack Tree Verify 4 Components in Footer (MAIN-TC-2036)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click({\n    force: true\n  }).then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click({\n      force: true\n    }).then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).click().then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogAND).should('exist');\n            cy.get(attackTreeSelector.attackTreeDialogOR).should('exist');\n            cy.get(attackTreeSelector.attackTreeDialogNode).should('exist');\n            cy.get(attackTreeSelector.attackTreeDialogSAND).should('exist');\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "43a30471-f537-4f24-923e-166d4d87d929",
+              "parentUUID": "19baf53b-3204-4517-a9f0-9006a2975df6",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Components of Node on Canvas(MAIN-TC-2037, MAIN-TC-2038)",
+              "fullTitle": "Attack Tree Components of Node on Canvas(MAIN-TC-2037, MAIN-TC-2038)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click({\n    force: true\n  }).then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).click().then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogNode).eq(0).realClick({\n              force: true\n            }).realMouseDown().realMouseMove(50, -200).get(attackTreeSelector.attackTreeDialogCanvas).realMouseUp().then(() => {\n              cy.get(attackTreeSelector.attackTreeDialogCanvasComponentLogo).should('exist');\n              cy.get(attackTreeSelector.attackTreeDialogCanvasComponentName).should('exist');\n              cy.get(attackTreeSelector.attackTreeDialogCanvasComponent3Dots).should('exist');\n              cy.get(attackTreeSelector.attackTreeDialogCanvasComponentNodeText).should('exist');\n            });\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "a1c42b5b-0ff7-46f7-b545-00950cf6d461",
+              "parentUUID": "19baf53b-3204-4517-a9f0-9006a2975df6",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Canvas Component Menu Test (MAIN-TC-2042)",
+              "fullTitle": "Attack Tree Canvas Component Menu Test (MAIN-TC-2042)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click({\n    force: true\n  }).then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).click().then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogCanvasComponent3Dots).eq(0).click().then(() => {\n              cy.get(attackTreeSelector.attackTreeCanvasComponentMenuNodeTextOption).should('exist');\n              cy.get(attackTreeSelector.attackTreeCanvasComponentMenuDeleteTypeOption).should('exist');\n              cy.get(attackTreeSelector.attackTreeCanvasComponentMenuChangeTypeOption).should('exist');\n            });\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "f8a1037f-0c38-4424-9c3e-0cb8680a52b1",
+              "parentUUID": "19baf53b-3204-4517-a9f0-9006a2975df6",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Automatic NodeText Assignment Test(MAIN-TC-2041)",
+              "fullTitle": "Attack Tree Automatic NodeText Assignment Test(MAIN-TC-2041)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click().then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).click().then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogNewTreePopupConfirmButton).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogCanvasComponentName).eq(0).invoke('text').should('contain', 'Node');\n            cy.get(attackTreeSelector.attackTreeDialogCanvasComponentNodeText).eq(0).invoke('text').should('contain', 'Node1');\n            cy.get(attackTreeSelector.attackTreeDialogCanvasComponentName).eq(1).invoke('text').should('contain', 'OR');\n            cy.get(attackTreeSelector.attackTreeDialogCanvasComponentNodeText).eq(1).invoke('text').should('contain', 'OR2');\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "90acc371-85af-4d3a-9adb-59bdfb781a74",
+              "parentUUID": "19baf53b-3204-4517-a9f0-9006a2975df6",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Dragging multiple nodes on Canvas(MAIN-TC-2039)",
+              "fullTitle": "Attack Tree Dragging multiple nodes on Canvas(MAIN-TC-2039)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click({\n    force: true\n  }).then(() => {\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).click().then(() => {\n          cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupConfirmButton).click().then(() => {\n            cy.get(attackTreeSelector.attackTreeDialogNode).eq(0).realClick({\n              force: true\n            }).realMouseDown().realMouseMove(50, -200).get(attackTreeSelector.attackTreeDialogCanvas).realMouseUp().then(() => {\n              cy.get(attackTreeSelector.attackTreeDialogNode).eq(0).realClick({\n                force: true\n              }).realMouseDown().realMouseMove(80, -500).get(attackTreeSelector.attackTreeDialogCanvas).realMouseUp().then(() => {\n                cy.get(attackTreeSelector.attackTreeDialogLoadTreeEmptyMessage).should('exist').invoke('text').should('include', 'Only 1 root node is allowed');\n              });\n            });\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "c6e26f8c-909b-40a1-9505-d523a686b37c",
+              "parentUUID": "19baf53b-3204-4517-a9f0-9006a2975df6",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "5209ec2b-ba84-4f8a-b92a-69e0cd068ae0"
+          ],
+          "pending": [],
+          "skipped": [
+            "3f850139-638e-46f8-a19a-24e099f5eba1",
+            "3ab7b704-6f5a-4839-9bb6-0c2bdb9914f6",
+            "064427de-6a41-43a1-a218-51513ac90a12",
+            "43a30471-f537-4f24-923e-166d4d87d929",
+            "a1c42b5b-0ff7-46f7-b545-00950cf6d461",
+            "f8a1037f-0c38-4424-9c3e-0cb8680a52b1",
+            "90acc371-85af-4d3a-9adb-59bdfb781a74",
+            "c6e26f8c-909b-40a1-9505-d523a686b37c"
+          ],
+          "duration": 29810,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "089bc16d-9d63-4bde-9790-50bfa232fb68",
+          "title": "CLEANUP: Project Deletion",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Deleting The Project If Created",
+              "fullTitle": "CLEANUP: Project Deletion Deleting The Project If Created",
+              "timedOut": null,
+              "duration": 26504,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\attack-tree-canvas.cy.js\\\\CLEANUP Project Deletion -- Deleting The Project If Created (failed).png\"\n      }\n    ],\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\attack-tree-canvas.cy.js\\\\CLEANUP Project Deletion -- Deleting The Project If Created (failed) (attempt 2).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.viewport(1920, 1080);\ncy.login().then(() => {\n  cy.deleteProject(projectName);\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `mat-list-option:contains(Automation_Project: 3_6_2024,_10_03_59_AM>J0S8B)`, but never found it. Queried from:\n\n              > cy.get(body)",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `mat-list-option:contains(Automation_Project: 3_6_2024,_10_03_59_AM>J0S8B)`, but never found it. Queried from:\n\n              > cy.get(body)\n    at Context.eval (webpack://cypress/./cypress/support/commands.js:84:37)",
+                "diff": null
+              },
+              "uuid": "b8e78ca8-03f1-4bca-8da4-ad39df6478d2",
+              "parentUUID": "089bc16d-9d63-4bde-9790-50bfa232fb68",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "b8e78ca8-03f1-4bca-8da4-ad39df6478d2"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 26504,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

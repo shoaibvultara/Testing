@@ -1,0 +1,194 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2024-02-07T08:36:11.563Z",
+    "end": "2024-02-07T08:37:26.394Z",
+    "duration": 74831,
+    "testsRegistered": 5,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 4,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "bc13bbdf-3481-4863-a0e3-28aec00df501",
+      "title": "",
+      "fullFile": "cypress\\e2e\\milestone-view\\milestone-pool-features.cy.js",
+      "file": "cypress\\e2e\\milestone-view\\milestone-pool-features.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "6f929b67-28e1-43ff-87d1-627823492788",
+          "title": "Milestone & Cybersecurity Pools",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Verify the user should not be able to add goals/claims in the loaded milestone (MAIN-TC-631, MAIN-TC-662)",
+              "fullTitle": "Milestone & Cybersecurity Pools Verify the user should not be able to add goals/claims in the loaded milestone (MAIN-TC-631, MAIN-TC-662)",
+              "timedOut": null,
+              "duration": 68154,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\milestone-view\\\\milestone-pool-features.cy.js\\\\Milestone & Cybersecurity Pools -- Verify the user should not be able to add goalsclaims in the loaded milestone (MAIN-TC-631, MAIN-TC-662) -- before all hook (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL'));\nmilestoneName = 'MAIN-TC-631, MAIN-TC-662';\ncy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');\ncy.createMilestone(milestoneName).then(() => {\n  cy.get('@postRequest').its('response.statusCode').should('eq', 200);\n  (0, _cypressRecurse.recurse)(() => cy.get(navBarSelector.newMilestoneSuccessSnackBar, {\n    timeout: 20000\n  }).should('have.length', 2),\n  //both snack bars appeared\n  $snackBar => cy.wait(10), {\n    delay: 1000\n  });\n});\ncy.addGoal('MAIN-TC-631-662-Original-Goal');\ncy.wait(1000);\ncy.addClaim('MAIN-TC-631-662-Original-Claim');\ncy.wait(1000);\ncy.loadMilestone(milestoneName);\ncy.get(modelingViewSelector.modelingViewMilestoneNameDiv, {\n  timeout: 20000\n}).should('exist');\ncy.visit(Cypress.env('baseURL') + '/cybersecurity-goal');\ncy.get(cybersecurityPoolSelector.goalPoolAddNewGoalButton, {\n  timeout: 20000\n}).should('be.disabled');\ncy.get(cybersecurityPoolSelector.goalPoolNoGoalFoundParagraph).should('exist'); //recently added goal should not exist\ncy.get(cybersecurityPoolSelector.goalPoolClaimPoolTabDiv).click();\ncy.get(cybersecurityPoolSelector.claimPoolAddNewClaimButton, {\n  timeout: 20000\n}).should('be.disabled');\ncy.get(cybersecurityPoolSelector.claimPoolNoClaimFoundParagraph).should('exist'); //recently added claim should not exist",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `simple-snack-bar`, but never found it.\n\nBecause this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Milestone & Cybersecurity P...`",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `simple-snack-bar`, but never found it.\n\nBecause this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Milestone & Cybersecurity P...`\n    at eval (webpack://cypress/./cypress/e2e/milestone-view/milestone-pool-features.cy.js:37:93)\n    at Context.cypressRecurse (webpack://cypress/./node_modules/cypress-recurse/src/index.js:197:0)",
+                "diff": null
+              },
+              "uuid": "7048a33b-c4e8-4039-a392-d2fe215e44d8",
+              "parentUUID": "6f929b67-28e1-43ff-87d1-627823492788",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify that user is not allowed to update or create Goal, Claim, and Control in milestone view. (MAIN-TC-1502, MAIN-TC-1610, MAIN-TC-1612, MAIN-TC-2114)",
+              "fullTitle": "Milestone & Cybersecurity Pools Verify that user is not allowed to update or create Goal, Claim, and Control in milestone view. (MAIN-TC-1502, MAIN-TC-1610, MAIN-TC-1612, MAIN-TC-2114)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL'));\ncy.wait(1000);\ncy.addControl('MAIN-TC-1502-1610-1612-2114-Original-Control');\ncy.wait(1000);\ncy.addGoal('MAIN-TC-1502-1610-1612-2114-Original-Goal');\ncy.wait(1000);\ncy.addClaim('MAIN-TC-1502-1610-1612-2114-Original-Claim');\ncy.wait(1000);\nmilestoneName = 'MAIN-TC-1502, MAIN-TC-1610, MAIN-TC-1612, MAIN-TC-2114';\ncy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');\ncy.createMilestone(milestoneName).then(() => {\n  cy.get('@postRequest').its('response.statusCode').should('eq', 200);\n  (0, _cypressRecurse.recurse)(() => cy.get(navBarSelector.newMilestoneSuccessSnackBar, {\n    timeout: 20000\n  }).should('have.length', 2),\n  //both snack bars appeared\n  $snackBar => cy.wait(10), {\n    delay: 1000\n  });\n});\ncy.loadMilestone(milestoneName);\ncy.get(modelingViewSelector.modelingViewMilestoneNameDiv, {\n  timeout: 20000\n}).should('exist');\ncy.visit(Cypress.env('baseURL') + '/cybersecurity-goal');\ncy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n  timeout: 20000\n}).first().click();\ncy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled');\ncy.get(cybersecurityPoolSelector.updateDialogCancelButton).click();\ncy.get(cybersecurityPoolSelector.goalPoolClaimPoolTabDiv).click();\ncy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n  timeout: 20000\n}).first().click();\ncy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled');\ncy.visit(Cypress.env('baseURL') + '/cybersecurity-control');\ncy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n  timeout: 20000\n}).first().click();\ncy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled');",
+              "err": {},
+              "uuid": "2146ea25-da53-4002-979b-a56a2208ec2e",
+              "parentUUID": "6f929b67-28e1-43ff-87d1-627823492788",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Verify that the Cybersecurity Control pool page shall show the records in the milestone view (MAIN-TC-2113)",
+              "fullTitle": "Milestone & Cybersecurity Pools Verify that the Cybersecurity Control pool page shall show the records in the milestone view (MAIN-TC-2113)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL'));\ncy.addControl('MAIN-TC-2113-Control');\ncy.wait(1000);\nmilestoneName = 'MAIN-TC-2113';\ncy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');\ncy.createMilestone(milestoneName).then(() => {\n  cy.get('@postRequest').its('response.statusCode').should('eq', 200);\n  (0, _cypressRecurse.recurse)(() => cy.get(navBarSelector.newMilestoneSuccessSnackBar, {\n    timeout: 20000\n  }).should('have.length', 2),\n  //both snack bars appeared\n  $snackBar => cy.wait(10), {\n    delay: 1000\n  });\n});\ncy.loadMilestone(milestoneName);\ncy.get(modelingViewSelector.modelingViewMilestoneNameDiv, {\n  timeout: 20000\n}).should('exist');\ncy.visit(Cypress.env('baseURL') + '/cybersecurity-control');\ncy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n  timeout: 20000\n}).should('exist');",
+              "err": {},
+              "uuid": "a7ea15a0-05e5-447f-a9d7-65ab9e74df6a",
+              "parentUUID": "6f929b67-28e1-43ff-87d1-627823492788",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Verify that the project pages shall show the records in the milestone view (MAIN-TC-2115, MAIN-TC-2116, MAIN-TC-2117, MAIN-TC-2119, MAIN-TC-2120, MAIN-TC-2121)",
+              "fullTitle": "Milestone & Cybersecurity Pools Verify that the project pages shall show the records in the milestone view (MAIN-TC-2115, MAIN-TC-2116, MAIN-TC-2117, MAIN-TC-2119, MAIN-TC-2120, MAIN-TC-2121)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL'));\ncy.wait(1000);\n//req\nconst requirementName = 'Automation_Requirment';\ncy.addRequirement(requirementName);\ncy.wait(500);\n//bom\nconst bom = {\n  version: '1',\n  product: 'automation_test',\n  vendor: 'automation_test',\n  part: 'Application'\n};\ncy.addNewBom(bom);\ncy.wait(500);\n//vuln\nconst vulnerability = {\n  description: 'Automation_Vulnerability',\n  attackVector: '(AV:N)',\n  attackComplexity: '(AC:H)',\n  privilegesRequired: '(PR:L)',\n  userInteraction: '(UI:R)',\n  scope: '(S:U)',\n  confidentialityImpact: '(C:N)',\n  integerityImpact: '(I:L)',\n  availabilityImpact: '(A:H)',\n  descriptionAttribute: 'ng-reflect-model'\n};\ncy.addNewVulnerability(vulnerability);\ncy.wait(500);\n//trigger\ncy.addNewTrigger();\ncy.wait(500);\n//monitor\ncy.addNewInformation('Automation_Information');\ncy.wait(500);\n//assumption\ncy.addNewAssumption('Automation_Assumption');\ncy.wait(500);\n//create milestone\nmilestoneName = 'MAIN-TC-2115-2116-2117-2119-2120-2121';\ncy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');\ncy.createMilestone(milestoneName).then(() => {\n  cy.get('@postRequest').its('response.statusCode').should('eq', 200);\n  (0, _cypressRecurse.recurse)(() => cy.get(navBarSelector.newMilestoneSuccessSnackBar, {\n    timeout: 20000\n  }).should('have.length', 2),\n  //both snack bars appeared\n  $snackBar => cy.wait(10), {\n    delay: 1000\n  });\n});\ncy.loadMilestone(milestoneName);\ncy.get(modelingViewSelector.modelingViewMilestoneNameDiv, {\n  timeout: 20000\n}).should('exist');\n//assert records are shown\ncy.visit(Cypress.env('baseURL') + '/requirements').then(() => {\n  cy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n    timeout: 20000\n  }).should('have.value', requirementName);\n});\ncy.visit(Cypress.env('baseURL') + '/vulnerabilities').then(() => {\n  cy.get(vulnerabilityListViewSelector.vulnerabilityListViewDescriptionTextArea, {\n    timeout: 20000\n  }).should('have.value', vulnerability.description);\n});\ncy.visit(Cypress.env('baseURL') + '/monitoring').then(() => {\n  //Go to Monitoring Page\n  cy.get(monitoringPageSelector.infoContentSummaryTextArea, {\n    timeout: 20000\n  }).eq(1).should('have.value', 'Automation_Information');\n  cy.get(projectTriggerSelector.projectTriggerListTab, {\n    timeout: 20000\n  }).click().then(() => {\n    cy.get(monitoringPageSelector.infoContentSummaryTextArea, {\n      timeout: 20000\n    }).eq(1).should('have.value', 'Automation_Information');\n  });\n});\ncy.visit(Cypress.env('baseURL') + '/assumptions').then(() => {\n  cy.get(assumptionPageSelector.assumptionRowTextArea, {\n    timeout: 20000\n  }).should('have.value', 'Automation_Assumption');\n});",
+              "err": {},
+              "uuid": "941b32d9-3d4d-4e1f-b747-284efdf00702",
+              "parentUUID": "6f929b67-28e1-43ff-87d1-627823492788",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Deleting The Created project",
+              "fullTitle": "Milestone & Cybersecurity Pools Deleting The Created project",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "6f704fb4-2510-412e-af47-dd46141461f1",
+              "parentUUID": "6f929b67-28e1-43ff-87d1-627823492788",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "7048a33b-c4e8-4039-a392-d2fe215e44d8"
+          ],
+          "pending": [],
+          "skipped": [
+            "2146ea25-da53-4002-979b-a56a2208ec2e",
+            "a7ea15a0-05e5-447f-a9d7-65ab9e74df6a",
+            "941b32d9-3d4d-4e1f-b747-284efdf00702",
+            "6f704fb4-2510-412e-af47-dd46141461f1"
+          ],
+          "duration": 68154,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

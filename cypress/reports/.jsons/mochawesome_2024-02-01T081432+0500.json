@@ -1,0 +1,208 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 6,
+    "passes": 6,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-02-01T03:09:05.596Z",
+    "end": "2024-02-01T03:14:32.107Z",
+    "duration": 326511,
+    "testsRegistered": 6,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "a7d2a9d1-9236-4f5e-8c73-98332fa54617",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cybersecurity-pool\\goal-pool.cy.js",
+      "file": "cypress\\e2e\\cybersecurity-pool\\goal-pool.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "2028eee3-abe4-410b-9942-da95332577a4",
+          "title": "Cybersecurity Control Pool",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Add Goal Button, No Goal message (MAIN-TC-767, MAIN-TC-632)",
+              "fullTitle": "Cybersecurity Control Pool Add Goal Button, No Goal message (MAIN-TC-767, MAIN-TC-632)",
+              "timedOut": null,
+              "duration": 185208,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/cybersecurity-goal').then(() => {\n  cy.get(cybersecurityGoalSelector.goalAddNewGoalButton, {\n    timeout: 10000\n  }).should('exist');\n});\ncy.get(cybersecurityGoalSelector.goalNoGoalFoundParagraph, {\n  timeout: 10000\n}).should('exist').then(() => {\n  cy.get(cybersecurityGoalSelector.goalNoGoalFoundParagraph, {\n    timeout: 10000\n  }).invoke('text').should('contain', 'No cybersecurity goal found');\n});",
+              "err": {},
+              "uuid": "c01fa513-f96f-4092-a9a9-97bb16a8571e",
+              "parentUUID": "2028eee3-abe4-410b-9942-da95332577a4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Add New Goal Pop Up (MAIN-TC-769, MAIN-TC-375)",
+              "fullTitle": "Cybersecurity Control Pool Add New Goal Pop Up (MAIN-TC-769, MAIN-TC-375)",
+              "timedOut": null,
+              "duration": 12834,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/cybersecurity-goal').then(() => {\n  cy.get(cybersecurityGoalSelector.goalAddNewGoalButton, {\n    timeout: 10000\n  }).click();\n});\ncy.get(cybersecurityGoalSelector.addNewGoalDialog, {\n  timeout: 10000\n}).should('exist').then(() => {\n  cy.get(cybersecurityGoalSelector.addNewGoalDialogConfirmButton, {\n    timeout: 10000\n  }).should('exist').should('not.be.enabled');\n  cy.get(cybersecurityGoalSelector.addNewGoalDialogCancelButton, {\n    timeout: 10000\n  }).should('exist');\n});",
+              "err": {},
+              "uuid": "353ad35c-d46b-4f24-9c4b-20c6d4dba61e",
+              "parentUUID": "2028eee3-abe4-410b-9942-da95332577a4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Snakbar Message(MAIN-TC-376) ",
+              "fullTitle": "Cybersecurity Control Pool Snakbar Message(MAIN-TC-376) ",
+              "timedOut": null,
+              "duration": 23524,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/cybersecurity-goal').then(() => {\n  cy.get(cybersecurityGoalSelector.goalAddNewGoalButton, {\n    timeout: 10000\n  }).click();\n});\ncy.get(cybersecurityGoalSelector.addNewGoalDialogContentTextArea, {\n  timeout: 10000\n}).type('Project Goal 1').then(() => {\n  cy.get(cybersecurityGoalSelector.addNewGoalDialogConfirmButton, {\n    timeout: 10000\n  }).click();\n});\ncy.get(cybersecurityGoalSelector.goalSnackBarMessageSuccessfulCreation, {\n  timeout: 5000\n}).invoke('text').should('contain', 'Cybersecurity goal saved successfully!');",
+              "err": {},
+              "uuid": "62929316-b529-4f11-9712-5282b91f363c",
+              "parentUUID": "2028eee3-abe4-410b-9942-da95332577a4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Format for the Row Number(MAIN-TC-377)",
+              "fullTitle": "Cybersecurity Control Pool Format for the Row Number(MAIN-TC-377)",
+              "timedOut": null,
+              "duration": 19818,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/cybersecurity-goal').then(() => {\n  cy.get(cybersecurityGoalSelector.goalAddNewGoalButton, {\n    timeout: 10000\n  }).click();\n});\ncy.get(cybersecurityGoalSelector.addNewGoalDialogContentTextArea, {\n  timeout: 10000\n}).type('Project Goal 2').then(() => {\n  cy.get(cybersecurityGoalSelector.addNewGoalDialogConfirmButton, {\n    timeout: 10000\n  }).click();\n});\ncy.get(cybersecurityGoalSelector.goalSerialNumber, {\n  timeout: 10000\n}).should('have.length', 2).then(() => {\n  cy.get(cybersecurityGoalSelector.goalSerialNumber, {\n    timeout: 10000\n  }).eq(0).invoke('text').then(lastThreat => {\n    cy.get(cybersecurityGoalSelector.goalSerialNumber, {\n      timeout: 10000\n    }).eq(1).invoke('text').then(firstThreat => {\n      // Convert the text values to numbers for comparison\n      const lastThreatValue = parseInt(lastThreat.replace(/\\D/g, ''), 10); // Assuming the value is something like 'GL1'\n      const firstThreatValue = parseInt(firstThreat.replace(/\\D/g, ''), 10); // Assuming the value is something like 'GL2'\n      // Make the assertion\n      expect(lastThreatValue).to.be.greaterThan(firstThreatValue);\n    });\n  });\n});",
+              "err": {},
+              "uuid": "5d584257-2000-4001-af40-febabfc9ea4a",
+              "parentUUID": "2028eee3-abe4-410b-9942-da95332577a4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deleting the Goal will not effect Row Numbers(MAIN-TC-378)",
+              "fullTitle": "Cybersecurity Control Pool Deleting the Goal will not effect Row Numbers(MAIN-TC-378)",
+              "timedOut": null,
+              "duration": 22797,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/cybersecurity-goal').then(() => {\n  cy.get(cybersecurityGoalSelector.goalAddNewGoalButton, {\n    timeout: 10000\n  }).click();\n});\ncy.get(cybersecurityGoalSelector.addNewGoalDialogContentTextArea, {\n  timeout: 10000\n}).type('Project Goal 3').then(() => {\n  cy.get(cybersecurityGoalSelector.addNewGoalDialogConfirmButton, {\n    timeout: 10000\n  }).click();\n});\ncy.get(cybersecurityGoalSelector.goalSerialNumber, {\n  timeout: 10000\n}).should('have.length', 2).then(() => {\n  cy.get(cybersecurityGoalSelector.goalDropDownButton, {\n    timeout: 10000\n  }).eq(1).click(); //Deleting the 2nd Goal\n  cy.get(cybersecurityGoalSelector.goalDropDownDeleteOption, {\n    timeout: 10000\n  }).click();\n  cy.get(cybersecurityGoalSelector.goalDeleteConfirmButton, {\n    timeout: 10000\n  }).click();\n  // Make sure the UI updates and the first goal becomes GL3 and the second goal becomes GL1\n  cy.get(cybersecurityGoalSelector.goalSerialNumber, {\n    timeout: 10000\n  }).eq(0).invoke('text').should('include', 'GL3');\n  cy.get(cybersecurityGoalSelector.goalSerialNumber, {\n    timeout: 10000\n  }).eq(1).invoke('text').should('include', 'GL1');\n});",
+              "err": {},
+              "uuid": "337015a5-6d4c-4a25-96a9-21818489ded7",
+              "parentUUID": "2028eee3-abe4-410b-9942-da95332577a4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deleting The Created project",
+              "fullTitle": "Cybersecurity Control Pool Deleting The Created project",
+              "timedOut": null,
+              "duration": 44707,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "0e1abbd2-7c9d-4e7a-844b-660d627a544a",
+              "parentUUID": "2028eee3-abe4-410b-9942-da95332577a4",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "c01fa513-f96f-4092-a9a9-97bb16a8571e",
+            "353ad35c-d46b-4f24-9c4b-20c6d4dba61e",
+            "62929316-b529-4f11-9712-5282b91f363c",
+            "5d584257-2000-4001-af40-febabfc9ea4a",
+            "337015a5-6d4c-4a25-96a9-21818489ded7",
+            "0e1abbd2-7c9d-4e7a-844b-660d627a544a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 308888,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

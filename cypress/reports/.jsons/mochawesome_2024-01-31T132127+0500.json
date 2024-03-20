@@ -1,0 +1,229 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 0,
+    "pending": 0,
+    "failures": 5,
+    "start": "2024-01-31T08:19:17.921Z",
+    "end": "2024-01-31T08:21:27.150Z",
+    "duration": 129229,
+    "testsRegistered": 6,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 1,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "ee087f09-d49f-4685-8cc3-6e346dc02aa5",
+      "title": "",
+      "fullFile": "cypress\\e2e\\modeling-view\\modeling-view.cy.js",
+      "file": "cypress\\e2e\\modeling-view\\modeling-view.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "9b730613-6db8-4e1f-868c-1bf45683b842",
+          "title": "Modeling Automation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Creating a New Model (MAIN-TC-827, MAIN-TC-1915, MAIN-TC-1564, MAIN-TC-72)",
+              "fullTitle": "Modeling Automation Creating a New Model (MAIN-TC-827, MAIN-TC-1915, MAIN-TC-1564, MAIN-TC-72)",
+              "timedOut": null,
+              "duration": 35595,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\modeling-view.cy.js\\\\Modeling Automation -- Creating a New Model (MAIN-TC-827, MAIN-TC-1915, MAIN-TC-1564, MAIN-TC-72) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\").then(() => {\n  cy.url().should('include', '/modeling');\n}).then(() => {\n  //Test Case to verify DFD-Process is visible\n  cy.get(modelingViewSelector.componentLibraryDfdProcess, {\n    timeout: 10000\n  }).should('have.text', 'DFD-Process');\n})\n//Working on Drag and Drop  \n.then(() => {\n  const dataTransfer = new DataTransfer();\n  // Test case to check if the module is empty\n  cy.get(modelingViewSelector.componentLibraryModule).trigger('dragstart', {\n    dataTransfer,\n    force: true\n  }).then(() => {\n    cy.get(modelingViewSelector.modelingViewCanvas).trigger('drop', {\n      dataTransfer,\n      force: true,\n      clientX: 250,\n      clientY: 250\n    });\n  });\n}).then(() => {\n  cy.get(modelingViewSelector.drawingCanvasModuleText).should('exist');\n}).then(() => {\n  cy.get(modelingViewSelector.drawingCanvasModule).rightclick().then(() => {\n    cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect).should('have.value', '');\n  });\n});\nconst numMicrocontrollers = 52;\nconst controllersPerRow = 10;\nconst distanceBetweenWireAndController = 100;\nconst startX = 250; // Starting x-coordinate\nconst startY = 120; // Starting y-coordinate\nconst rowGap = 400; // Gap between rows\nfor (let i = 0; i < numMicrocontrollers; i++) {\n  const row = Math.floor(i / controllersPerRow);\n  const col = i % controllersPerRow;\n  const x = startX + col * distanceBetweenWireAndController;\n  const y = startY + row * rowGap;\n  cy.get(modelingViewSelector.componentLibraryMicrocontroller).trigger('dragstart', {\n    dataTransfer,\n    force: true\n  }).then(() => {\n    cy.get(modelingViewSelector.modelingViewCanvas).trigger('drop', {\n      dataTransfer,\n      force: true,\n      clientX: x,\n      clientY: y\n    });\n  });\n  // If there are more controllers than wires, add a wire\n  if (i < 42) {\n    const wireX = x + distanceBetweenWireAndController / 2;\n    const wireY = y + distanceBetweenWireAndController / 2 + 30;\n    cy.get(modelingViewSelector.componentLibraryCommunicationLine).trigger('dragstart', {\n      dataTransfer,\n      force: true\n    }).then(() => {\n      cy.get(modelingViewSelector.modelingViewCanvas).trigger('drop', {\n        dataTransfer,\n        force: true,\n        clientX: wireX,\n        clientY: wireY\n      });\n    });\n  }\n}\ncy.get(modelingViewSelector.modelingViewSaveIcon).click().then(() => {\n  cy.get(modelingViewSelector.modelingViewSnackBar, {\n    timeout: 10000\n  }).should('contain', 'successfully saved');\n});",
+              "err": {
+                "message": "ReferenceError: dataTransfer is not defined",
+                "estack": "ReferenceError: dataTransfer is not defined\n    at Context.eval (webpack://cypress/./cypress/e2e/modeling-view/modeling-view.cy.js:77:32)",
+                "diff": null
+              },
+              "uuid": "651febe6-ae48-4c7e-97b1-7781263c5baa",
+              "parentUUID": "9b730613-6db8-4e1f-868c-1bf45683b842",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Modeling Test Cases (MAIN-TC-1115, MAIN-TC-793)",
+              "fullTitle": "Modeling Automation Modeling Test Cases (MAIN-TC-1115, MAIN-TC-793)",
+              "timedOut": null,
+              "duration": 17497,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\modeling-view.cy.js\\\\Modeling Automation -- Modeling Test Cases (MAIN-TC-1115, MAIN-TC-793) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\ncy.url().should('contain', '/modeling').then(() => {\n  cy.wait(500);\n  cy.get(modelingViewSelector.drawingCanvasCommunicationLine, {\n    timeout: 10000\n  }).eq(0).rightclick({\n    force: true\n  });\n  cy.wait(1000);\n  cy.get(modelingViewSelector.communicationLineSpecNameInput, {\n    timeout: 10000\n  }).clear().type(\"Communication Line 1\");\n  cy.get(modelingViewSelector.communicationLineSpecTransmissionSelect, {\n    timeout: 10000\n  }).click();\n  cy.get(modelingViewSelector.transmissionMediaShortRangeWirelessOption, {\n    timeout: 10000\n  }).click();\n  cy.wait(1000);\n  cy.get(modelingViewSelector.communicationLineSpecBaseProtocolSelect, {\n    timeout: 10000\n  }).click();\n  cy.get(modelingViewSelector.baseProtocolBluetoothLeOption, {\n    timeout: 10000\n  }).click();\n  cy.wait(1000);\n  cy.get(modelingViewSelector.communicationLineSpecTransmissionSelect, {\n    timeout: 10000\n  }).click();\n  cy.get(modelingViewSelector.transmissionMediaPhysicalWireOption, {\n    timeout: 10000\n  }).click();\n});\ncy.wait(500);\ncy.get(modelingViewSelector.communicationLineSpecBaseProtocolSelect, {\n  timeout: 10000\n}).should('have.value', '').then(() => {\n  cy.get(modelingViewSelector.drawingCanvasCommunicationLine, {\n    timeout: 10000\n  }).eq(0).rightclick({\n    force: true\n  });\n});\ncy.wait(500);\ncy.get(modelingViewSelector.drawingCanvasCommunicationLine, {\n  timeout: 10000\n}).eq(0).rightclick({\n  force: true\n}).then(() => {\n  cy.get(modelingViewSelector.componentSpecRemoveLineButton, {\n    timeout: 10000\n  }).click();\n  cy.wait(500);\n  cy.get(navBarSelector.confirmDialogueParagraph, {\n    timeout: 10000\n  }).invoke('text').should('contain', 'Communication Line 1');\n}).then(() => {\n  cy.get(navBarSelector.confirmDialogueCancelButton, {\n    timeout: 10000\n  }).click();\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `polyline`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `polyline`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/modeling-view/modeling-view.cy.js:108:7)",
+                "diff": null
+              },
+              "uuid": "a3682d92-55f9-401b-b08f-1ec4c8ee0b45",
+              "parentUUID": "9b730613-6db8-4e1f-868c-1bf45683b842",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Modeling-View Cases: Save Button on the Canvas, Modeling view button opens modeling view page (MAIN-TC-2047, MAIN-TC-148)",
+              "fullTitle": "Modeling Automation Modeling-View Cases: Save Button on the Canvas, Modeling view button opens modeling view page (MAIN-TC-2047, MAIN-TC-148)",
+              "timedOut": null,
+              "duration": 21258,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\modeling-view.cy.js\\\\Modeling Automation -- Modeling-View Cases Save Button on the Canvas, Modeling view button opens modeling view page (MAIN-TC-2047, MAIN-TC-148) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\").then(() => {\n  cy.get(modelingViewSelector.drawingCanvasMicrocontroller).eq(51).rightclick().then(() => {\n    cy.get(modelingViewSelector.modelingViewSaveIcon).should('exist');\n  });\n}).then(() => {\n  cy.get(modelingViewSelector.drawingCanvasMicrocontroller).eq(51).rightclick();\n}).then(() => {\n  cy.visit(Cypress.env(\"baseURL\"));\n}).then(() => {\n  cy.get(navBarSelector.navBarModelingViewIcon, {\n    timeout: 10000\n  }).click();\n}).then(() => {\n  cy.url().should('contain', '/modeling');\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `#drawingCanvas > .micro-container`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `#drawingCanvas > .micro-container`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/modeling-view/modeling-view.cy.js:134:9)",
+                "diff": null
+              },
+              "uuid": "e7fea955-5070-404a-93a9-4f60f993f542",
+              "parentUUID": "9b730613-6db8-4e1f-868c-1bf45683b842",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verifying the Drop-down Menus of Navigation bar Project, Edit, View, Export, Setting(MAIN-TC-142, MAIN-TC-143,MAIN-TC-144, MAIN-TC-145, MAIN-TC-146 )",
+              "fullTitle": "Modeling Automation Verifying the Drop-down Menus of Navigation bar Project, Edit, View, Export, Setting(MAIN-TC-142, MAIN-TC-143,MAIN-TC-144, MAIN-TC-145, MAIN-TC-146 )",
+              "timedOut": null,
+              "duration": 41263,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\modeling-view.cy.js\\\\Modeling Automation -- Verifying the Drop-down Menus of Navigation bar Project, Edit, View, Export, Setting(MAIN-TC-142, MAIN-TC-143,MAIN-TC-144, MAIN-TC-145, MAIN-TC-146 ) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\").wait(2000).then(() => {\n  cy.get(navBarSelector.navBarEditButton).click();\n  cy.get(navBarSelector.editListNewDesignButton, {\n    timeout: 10000\n  }).should('include.text', 'New Design'); //Verifying the Edit Drop down\n}).wait(500).then(() => {\n  cy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\n  cy.get(navBarSelector.navBarExportButton).click();\n  cy.get(navBarSelector.exportListGenerateReportButton, {\n    timeout: 10000\n  }).should('include.text', 'Generate Report'); //Verifying the Export Drop down\n}).then(() => {\n  cy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\n  cy.get(navBarSelector.navBarProjectButton).click();\n  cy.get(navBarSelector.projectListNewProjectButton, {\n    timeout: 10000\n  }).should('include.text', 'New Project'); //Verifying the Project Drop down\n}).then(() => {\n  cy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\n  cy.get(navBarSelector.navBarSettingsButton).click();\n  cy.get(navBarSelector.settingsListAdminButton, {\n    timeout: 10000\n  }).should('include.text', 'Admin'); //Verifying the Settings Drop down\n}).then(() => {\n  cy.visit(Cypress.env(\"baseURL\") + \"/modeling\");\n  cy.get(navBarSelector.navBarViewButton).click();\n  cy.get(navBarSelector.viewListAssumptionButton, {\n    timeout: 10000\n  }).should('include.text', 'Assumption'); //Verifying the View Drop down\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `button:contains(\"Export\")`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `button:contains(\"Export\")`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/modeling-view/modeling-view.cy.js:156:11)",
+                "diff": null
+              },
+              "uuid": "5d589b77-08a3-413f-8192-df1688e0d611",
+              "parentUUID": "9b730613-6db8-4e1f-868c-1bf45683b842",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verifying the Navigation Bar Buttons and Shortcuts (MAIN-TC-154, MAIN-TC-1326, MAIN-TC-153, MAIN-TC-149, MAIN-TC-150)",
+              "fullTitle": "Modeling Automation Verifying the Navigation Bar Buttons and Shortcuts (MAIN-TC-154, MAIN-TC-1326, MAIN-TC-153, MAIN-TC-149, MAIN-TC-150)",
+              "timedOut": null,
+              "duration": 5535,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\modeling-view.cy.js\\\\Modeling Automation -- Verifying the Navigation Bar Buttons and Shortcuts (MAIN-TC-154, MAIN-TC-1326, MAIN-TC-153, MAIN-TC-149, MAIN-TC-150) -- before each hook Logging In (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "// Visit another page if needed.\ncy.visit(Cypress.env(\"baseURL\") + \"/modeling\").then(() => {\n  cy.get(navBarSelector.navBarProfileIcon).click({\n    force: true\n  }).get(navBarSelector.profileListUserProfileHeader, {\n    timeout: 10000\n  }).should('include.text', 'User Profile'); //Verifying the User Profile Drop down\n});\ncy.visit(Cypress.env(\"baseURL\")).then(() => {\n  cy.get(navBarSelector.navBarProfileIcon).click().get(navBarSelector.profileListChangePasswordHeader).click() //Change Password \n  .get(navBarSelector.changePasswordForm, {\n    timeout: 10000\n  }).should('exist');\n});\ncy.visit(Cypress.env(\"baseURL\")).then(() => {\n  cy.get(navBarSelector.navBarNotificationIcon).click().get(navBarSelector.notificationMenu, {\n    timeout: 10000\n  }).should('exist'); //Notification Test \n});\ncy.visit(Cypress.env(\"baseURL\")).then(() => {\n  cy.get(navBarSelector.navBarThreatListViewIcon).click({\n    force: true\n  }).wait(2000).url().should('include', '/threats', {\n    timeout: 10000\n  }); //Threat List\n});\ncy.visit(Cypress.env(\"baseURL\")).then(() => {\n  cy.get(navBarSelector.navBarVulnerabilityListViewIcon).click({\n    force: true\n  }).wait(2000).url().should('include', '/vulnerabilities', {\n    timeout: 10000\n  }); //Culnerability List\n});",
+              "err": {
+                "message": "CypressError: `cy.request()` failed trying to load:\n\nhttp://localhost:4201/api/projects/projectDb?id=3JFzmq7Kek3z3yn6eGki&projectId=3JFzmq7Kek3z3yn6eGki\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:4201\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: http://localhost:4201/api/projects/projectDb?id=3JFzmq7Kek3z3yn6eGki&projectId=3JFzmq7Kek3z3yn6eGki\n\n-----------------------------------------------------------\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nhttps://on.cypress.io/request\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Modeling Automation`",
+                "estack": "CypressError: `cy.request()` failed trying to load:\n\nhttp://localhost:4201/api/projects/projectDb?id=3JFzmq7Kek3z3yn6eGki&projectId=3JFzmq7Kek3z3yn6eGki\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:4201\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: http://localhost:4201/api/projects/projectDb?id=3JFzmq7Kek3z3yn6eGki&projectId=3JFzmq7Kek3z3yn6eGki\n\n-----------------------------------------------------------\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nhttps://on.cypress.io/request\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Modeling Automation`\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:133058:70)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1807:23)\n    at <unknown> (http://localhost:4200/__cypress/runner/cypress_runner.js:4203:37)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1807:23)\n    at Promise._settlePromiseFromHandler (http://localhost:4200/__cypress/runner/cypress_runner.js:1519:31)\n    at Promise._settlePromise (http://localhost:4200/__cypress/runner/cypress_runner.js:1576:18)\n    at Promise._settlePromise0 (http://localhost:4200/__cypress/runner/cypress_runner.js:1621:10)\n    at Promise._settlePromises (http://localhost:4200/__cypress/runner/cypress_runner.js:1697:18)\n    at _drainQueueStep (http://localhost:4200/__cypress/runner/cypress_runner.js:2407:12)\n    at _drainQueue (http://localhost:4200/__cypress/runner/cypress_runner.js:2400:9)\n    at Async._drainQueues (http://localhost:4200/__cypress/runner/cypress_runner.js:2416:5)\n    at Async.drainQueues (http://localhost:4200/__cypress/runner/cypress_runner.js:2286:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://cypress/./cypress/support/commands.js:26:4)\n\nFrom Node.js Internals:\n  RequestError: Error: connect ECONNREFUSED 127.0.0.1:4201\n      at new r (<embedded>:1832:361373)\n      at ee.callback (<embedded>:1832:367374)\n      at e.callback.s.callback [as _callback] (<embedded>:1832:366820)\n      at s._callback.s.callback.s.callback (<embedded>:2050:91633)\n      at ee.emit (node:events:513:28)\n      at ee.onRequestError (<embedded>:2050:100575)\n      at ClientRequest.emit (node:events:525:35)\n      at Socket.socketErrorListener (node:_http_client:502:9)\n      at Socket.emit (node:events:513:28)\n      at emitErrorNT (node:internal/streams/destroy:151:8)\n      at emitErrorCloseNT (node:internal/streams/destroy:116:3)\n      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)",
+                "diff": null
+              },
+              "uuid": "fb8eaa03-c9f4-4748-8074-c2ad819e667a",
+              "parentUUID": "9b730613-6db8-4e1f-868c-1bf45683b842",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deleting the Created Project (MAIN-TC-847)",
+              "fullTitle": "Modeling Automation Deleting the Created Project (MAIN-TC-847)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "5e449841-0298-4f62-9c36-ba54f81885ec",
+              "parentUUID": "9b730613-6db8-4e1f-868c-1bf45683b842",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "651febe6-ae48-4c7e-97b1-7781263c5baa",
+            "a3682d92-55f9-401b-b08f-1ec4c8ee0b45",
+            "e7fea955-5070-404a-93a9-4f60f993f542",
+            "5d589b77-08a3-413f-8192-df1688e0d611",
+            "fb8eaa03-c9f4-4748-8074-c2ad819e667a"
+          ],
+          "pending": [],
+          "skipped": [
+            "5e449841-0298-4f62-9c36-ba54f81885ec"
+          ],
+          "duration": 121148,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

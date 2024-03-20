@@ -1,0 +1,117 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2024-02-15T18:29:34.038Z",
+    "end": "2024-02-15T18:30:09.807Z",
+    "duration": 35769,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "b86f0949-68c5-4ee3-8f36-95cc729b1df7",
+      "title": "",
+      "fullFile": "cypress\\e2e\\Threat-Generation\\attack-tree.cy.js",
+      "file": "cypress\\e2e\\Threat-Generation\\attack-tree.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ecc7fdd2-02e8-44c9-b487-b2947db9e182",
+          "title": "Attack Tree",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "\"Load & Delete Tree\" Dialog (MAIN-TC-2009, MAIN-TC-2010, MAIN-TC-2012)",
+              "fullTitle": "Attack Tree \"Load & Delete Tree\" Dialog (MAIN-TC-2009, MAIN-TC-2010, MAIN-TC-2012)",
+              "timedOut": null,
+              "duration": 31590,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\attack-tree.cy.js\\\\Attack Tree -- Load & Delete Tree Dialog (MAIN-TC-2009, MAIN-TC-2010, MAIN-TC-2012) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.attackTreeButton).click().then(() => {\n    //Attack Tree open\n    cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n      //Tree drop down click\n      cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click().then(() => {\n        //Load Tree click\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreePopup).should('exist'); //Load tree popup\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).should('exist'); //select project\n        cy.get(attackTreeSelector.attackTreeDialogLoadTreePopupCancelButton).click(); //Cancel the pop up\n      });\n    });\n  });\n  cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n    //Again tree drop down\n    cy.get(attackTreeSelector.attackTreeDialogTreeDropDownDeleteTree).click().then(() => {\n      //Click delete tree\n      cy.get(attackTreeSelector.attackTreeDialogSelectTree).click().then(() => {\n        //select tree\n        cy.get(attackTreeSelector.attackTreeDialogDeleteTreePopupDeleteButton).click().then(() => {\n          //press delete btn\n          cy.get(attackTreeSelector.attackTreeDialogDeleteTreePopupDeleteButton).click(); //delete button(1st )\n        }); //1st tree deleted\n      });\n    });\n  });\n  cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n    //click tree\n    cy.get(attackTreeSelector.attackTreeDialogTreeDropDownDeleteTree).click().then(() => {\n      //select delete\n      cy.get(attackTreeSelector.attackTreeDialogDeleteTreePopup).should('exist'); //delete popup\n      cy.get(attackTreeSelector.attackTreeDialogDeleteTreePopupDeleteButton).should('not.be.enabled'); //delete btn not enable\n      cy.get(attackTreeSelector.attackTreeDialogLoadTreeSelectTree).should('exist').click().then(() => {\n        //select tree\n        cy.get(attackTreeSelector.attackTreeDialogDeleteTreePopupDeleteButton).should('be.enabled').click().then(() => {\n          //click delete\n          cy.get(attackTreeSelector.attackTreeDialogDeleteTreePopupDeleteButton).click().then(() => {\n            //again click delet(2nd deleted)\n            cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n              //again click tree\n              cy.get(attackTreeSelector.attackTreeDialogTreeDropDownDeleteTree).click();\n              cy.get(navBarSelector.subsequentSnackBarElement).should('exist').then(() => {\n                //working fine\n                cy.get(attackTreeSelector.attackTreeDialogTreeButton).eq(1).click().then(() => {\n                  cy.get(attackTreeSelector.attackTreeDialogTreeDropDownLoadTree).click();\n                  cy.get(navBarSelector.subsequentSnackBarElement).should('exist').invoke('text').should('include', 'No Trees found. Please, create new Tree');\n                });\n              });\n            });\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `.mat-mdc-dialog-surface`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `.mat-mdc-dialog-surface`, but never found it.\n    at Context.eval (webpack://cypress/./cypress/e2e/Threat-Generation/attack-tree.cy.js:249:81)",
+                "diff": null
+              },
+              "uuid": "d8256b63-0a51-4449-9b03-78fc3daccde3",
+              "parentUUID": "ecc7fdd2-02e8-44c9-b487-b2947db9e182",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "d8256b63-0a51-4449-9b03-78fc3daccde3"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 31590,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 6,
+    "passes": 6,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-02-07T08:22:19.530Z",
+    "end": "2024-02-07T08:29:05.738Z",
+    "duration": 406208,
+    "testsRegistered": 6,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "e7bd5994-18c2-4aa7-948c-40350ad46324",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cybersecurity-pool\\control-pool.cy.js",
+      "file": "cypress\\e2e\\cybersecurity-pool\\control-pool.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0f21a02a-eba9-4c0f-ad94-2c9568687599",
+          "title": "Cybersecurity Control Pool",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Verify that if a user adds a control from the library to a project, if that control contains any requirements, these requirements should be added to the project (MAIN-TC-3080, MAIN-TC-3076)",
+              "fullTitle": "Cybersecurity Control Pool Verify that if a user adds a control from the library to a project, if that control contains any requirements, these requirements should be added to the project (MAIN-TC-3080, MAIN-TC-3076)",
+              "timedOut": null,
+              "duration": 91263,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.generateProjectName().then($generatedName => {\n  let requirementName = 'REQ>' + $generatedName;\n  let controlName = 'CTRL>' + $generatedName;\n  //create new requirement\n  cy.addRequirementToLibrary(requirementName);\n  cy.wait(1000);\n  //create new control\n  cy.addControlToLibrary(controlName);\n  cy.wait(1000);\n  //link control and requirement\n  cy.linkRequirementToControl(controlName, requirementName);\n  cy.wait(1000);\n  //import control from library\n  cy.ImportControlFromLibrary(controlName);\n  cy.wait(1000);\n  //assert the requirement has been added to the project\n  cy.visit(Cypress.env('baseURL') + '/requirements').then(() => {\n    cy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n      timeout: 20000\n    }).should('have.value', requirementName);\n  }).then(() => {\n    cy.deleteControlFromLibrary(controlName);\n    cy.deleteRequirementFromLibrary(requirementName);\n  });\n});",
+              "err": {},
+              "uuid": "0915aa47-943d-4c5a-9595-2ac41bc9e9aa",
+              "parentUUID": "0f21a02a-eba9-4c0f-ad94-2c9568687599",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify that user can add control/goal from library in the project control/goal page (MAIN-TC-3077, MAIN-TC-3078)",
+              "fullTitle": "Cybersecurity Control Pool Verify that user can add control/goal from library in the project control/goal page (MAIN-TC-3077, MAIN-TC-3078)",
+              "timedOut": null,
+              "duration": 62967,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.generateProjectName().then($generatedName => {\n  let goalName = 'GL>' + $generatedName;\n  let controlName = 'CTRL>' + $generatedName;\n  //add control to library and import it to project\n  cy.addControlToLibrary(controlName);\n  cy.wait(1000);\n  cy.ImportControlFromLibrary(controlName);\n  cy.wait(1000);\n  cy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n    timeout: 20000\n  }).should('have.value', controlName);\n  //add goal to library and import it to project\n  cy.addGoalToLibrary(goalName);\n  cy.wait(1000);\n  cy.ImportGoalFromLibrary(goalName);\n  cy.wait(1000);\n  cy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n    timeout: 20000\n  }).should('have.value', goalName).then(() => {\n    cy.deleteControlFromLibrary(controlName);\n    cy.deleteGoalFromLibrary(goalName);\n  });\n});",
+              "err": {},
+              "uuid": "d2599d04-738b-4e33-b161-0b76a3d8222b",
+              "parentUUID": "0f21a02a-eba9-4c0f-ad94-2c9568687599",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify that if a user add a goal from the library to a project, if that goal contains controls, these controls should also be added to the project (MAIN-TC-3079, MAIN-TC-3074)",
+              "fullTitle": "Cybersecurity Control Pool Verify that if a user add a goal from the library to a project, if that goal contains controls, these controls should also be added to the project (MAIN-TC-3079, MAIN-TC-3074)",
+              "timedOut": null,
+              "duration": 102266,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.generateProjectName().then($generatedName => {\n  let goalName = 'GL>' + $generatedName;\n  let controlName = 'CTRL>' + $generatedName;\n  //add control to library\n  cy.addControlToLibrary(controlName);\n  cy.wait(1000);\n  //add goal to library\n  cy.addGoalToLibrary(goalName);\n  cy.wait(1000);\n  //link control and goal\n  cy.linkControlToGoal(goalName, controlName);\n  cy.wait(1000);\n  //import the goal to project\n  cy.ImportGoalFromLibrary(goalName);\n  cy.wait(1000);\n  cy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n    timeout: 20000\n  }).should('have.value', goalName);\n  //check linked controls exist\n  cy.visit(Cypress.env('baseURL') + '/cybersecurity-control').then(() => {\n    cy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n      timeout: 20000\n    }).should('have.value', controlName);\n  }).then(() => {\n    cy.deleteControlFromLibrary(controlName);\n    cy.deleteGoalFromLibrary(goalName);\n  });\n});",
+              "err": {},
+              "uuid": "e52734a6-58d1-4f2f-bcb3-96407f1c1564",
+              "parentUUID": "0f21a02a-eba9-4c0f-ad94-2c9568687599",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify that user can link requirement with control and control with goal, in project pool pages (MAIN-TC-3073, MAIN-TC-3075)",
+              "fullTitle": "Cybersecurity Control Pool Verify that user can link requirement with control and control with goal, in project pool pages (MAIN-TC-3073, MAIN-TC-3075)",
+              "timedOut": null,
+              "duration": 66878,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.generateProjectName().then($generatedName => {\n  let requirementName = 'REQ>' + $generatedName;\n  let controlName = 'CTRL>' + $generatedName;\n  let goalName = 'GL>' + $generatedName;\n  //add req to project pool\n  cy.addRequirement(requirementName);\n  cy.wait(1000);\n  //add control to project pool\n  cy.addControl(controlName);\n  cy.wait(1000);\n  //add goal to project pool\n  cy.addGoal(goalName);\n  cy.wait(1000);\n  //link req with control in project pool\n  cy.visit(Cypress.env('baseURL') + '/cybersecurity-control');\n  cy.wait(1000);\n  cy.get(projectLibrarySelector.libraryMoreOptionsButton, {\n    timeout: 20000\n  }).first().click();\n  cy.get(projectLibrarySelector.moreOptionsLinkedRequirementsButton).click();\n  cy.get(projectLibrarySelector.linkingDialogShowAllButton, {\n    timeout: 20000\n  }).click();\n  cy.get(projectLibrarySelector.linkingDialogCheckboxInput).first().check();\n  cy.get(navBarSelector.confirmDialogueConfirmButton).click();\n  cy.wait(1000);\n  //assert linked req exist\n  cy.get(projectLibrarySelector.libraryMoreOptionsButton, {\n    timeout: 20000\n  }).first().click();\n  cy.get(projectLibrarySelector.moreOptionsLinkedRequirementsButton).click();\n  cy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n    timeout: 20000\n  }).last().should('have.value', requirementName);\n  //link control with goal in project pool\n  cy.visit(Cypress.env('baseURL') + '/cybersecurity-goal');\n  cy.get(projectLibrarySelector.libraryMoreOptionsButton, {\n    timeout: 20000\n  }).first().click();\n  cy.get(projectLibrarySelector.moreOptionsLinkedControlsButton).click();\n  cy.get(projectLibrarySelector.linkingDialogShowAllButton, {\n    timeout: 20000\n  }).click();\n  cy.get(projectLibrarySelector.linkingDialogCheckboxInput).first().check();\n  cy.get(navBarSelector.confirmDialogueConfirmButton).click();\n  cy.wait(1000);\n  //assert linked control exist\n  cy.get(projectLibrarySelector.libraryMoreOptionsButton, {\n    timeout: 20000\n  }).first().click();\n  cy.get(projectLibrarySelector.moreOptionsLinkedControlsButton).click();\n  cy.get(cybersecurityPoolSelector.poolRecordContentTextArea, {\n    timeout: 20000\n  }).last().should('have.value', controlName);\n});",
+              "err": {},
+              "uuid": "bae48311-5cfc-4345-96e3-d4ac59a35d62",
+              "parentUUID": "0f21a02a-eba9-4c0f-ad94-2c9568687599",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify the functionality of delete claim/goal button(MAIN-TC-375, MAIN-TC-745)",
+              "fullTitle": "Cybersecurity Control Pool Verify the functionality of delete claim/goal button(MAIN-TC-375, MAIN-TC-745)",
+              "timedOut": null,
+              "duration": 47310,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.generateProjectName().then($generatedName => {\n  const claimName = 'CL>' + $generatedName;\n  const goalName = 'GL>' + $generatedName;\n  //add claim to project\n  cy.addClaim(claimName);\n  cy.wait(1000);\n  //delete claim and check API call\n  cy.intercept('DELETE', '*').as('deleteRequest');\n  cy.deleteClaim(1);\n  cy.get('@deleteRequest').its('response.statusCode').should('eq', 200);\n  //add goal to project\n  cy.addGoal(goalName);\n  cy.wait(1000);\n  //delete goal and check API call \n  cy.intercept('DELETE', '*').as('deleteRequest');\n  cy.deleteGoal(1);\n  cy.get('@deleteRequest').its('response.statusCode').should('eq', 200);\n});",
+              "err": {},
+              "uuid": "71e58c2a-7b3d-41ff-9d69-63a417e70863",
+              "parentUUID": "0f21a02a-eba9-4c0f-ad94-2c9568687599",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deleting The Created project",
+              "fullTitle": "Cybersecurity Control Pool Deleting The Created project",
+              "timedOut": null,
+              "duration": 28531,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "1300b408-2c3d-4795-bae6-b92cb6de0979",
+              "parentUUID": "0f21a02a-eba9-4c0f-ad94-2c9568687599",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "0915aa47-943d-4c5a-9595-2ac41bc9e9aa",
+            "d2599d04-738b-4e33-b161-0b76a3d8222b",
+            "e52734a6-58d1-4f2f-bcb3-96407f1c1564",
+            "bae48311-5cfc-4345-96e3-d4ac59a35d62",
+            "71e58c2a-7b3d-41ff-9d69-63a417e70863",
+            "1300b408-2c3d-4795-bae6-b92cb6de0979"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 399215,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

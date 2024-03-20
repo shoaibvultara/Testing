@@ -1,0 +1,251 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 8,
+    "passes": 7,
+    "pending": 0,
+    "failures": 1,
+    "start": "2024-02-12T09:22:14.885Z",
+    "end": "2024-02-12T09:25:52.859Z",
+    "duration": 217974,
+    "testsRegistered": 8,
+    "passPercent": 87.5,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "c2661de0-7d39-4de9-bd0c-92eda00c510c",
+      "title": "",
+      "fullFile": "cypress\\e2e\\Threat-Generation\\impact.cy.js",
+      "file": "cypress\\e2e\\Threat-Generation\\impact.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "5bed9663-6078-477a-bb0f-55d0983bebc2",
+          "title": "Impact",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Create Model and Generate Threat",
+              "fullTitle": "Impact Create Model and Generate Threat",
+              "timedOut": null,
+              "duration": 84440,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.createModel().then(() => {\n  cy.visit(Cypress.env('baseURL') + '/threats');\n});",
+              "err": {},
+              "uuid": "4950c1ae-89aa-4960-b572-4d6b8b7f80c8",
+              "parentUUID": "5bed9663-6078-477a-bb0f-55d0983bebc2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Threat No in Impact Popup (MAIN-TC-1626, MAIN-TC-1627)",
+              "fullTitle": "Impact Threat No in Impact Popup (MAIN-TC-1626, MAIN-TC-1627)",
+              "timedOut": null,
+              "duration": 12702,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();\n}).then(() => {\n  cy.get(impactPopupSelector.impactPopup).should('exist');\n  cy.get(impactPopupSelector.impactPopupTitle).invoke('text').should('include', 'Impact for Threat #1');\n});",
+              "err": {},
+              "uuid": "7e0e9e1f-af37-4f8d-a8dd-e2227b2aecb4",
+              "parentUUID": "5bed9663-6078-477a-bb0f-55d0983bebc2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Risk level and Impact rating in Impact Popup (MAIN-TC-1643)",
+              "fullTitle": "Impact Risk level and Impact rating in Impact Popup (MAIN-TC-1643)",
+              "timedOut": null,
+              "duration": 10467,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats');\nlet riskValue;\nlet Rating;\ncy.get(threatListViewSelector.threatListViewRiskButton).eq(0).invoke('text').then(text => {\n  riskValue = text.trim();\n  cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).invoke('text').then(text => {\n    Rating = text.trim();\n    cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();\n    cy.get(impactPopupSelector.impactPopupRatingTitle).eq(1).invoke('text').should('include', Rating);\n  });\n  cy.get(impactPopupSelector.impactPopupRiskLevelTitle).eq(0).invoke('text').should('include', riskValue);\n});",
+              "err": {},
+              "uuid": "534b18f0-706e-486e-9f9b-0073084b6adc",
+              "parentUUID": "5bed9663-6078-477a-bb0f-55d0983bebc2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Color dot with Each Impact Category (MAIN-TC-1645)",
+              "fullTitle": "Impact Color dot with Each Impact Category (MAIN-TC-1645)",
+              "timedOut": null,
+              "duration": 16473,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats');\ncy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click().then(() => {\n  for (let i = 0; i < 4; i++) {\n    cy.get(impactPopupSelector.impactPopupCategoryDropDown).eq(i).click();\n    cy.get(impactPopupSelector.impactPopupCategoryDropdownModerateOption).click();\n  }\n}).then(() => {\n  for (let i = 0; i < 4; i++) {\n    cy.get(impactPopupSelector.impactPopupCategoryDropDownColor).eq(i).should('exist');\n  }\n});",
+              "err": {},
+              "uuid": "c92a04b4-1438-453d-87de-014235061f59",
+              "parentUUID": "5bed9663-6078-477a-bb0f-55d0983bebc2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Edit the Reviewed Threat(MAIN-TC-1681) ",
+              "fullTitle": "Impact Edit the Reviewed Threat(MAIN-TC-1681) ",
+              "timedOut": null,
+              "duration": 16227,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats');\ncy.get(threatListViewSelector.threatListViewReviewCheckBox).eq(0).click() //Marking threat as reviewed\n.then(() => {\n  cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();\n}).then(() => {\n  cy.get(impactPopupSelector.impactPopupCategoryDropDown).eq(0).should('not.be.enabled');\n  cy.get(impactPopupSelector.impactPopuDamageScenarioTextArea).should('not.be.enabled');\n});\ncy.get(impactPopupSelector.impactPopupCancelButton).click().then(() => {\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).eq(0).click({\n    force: true\n  }); //Marking threat as unreviewed\n  cy.wait(1000);\n}).then(() => {\n  cy.get(threatListViewSelector.threatListViewReviewCheckBox).eq(0).click({\n    force: true\n  });\n  cy.wait(3000);\n}).then(() => {\n  cy.get(impactPopupSelector.impactPopupConfirmButton).click({\n    force: true\n  });\n  cy.wait(1000);\n});",
+              "err": {},
+              "uuid": "92f10e5a-7e52-4ae2-ae45-76cc1c5de3fe",
+              "parentUUID": "5bed9663-6078-477a-bb0f-55d0983bebc2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Impact having Some treatment Value (MAIN-TC-1682, MAIN-TC-1683)",
+              "fullTitle": "Impact Impact having Some treatment Value (MAIN-TC-1682, MAIN-TC-1683)",
+              "timedOut": null,
+              "duration": 13310,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click();\n  cy.get(threatListViewSelector.threatTreatmentReduceOption).click();\n  cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click({\n    force: true\n  }).then(() => {\n    cy.get(impactPopupSelector.impactPopupBeforeAfterToggleButton).should('exist');\n  });\n  cy.get(impactPopupSelector.impactPopupCategoryHeading).invoke('text').should('include', 'After');\n  cy.get(impactPopupSelector.impactPopupBeforeAfterToggleButton).click().then(() => {\n    cy.get(impactPopupSelector.impactPopupCategoryHeading).invoke('text').should('include', 'Before');\n  }).then(() => {\n    cy.get(impactPopupSelector.impactPopupCloseButton).click();\n  });\n});",
+              "err": {},
+              "uuid": "1df2d060-f2f0-4914-8a2c-c5b851fdcfda",
+              "parentUUID": "5bed9663-6078-477a-bb0f-55d0983bebc2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Comparing Before and After Value (MAIN-TC-1684)",
+              "fullTitle": "Impact Comparing Before and After Value (MAIN-TC-1684)",
+              "timedOut": null,
+              "duration": 22164,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\impact.cy.js\\\\Impact -- Comparing Before and After Value (MAIN-TC-1684) (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click();\n});\ncy.get(threatListViewSelector.threatTreatmentRetaintOption).click({\n  force: true\n}).then(() => {\n  cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();\n}).then(() => {\n  for (let i = 0; i < 4; i++) {\n    cy.get(impactPopupSelector.impactPopupCategoryDropDown).eq(i).click();\n    cy.get(impactPopupSelector.impactPopupCategoryDropdownNegligibleOption).click();\n  }\n});\ncy.get(impactPopupSelector.impactPopupRiskLevelTitle).eq(0).invoke('text').should('include', '5');\ncy.get(impactPopupSelector.impactPopupRatingTitle).eq(1).invoke('text').should('include', 'Negligible');\ncy.get(impactPopupSelector.impactPopupBeforeAfterToggleButton).click().then(() => {\n  for (let i = 0; i < 4; i++) {\n    cy.get(impactPopupSelector.impactPopupCategoryDropDown).eq(i).click();\n    cy.get(impactPopupSelector.impactPopupCategoryDropdownModerateOption).click();\n  }\n});\ncy.get(impactPopupSelector.impactPopupRiskLevelTitle).eq(0).invoke('text').should('include', '5');\ncy.get(impactPopupSelector.impactPopupRatingTitle).eq(1).invoke('text').should('include', 'Moderate');\ncy.get(impactPopupSelector.impactPopupRiskLevelTitle).eq(0).invoke('text').should('contain', 'Risk Level: 4→ 5');\ncy.get(impactPopupSelector.impactPopupRatingTitle).eq(1).invoke('text').should('contain', 'Impact Rating: Moderate → Negligible');",
+              "err": {
+                "message": "CypressError: `cy.click()` can only be called on a single element. Your subject contained 2 elements. Pass `{ multiple: true }` if you want to serially click each element.\n\nhttps://on.cypress.io/click",
+                "estack": "CypressError: `cy.click()` can only be called on a single element. Your subject contained 2 elements. Pass `{ multiple: true }` if you want to serially click each element.\n\nhttps://on.cypress.io/click\n    at mouseAction (http://localhost:4200/__cypress/runner/cypress_runner.js:111540:68)\n    at Context.click (http://localhost:4200/__cypress/runner/cypress_runner.js:111707:14)\n    at wrapped (http://localhost:4200/__cypress/runner/cypress_runner.js:138292:19)\nFrom Your Spec Code:\n    at Context.eval (webpack://cypress/./cypress/e2e/Threat-Generation/impact.cy.js:131:78)",
+                "diff": null
+              },
+              "uuid": "749cd3c4-6997-4de7-84ba-464d1d69e2a8",
+              "parentUUID": "5bed9663-6078-477a-bb0f-55d0983bebc2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Delete Project",
+              "fullTitle": "Impact Delete Project",
+              "timedOut": null,
+              "duration": 31996,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "1f4ea46e-5c31-4cfc-89ac-bfd668b1e858",
+              "parentUUID": "5bed9663-6078-477a-bb0f-55d0983bebc2",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "4950c1ae-89aa-4960-b572-4d6b8b7f80c8",
+            "7e0e9e1f-af37-4f8d-a8dd-e2227b2aecb4",
+            "534b18f0-706e-486e-9f9b-0073084b6adc",
+            "c92a04b4-1438-453d-87de-014235061f59",
+            "92f10e5a-7e52-4ae2-ae45-76cc1c5de3fe",
+            "1df2d060-f2f0-4914-8a2c-c5b851fdcfda",
+            "1f4ea46e-5c31-4cfc-89ac-bfd668b1e858"
+          ],
+          "failures": [
+            "749cd3c4-6997-4de7-84ba-464d1d69e2a8"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 207779,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

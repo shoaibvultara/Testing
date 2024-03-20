@@ -1,0 +1,194 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2024-02-07T08:33:19.875Z",
+    "end": "2024-02-07T08:34:23.192Z",
+    "duration": 63317,
+    "testsRegistered": 5,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 4,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "1c339dcb-7804-4b94-a9ed-beb1bc447bbd",
+      "title": "",
+      "fullFile": "cypress\\e2e\\milestone-view\\milestone-access.cy.js",
+      "file": "cypress\\e2e\\milestone-view\\milestone-access.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "b3955806-a179-4631-bce8-d88ac818f8f9",
+          "title": "Milestone Access Privileges",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Verify the Milestone creation process (MAIN-TC-1794)",
+              "fullTitle": "Milestone Access Privileges Verify the Milestone creation process (MAIN-TC-1794)",
+              "timedOut": null,
+              "duration": 58460,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      {\n        \"title\": \"Failed screenshot\",\n        \"value\": \"\\\\milestone-view\\\\milestone-access.cy.js\\\\Milestone Access Privileges -- Verify the Milestone creation process (MAIN-TC-1794) -- before all hook (failed).png\"\n      }\n    ]\n  ]\n}",
+              "code": "cy.visit(Cypress.env('baseURL'));\nmilestoneName = 'MAIN-TC-1794';\ncy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');\ncy.createMilestone(milestoneName).then(() => {\n  cy.get('@postRequest').its('response.statusCode').should('eq', 200);\n  (0, _cypressRecurse.recurse)(() => cy.get(navBarSelector.newMilestoneSuccessSnackBar, {\n    timeout: 20000\n  }).should('have.length', 2),\n  //both snack bars appeared\n  $snackBar => cy.wait(10), {\n    delay: 1000\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `simple-snack-bar`, but never found it.\n\nBecause this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Milestone Access Privileges`",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `simple-snack-bar`, but never found it.\n\nBecause this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Milestone Access Privileges`\n    at eval (webpack://cypress/./cypress/e2e/milestone-view/milestone-access.cy.js:32:93)\n    at Context.cypressRecurse (webpack://cypress/./node_modules/cypress-recurse/src/index.js:197:0)",
+                "diff": null
+              },
+              "uuid": "874a7b8d-c135-4017-8a41-1ac3b27387f1",
+              "parentUUID": "b3955806-a179-4631-bce8-d88ac818f8f9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify the user should be able to Load Milestone on all pages (MAIN-TC-844)",
+              "fullTitle": "Milestone Access Privileges Verify the user should be able to Load Milestone on all pages (MAIN-TC-844)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//Goal\ncy.visit(Cypress.env('baseURL') + '/cybersecurity-goal');\ncy.get(navBarSelector.navBarProjectButton, {\n  timeout: 20000\n}).click(); // Click project in navigation bar\ncy.get(navBarSelector.projectListLoadMilestoneButton).should('be.enabled'); // load a milestone\n//Vulnerabilities\ncy.visit(Cypress.env('baseURL') + '/vulnerabilities');\ncy.get(navBarSelector.navBarProjectButton, {\n  timeout: 20000\n}).click(); // Click project in navigation bar\ncy.get(navBarSelector.projectListLoadMilestoneButton).should('be.enabled'); // load a milestone\n//Assumption\ncy.visit(Cypress.env('baseURL') + '/assumptions');\ncy.get(navBarSelector.navBarProjectButton, {\n  timeout: 20000\n}).click(); // Click project in navigation bar\ncy.get(navBarSelector.projectListLoadMilestoneButton).should('be.enabled'); // load a milestone\n//control\ncy.visit(Cypress.env('baseURL') + '/cybersecurity-control');\ncy.get(navBarSelector.navBarProjectButton, {\n  timeout: 20000\n}).click(); // Click project in navigation bar\ncy.get(navBarSelector.projectListLoadMilestoneButton).should('be.enabled'); // load a milestone\n//other-notification\ncy.visit(Cypress.env('baseURL') + '/notifications?view=others');\ncy.get(navBarSelector.navBarProjectButton, {\n  timeout: 20000\n}).click(); // Click project in navigation bar\ncy.get(navBarSelector.projectListLoadMilestoneButton).should('be.enabled'); // load a milestone\n//risk-notification\ncy.visit(Cypress.env('baseURL') + '/notifications?view=threats');\ncy.get(navBarSelector.navBarProjectButton, {\n  timeout: 20000\n}).click(); // Click project in navigation bar\ncy.get(navBarSelector.projectListLoadMilestoneButton).should('be.enabled'); // load a milestone\n//weakness\ncy.visit(Cypress.env('baseURL') + '/weaknesses');\ncy.get(navBarSelector.navBarProjectButton, {\n  timeout: 20000\n}).click(); // Click project in navigation bar\ncy.get(navBarSelector.projectListLoadMilestoneButton).should('be.enabled'); // load a milestone",
+              "err": {},
+              "uuid": "02c81d1c-29eb-4963-9d9b-79950514de35",
+              "parentUUID": "b3955806-a179-4631-bce8-d88ac818f8f9",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Verify user shall not be able to edit anything when milestone is loaded in threatListView page (MAIN-TC-1361, MAIN-TC-2163)",
+              "fullTitle": "Milestone Access Privileges Verify user shall not be able to edit anything when milestone is loaded in threatListView page (MAIN-TC-1361, MAIN-TC-2163)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "milestoneName = 'MAIN-TC-1361-2163';\ncy.createModel(); //create a model to generate threats to test\ncy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');\ncy.createMilestone(milestoneName).then(() => {\n  cy.get('@postRequest').its('response.statusCode').should('eq', 200);\n  (0, _cypressRecurse.recurse)(() => cy.get(navBarSelector.newMilestoneSuccessSnackBar, {\n    timeout: 20000\n  }).should('have.length', 2),\n  //both snack bars appeared\n  $snackBar => cy.wait(10), {\n    delay: 1000\n  });\n});\ncy.loadMilestone(milestoneName);\ncy.visit(Cypress.env('baseURL') + '/threats').then(() => {\n  //more actions button\n  cy.get(threatListViewSelector.threatListViewThreatActionsButton, {\n    timeout: 20000\n  }).eq(0).should('have.css', 'pointer-events', 'none');\n  //validation button\n  cy.get(threatListViewSelector.threatListViewThreatCheckBoxInput).eq(4).should('have.css', 'pointer-events', 'none');\n  //review button\n  cy.get(threatListViewSelector.threatListViewThreatCheckBoxInput).eq(3).should('have.css', 'pointer-events', 'none');\n  //treatment selection\n  cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).should('have.css', 'user-select', 'none');\n  //threat selection\n  cy.get(threatListViewSelector.threatListViewThreatCheckBoxInput).eq(1).should('have.css', 'pointer-events', 'none');\n  //threat scenario dialog\n  cy.get(threatListViewSelector.threatListViewThreatScenarioTextArea).eq(0).click();\n  cy.get(threatListViewSelector.threatScenarioCheckCircleIcon).should('not.exist');\n  //attack path dialog\n  cy.get(threatListViewSelector.threatListViewAttackPathColumn).eq(0).click();\n  cy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled').then(() => {\n    cy.get(threatListViewSelector.dialogCloseIcon).click();\n  });\n  //damage scenario dialog\n  cy.get(threatListViewSelector.threatListViewDamageScenarioColumn).eq(0).click();\n  cy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled').then(() => {\n    cy.get(threatListViewSelector.dialogCloseIcon).click();\n  });\n  //feasibility dialog\n  cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click();\n  cy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled').then(() => {\n    cy.get(threatListViewSelector.dialogCloseIcon).click();\n  });\n  //impcat dialog\n  cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();\n  cy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled');\n});",
+              "err": {},
+              "uuid": "3151694f-b7db-4632-8602-adcbfc931405",
+              "parentUUID": "b3955806-a179-4631-bce8-d88ac818f8f9",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Verify that the project notes are not editable in the milestone view (MAIN-TC-1613)",
+              "fullTitle": "Milestone Access Privileges Verify that the project notes are not editable in the milestone view (MAIN-TC-1613)",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(Cypress.env('baseURL'));\nmilestoneName = 'Automation_Milestone';\ncy.loadMilestone(milestoneName).then(() => {\n  cy.get(navBarSelector.navBarProfileIcon, {\n    timeout: 20000\n  }).click();\n  cy.get(navBarSelector.profileListProjectButton).click();\n  cy.get(navBarSelector.ProjectDialogProjectNotesTextArea, {\n    timeout: 20000\n  }).should('be.disabled');\n});",
+              "err": {},
+              "uuid": "04eeab32-343e-4f46-827e-6497c60fc323",
+              "parentUUID": "b3955806-a179-4631-bce8-d88ac818f8f9",
+              "isHook": false,
+              "skipped": true
+            },
+            {
+              "title": "Deleting The Created project",
+              "fullTitle": "Milestone Access Privileges Deleting The Created project",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.deleteProject(projectName);",
+              "err": {},
+              "uuid": "1cccc60c-65bf-40db-9cc7-e49a74ea51a3",
+              "parentUUID": "b3955806-a179-4631-bce8-d88ac818f8f9",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "874a7b8d-c135-4017-8a41-1ac3b27387f1"
+          ],
+          "pending": [],
+          "skipped": [
+            "02c81d1c-29eb-4963-9d9b-79950514de35",
+            "3151694f-b7db-4632-8602-adcbfc931405",
+            "04eeab32-343e-4f46-827e-6497c60fc323",
+            "1cccc60c-65bf-40db-9cc7-e49a74ea51a3"
+          ],
+          "duration": 58460,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress\\reports\\.jsons",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": true,
+        "reportTitle": "Vultara Automation Test",
+        "showPassed": true,
+        "showFailed": true,
+        "showPending": true,
+        "showSkipped": false,
+        "browser": "all",
+        "quiet": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}
