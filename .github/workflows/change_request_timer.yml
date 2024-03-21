@@ -12,19 +12,25 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Count Change Request
+      - name: Count Change Request and Additions
         id: list-files
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
           echo "Extracted PR number: $PR_NUMBER"
           
-          diff_url="https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews"
+          diff_url="https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}"
           echo "$diff_url"  # Debugging line
-          change_requests=$(curl -s "$diff_url" | jq 'map(select(.state == "CHANGES_REQUESTED")) | length')
-          echo "::set-output name=change_requests::$change_requests"
+          
+          # Fetch and print the API response
+          api_response=$(curl -s "$diff_url")
+          echo "API Response: $api_response"
+          
+          # Count the change requests
+          change_requests=$(echo "$api_response" | jq 'map(select(.state == "CHANGES_REQUESTED")) | length')
           echo "Change Requests: $change_requests"
-
-          code_changes=$(curl -s "${diff_url}/files" | jq '[.[] | .additions] | add')
-          echo "Code Changes: $code_changes"
           echo "::set-output name=change_requests::$change_requests"
+          
+          # Count the total number of additions
+          code_changes=$(echo "$api_response" | jq '.additions')
+          echo "Code Changes: $code_changes"
           echo "::set-output name=code_changes::$code_changes"
