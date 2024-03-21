@@ -1,0 +1,47 @@
+name: Change Requests Counter
+
+on:
+  repository_dispatch:
+    types: [change_request_counter]
+
+jobs:
+  process-jira-event:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        
+      - name: Count Change Request
+        id: list-files
+        run: |
+          issueKey="${{ github.event.client_payload.issueKey }}"
+          PR_NUMBER=$(curl -s "https://api.github.com/repos/${{ github.repository }}/pulls" | jq ".[] | select(.head.ref == \"$issueKey\") | .number")
+          echo "Extracted PR number: $PR_NUMBER"
+          
+          if [ -z "$PR_NUMBER" ]; then
+            echo "PR_NUMBER not found. Skipping the remaining jobs."
+            exit 0
+          fi
+          
+          diff_url="https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews"
+          echo "$diff_url"  # Debugging line
+          change_requests=$(curl -s "$diff_url" | jq 'map(select(.state == "CHANGES_REQUESTED")) | length')
+          echo "::set-output name=change_requests::$change_requests"
+          echo "Change Requests: $change_requests"
+      
+      - name: Update JIRA Custom Field
+        if: steps.list-files.outputs.change_requests > 0
+        run: |
+          jiraUsername="shoaib40ce@gmail.com"
+          # JIRA API token or password
+          jiraToken="${{ secrets.JIRA_API_TOKEN }}"
+          curl -X PUT \
+            -H "Content-Type: application/json" \
+            -u "$jiraUsername:$jiraToken" \
+            -d '{
+              "fields": {
+                "customfield_10051": "'${{ steps.list-files.outputs.change_requests }}'"
+              }
+            }' \
+            "https://gittest.atlassian.net/rest/api/3/issue/${{ github.event.client_payload.issueKey }}"
