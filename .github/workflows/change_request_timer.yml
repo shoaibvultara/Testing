@@ -23,7 +23,6 @@ jobs:
           
           # Fetch and print the API response
           api_response=$(curl -s "$diff_url")
-          echo "API Response: $api_response"
           
           # Count the change requests
           change_requests=$(echo "$api_response" | jq 'map(select(.state == "CHANGES_REQUESTED")) | length')
@@ -34,7 +33,5 @@ jobs:
         uses: Brymastr/pr-info-action@v1
 
       - name: Print PR Info
-        run: |
-          echo "PR Number: ${{ steps.pr_info.outputs.pr_number }}"
-          echo "PR State: ${{ steps.pr_info.outputs.pr_state }}"
+        run: | 
           echo "Additions: ${{ steps.pr_info.outputs.additions }}"
