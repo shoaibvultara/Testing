@@ -30,11 +30,11 @@ jobs:
           echo "Change Requests: $change_requests"
           echo "::set-output name=change_requests::$change_requests"
           
-          # Count the total number of additions
-          api_response=$(curl -s "$diff_url")
-          echo "API Response: $api_response"
-          
-          # Extract additions
-          additions=$(echo "$api_response" | jq '.additions')
-          echo "Additions: $additions"
-          echo "::set-output name=additions::$additions"
+      - name: Get PR Info Action
+        uses: Brymastr/pr-info-action@v1
+
+      - name: Print PR Info
+        run: |
+          echo "PR Number: ${{ steps.pr_info.outputs.pr_number }}"
+          echo "PR State: ${{ steps.pr_info.outputs.pr_state }}"
+          echo "Additions: ${{ steps.pr_info.outputs.additions }}"
