@@ -24,4 +24,9 @@ jobs:
           echo "::set-output name=change_requests::$change_requests"
           echo "Change Requests: $change_requests"
 
+          code_changes=$(curl -s "${diff_url}files" | jq '[.[] | .additions] | add')
+          echo "Code Changes: $code_changes"
+          echo "::set-output name=change_requests::$change_requests"
+          echo "::set-output name=code_changes::$code_changes"
+
 
