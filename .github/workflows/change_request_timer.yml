@@ -29,9 +29,3 @@ jobs:
           echo "Change Requests: $change_requests"
           echo "::set-output name=change_requests::$change_requests"
           
-      - name: Get PR Info Action
-        uses: Brymastr/pr-info-action@v1
-
-      - name: Print PR Info
-        run: | 
-          echo "Additions: ${{ steps.pr_info.outputs.additions }}"
