@@ -11,26 +11,12 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+   
+      - name: Get PR Info Action
+        uses: Brymastr/pr-info-action@v1
+        id: pr_info
 
-      - name: Count Change Request and Additions
-        id: list-files
+      - name: Use PR Info
         run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          echo "Extracted PR number: $PR_NUMBER"
-          
-          diff_url="https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}"
-          echo "$diff_url"  # Debugging line
-          
-          # Fetch and print the API response
-          api_response=$(curl -s "$diff_url")
-          echo "API Response: $api_response"
-          
-          # Count the change requests
-          change_requests=$(echo "$api_response" | jq 'map(select(.state == "CHANGES_REQUESTED")) | length')
-          echo "Change Requests: $change_requests"
-          echo "::set-output name=change_requests::$change_requests"
-          
-          # Count the total number of additions
-          code_changes=$(echo "$api_response" | jq '.additions')
-          echo "Code Changes: $code_changes"
-          echo "::set-output name=code_changes::$code_changes"
+          echo "PR Number: ${{ steps.pr_info.outputs.pr_number }}"
+          echo "PR Title: ${{ steps.pr_info.outputs.pr_title }}"
