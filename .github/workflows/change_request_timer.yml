@@ -23,9 +23,14 @@ jobs:
           
           # Fetch and print the API response
           api_response=$(curl -s "$diff_url")
+          echo "API Response: $api_response"
           
           # Count the change requests
           change_requests=$(echo "$api_response" | jq 'map(select(.state == "CHANGES_REQUESTED")) | length')
           echo "Change Requests: $change_requests"
           echo "::set-output name=change_requests::$change_requests"
           
+          # Count the total number of additions
+          code_changes=$(echo "$api_response" | jq '.additions')
+          echo "Code Changes: $code_changes"
+          echo "::set-output name=code_changes::$code_changes"
