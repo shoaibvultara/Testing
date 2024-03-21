@@ -10,6 +10,7 @@ describe('Project Trigger Management', () => {
     var triggerDescription;
     var relevantpartie;
     var priorityRationale;
+    var test;
 
     before(() => {
         cy.viewport(1920, 1080);            //Creating Project

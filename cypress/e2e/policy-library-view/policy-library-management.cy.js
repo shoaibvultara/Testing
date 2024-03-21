@@ -15,7 +15,7 @@ describe('Policy Library Management', () => {
         })
         cy.window().then((win) => {
             const newDesignData = JSON.parse(win.localStorage.getItem('newDesign'));
-            expect(newDesignData).to.not.be.null;
+            expect(newDesignData).to.not.b sde.null;
             expect(newDesignData.project).to.not.be.undefined;
             // Extract the project ID from the nested structure
             projectId = newDesignData.project.id;//projectId to be used 
