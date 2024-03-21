@@ -1,0 +1,62 @@
+name: Code Changes and Change Requests
+
+on:
+  repository_dispatch:
+    types: 
+      - counter_check
+
+jobs:
+  process-jira-event:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        
+      - name: Count Changes
+        id: list-files
+        run: |
+          issueKey="${{ github.event.pull_request.head.ref }}"
+          echo "PR_NUMBER=${{ github.event.number }}" >> $GITHUB_ENV
+          echo "Extracted PR number: $PR_NUMBER"
+          
+          if [ -z "$PR_NUMBER" ]; then
+            echo "PR_NUMBER not found. Skipping the remaining jobs."
+            exit 0
+          fi
+          
+          diff_url="https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/"
+          change_requests=$(curl -s "${diff_url}reviews" | jq 'map(select(.state == "CHANGES_REQUESTED")) | length')
+          echo "Change Requests: $change_requests"
+          
+          code_changes=$(curl -s "${diff_url}files" | jq '[.[] | .additions] | add')
+          echo "Code Changes: $code_changes"
+          echo "::set-output name=change_requests::$change_requests"
+          echo "::set-output name=code_changes::$code_changes"
+      
+      - name: Update JIRA Custom Fields
+        run: |
+          jiraUsername="shoaib40ce@gmail.com"
+          jiraToken="${{ secrets.JIRA_API_TOKEN }}"
+          if [ "${{ steps.list-files.outputs.change_requests }}" -gt 0 ]; then
+            curl -X PUT \
+              -H "Content-Type: application/json" \
+              -u "$jiraUsername:$jiraToken" \
+              -d '{
+                "fields": {
+                  "customfield_10050": "'${{ steps.list-files.outputs.change_requests }}'"
+                }
+              }' \
+              "https://vultara.atlassian.net/rest/api/3/issue/${{ github.event.pull_request.head.ref }}"
+          fi
+          if [ "${{ steps.list-files.outputs.code_changes }}" -gt 0 ]; then
+            curl -X PUT \
+              -H "Content-Type: application/json" \
+              -u "$jiraUsername:$jiraToken" \
+              -d '{
+                "fields": {
+                  "customfield_10051": "'${{ steps.list-files.outputs.code_changes }}'"
+                }
+              }' \
+              "https://vultara.atlassian.net/rest/api/3/issue/${{ github.event.pull_request.head.ref }}"
+          fi
