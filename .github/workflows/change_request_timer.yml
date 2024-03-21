@@ -31,6 +31,10 @@ jobs:
           echo "::set-output name=change_requests::$change_requests"
           
           # Count the total number of additions
-          code_changes=$(echo "$api_response" | jq '.additions')
-          echo "Code Changes: $code_changes"
-          echo "::set-output name=code_changes::$code_changes"
+          api_response=$(curl -s "$diff_url")
+          echo "API Response: $api_response"
+          
+          # Extract additions
+          additions=$(echo "$api_response" | jq '.additions')
+          echo "Additions: $additions"
+          echo "::set-output name=additions::$additions"
