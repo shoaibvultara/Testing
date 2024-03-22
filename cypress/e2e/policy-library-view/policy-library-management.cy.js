@@ -1,5 +1,5 @@
 const navBarSelector = require('../../selectors/navBarSelector.js')
-const projectLibrarySelector = require('../../selectors/projectLibrarySelector.js')
+const projectLibrarySelector = require('../../selectors/projectLsdfsibrarySelector.js')
 var projectName;
 
 describe('Policy Library Management', () => {
