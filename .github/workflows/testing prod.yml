@@ -31,4 +31,5 @@ jobs:
 
       # Run Cypress test for specific file with recording
       - name: Cypress run
-        run: npx cypress run --record --key f58d85e0-bb42-4a92-a3a8-c6772e247b5a --spec cypress/e2e/customerEnvironment/highLevelTestCases.cy.js
+        #run: npx cypress run --record --key f58d85e0-bb42-4a92-a3a8-c6772e247b5a --spec cypress/e2e/customerEnvironment/highLevelTestCases.cy.js
+        run: npx cypress run --record --key f58d85e0-bb42-4a92-a3a8-c6772e247b5a --spec cypress/e2e/Login/login.cy.js
