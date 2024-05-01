@@ -35,8 +35,9 @@ jobs:
         run: |
           echo "Base URL is $(grep -oP 'baseURL: "\K[^"]+' cypress.config.js)"
         
-      # Run Cypress test for specific file
-      - name: Cypress run
+      # Run Cypress test for specific file with video recording
+      - name: Cypress run with video recording
         uses: cypress-io/github-action@v6
         with:
           spec: cypress/e2e/customerEnvironment/highLevelTestCases.cy.js
+          record: true # Enable video recording
