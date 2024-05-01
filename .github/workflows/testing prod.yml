@@ -12,7 +12,6 @@ jobs:
 
       # Install npm dependencies from the cypress directory
       - name: Install Dependencies
-        working-directory: cypress  # Change directory to the cypress directory
         run: npm install
 
       # Run Cypress test for specific file
