@@ -3,5 +3,3 @@
 /cypress/videos
 /cypress/screenshots
 /config.json
-
-node_modules

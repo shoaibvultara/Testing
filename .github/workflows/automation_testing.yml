@@ -1,0 +1,45 @@
+name: Manual Automation Testing
+
+on:
+  workflow_dispatch: # Manually triggered workflow
+
+jobs:
+  automation-tests:
+    runs-on: self-hosted
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      - name: Install Cypress
+        run: |
+          npm install cypress@latest --save-dev
+
+      - name: Execute e2e automation tests
+        uses: cypress-io/github-action@v5
+        with:
+          working-directory: Testing
+      
+      - name: Prepare reports
+        run: |
+          npm i -g mochawesome-merge
+          npm i -g mochawesome-report-generator
+          mochawesome-merge cypress/reports/*.json > cypress/reports/index.json
+          marge --charts=true --showPassed=true -o cypress/reports/ cypress/reports/index.json
+
+      - name: Cypress report
+        uses: dmitry/cypress-report-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pathname: cypress/reports/index.json

@@ -1,43 +1,18 @@
 const { defineConfig } = require("cypress");
 const { registerAIOTestsPlugin } = require('cypress-aiotests-reporter/src') // Import the necessary plugin if not already imported
-const fs = require("fs");
 
 module.exports = defineConfig({
-  projectId: 'tkumcu',
-  chromeWebSecurity: false,
-  defaultCommandTimeout: 20000,
-  requestTimeout: 120000,
-  responseTimeout: 120000,
-  pageLoadTimeout: 120000,
-  reporter: "cypress-mochawesome-reporter",
-  retries: 1,
-  reporterOptions: {
-    reportDir: "cypress/reports",
-    overwrite: true,
-    html: false,
-    json: true,
-    timestamp: true,
-    reportTitle: "Vultara Automation Test",
-    showPassed: true,
-    showFailed: true,
-    showPending: true,
-    showSkipped: false,
-    browser: "all",
-    quiet: true,
-  },
-  video: false,
   env: {
-    baseURL: "https://awsportal.vultara.com",
-    apiURL: "https://awsportal.api.vultara.com/api",
-    authURL: "https://awsportal.auth.vultara.com/auth",
-    username: "shoaibadmin",
-    password: "PAKistan@123",
+    baseURL: "http://localhost:4200",
+    apiURL: "http://localhost:4201/api",
+    username: "vultara_automation_test",
+    password: "tJVJhiHmlIWR",
     aioTests: {
       enableReporting: true,
       cloud: {
-        apiKey: process.env.AIO_API_KEY
+        apiKey: "NjI3NjRiZjItNjE5NC0zNWYwLWFkMjAtYzZiNmM2MjMwNmQ4LjQ5N2U4YWQxLTQzNTQtNDE4YS04ZDI2LTcwZTU5NTY0NDFhMQ==",
       },
-      jiraProjectId: "MAIN",
+      jiraProjectId: "KAN",
       cycleDetails: {
         createNewCycle: true,
         cycleName: "Automation Run " + new Date().toISOString(),
@@ -51,37 +26,9 @@ module.exports = defineConfig({
   //projectId: "6ca4i2",
   e2e: {
     setupNodeEvents(on, config) {
-      on("task", {
-        isFileExist( filePath ) {
-          return new Promise((resolve, reject) => {
-            try {
-              let isExists = fs.existsSync(filePath)
-              resolve(isExists);
-            } catch (e) {
-              reject(e);
-            }
-          });
-        }
-      });
-      on('task', {
-        // Define the removeDirectory task handler
-        removeDirectory(directoryPath) {
-          // Implement the logic to remove the directory
-          return new Promise((resolve, reject) => {
-            fs.rmdir(directoryPath, { recursive: true }, (err) => {
-              if (err) {
-                // Failed to remove directory
-                reject(err);
-              } else {
-                // Directory removed successfully
-                resolve(null);
-              }
-            });
-          });
-        },
-      });
       registerAIOTestsPlugin(on, config);
       // implement node event listeners here
     },
   },
 });
+
