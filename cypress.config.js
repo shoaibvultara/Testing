@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 const { registerAIOTestsPlugin } = require('cypress-aiotests-reporter/src') // Import the necessary plugin if not already imported
 
 module.exports = defineConfig({
+  projectId: "tkumcu",
   env: {
     baseURL: "http://localhost:4200",
     apiURL: "http://localhost:4201/api",
