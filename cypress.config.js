@@ -7,6 +7,7 @@ module.exports = defineConfig({
     apiURL: "http://localhost:4201/api",
     username: "vultara_automation_test",
     password: "tJVJhiHmlIWR",
+    projectId: "tkumcu",
     aioTests: {
       enableReporting: true,
       cloud: {
