@@ -5,7 +5,7 @@ module.exports = {
     addFromMicroLibraryFilterOption: 'input[ng-reflect-placeholder="Filter"]',
     addFromMicroLibraryFilterListOption: 'mat-list-option',
     projectBomIdTableHeader: 'th:contains(ID)',
-    projectBomVendorCell: 'p[class="bom-table-data"]',
+    projectBomVendorCell: 'td[class*="mat-column-vendor"]',
     projectBomProductCell: 'td[class*="mat-column-product"]',
     projectBomComponentCell: 'td[class*="mat-column-component"]',
 
@@ -34,4 +34,8 @@ module.exports = {
     linkToAssetTab: 'h2:contains(Link To Asset)',
     connectedGatewayDialog: 'mat-label:contains(Connected Gateway)',
     editBomDialogComponentField: 'input[formcontrolname="componentName"]',
+    addBomConfirmationDialog: '.mat-mdc-dialog-surface',
+    projectBomVersionHeader: 'button[class="project-bom-version-number-text"]',
+    editBomDialogVersionField: 'mat-form-field[class*="bom-version-selection-chips"]',
+    editBomDialogVersionChip: 'mat-chip-row[ng-reflect-id="versionChipComponent"]',
 }

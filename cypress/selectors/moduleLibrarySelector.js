@@ -22,7 +22,7 @@ module.exports = {
     moduleLibraryPageCategoryTextArea : 'mat-select[class*="mat-mdc-select"]' ,  // Category Text Area in Module Library page
     commitAllModulesButton : '.mdc-list-item__primary-text:contains(" Commit All Modules ")' ,  // Commit All Modules Button
     commitAllModulesSnackBar : 'div[class="mat-mdc-snack-bar-label mdc-snackbar__label"]' ,  // Commit All Modules Snack Bar
-    moduleLibraryRefreshButton : 'button:contains(" Refresh ")' ,  // Refresh Button in Module Library Page
+    moduleLibraryRefreshButton : '.all-library-refresh-btn',  // Refresh Button in Module Library Page
     refreshModulesLoader : 'mat-progress-spinner[role="progressbar"]' ,  // Refresh Modules Loader Icon
     moduleLibraryShowAllButton : 'button:contains(" Show All ")' ,  //  Show All Button in Module Library Page
     moduleLibrarySearchBox : 'input[placeholder="Search Available Modules"]' ,  // Search Box in Module Library Page
@@ -30,7 +30,7 @@ module.exports = {
     moduleCategoryNameInputField: 'input.mat-mdc-input-element', //module category input field in edit category dialog
 
     // Module Library Dropdown row action buttons
-    moduleMoreOptionsButton : 'mat-icon:contains("expand_more")' ,  // More Options button in Module Library Page
+    moduleMoreOptionsButton : 'button[mat-button]:contains("expand_more")' ,  // More Options button in Module Library Page
     deleteModuleButton : '.mdc-list-item__primary-text:contains(" Delete Module ")' ,  // Delete Module button in Module Library Page
     moduleLibraryConfirmToDeleteButton : '.mdc-button__label:contains("Delete")' ,  // Delete Button in Confirmation to Delete Dialog
     moduleLibraryCancelToDeleteButton : '.mdc-button__label:contains("Cancel")' ,  // Cancel Button in Confirmation to Delete Dialog

@@ -10,7 +10,6 @@ describe('Project Trigger Management', () => {
     var triggerDescription;
     var relevantpartie;
     var priorityRationale;
-    var test;
 
     before(() => {
         cy.viewport(1920, 1080);            //Creating Project
@@ -90,7 +89,7 @@ describe('Project Trigger Management', () => {
         cy.cancelDeleteTrigger(2);
     })
 
-    it('Verify that automatic project trigger generation for model components (MAIN-TC-2403, MAIN-TC-2404, MAIN-TC-2405, MAIN-TC-2406)', () => {
+    it('Verify that automatic project trigger generation for model components (MAIN-TC-2403, MAIN-TC-2404, MAIN-TC-2405, MAIN-TC-2406, MAIN-TC-1183)', () => {
         cy.visit(Cypress.env('baseURL') + '/modeling').then(() => { //Go to Monitoring Page
             cy.get(navBarSelector.loader).should('not.exist');
             const dataTransfer = new DataTransfer();

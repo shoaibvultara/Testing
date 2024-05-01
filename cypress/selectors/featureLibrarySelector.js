@@ -5,7 +5,7 @@ module.exports = {
     createFeatureButton: 'button:contains(Create Feature)' ,  // Create Feature Button in Basic Feature settings dialog
     createFeatureDisabledButton: 'button[ng-reflect-disabled="true"]:contains(" Create Feature ")'  ,  // Create Feature Button when it is disabled in Basic Feature settings dialog
     featureContentTextArea: 'div[class="feature-tab-name-div"]' ,  // Feature Name Text area in Feature Library page
-    featureNameFieldBox: 'input[maxlength="65"]' ,  // Feature Name Field Box in Basic Feature settings dialog
+    featureNameFieldBox: 'input[name="featureName"]' ,  // Feature Name Field Box in Basic Feature settings dialog
     featureNameErrorMessage: 'mat-error:contains("Feature Name is required.")' ,  // Module Name Error message
     featureTypeFieldButton: 'mat-select[aria-haspopup="listbox"]' ,  // Feature Type Field Button in Basic Feature settings dialog
     showAssetLibraryButton: 'button:contains(" Show Asset Library ")' ,  // Show Asset Library Button in Basic Feature settings dialog
@@ -20,7 +20,7 @@ module.exports = {
     featureApplicationMoreOptionsButton: 'mat-icon:contains("more_horiz")' ,  // More Options button in Feature Applications Dialog
     cancelNewApplicationButton: '.mdc-list-item__primary-text:contains(" Cancel New Application ")' ,  // Cancel New Application Button in Feature Applications Dialog
     goToModuleEditingPageButton: '.mdc-list-item__primary-text:contains(" Go To Module Editing Page ")' ,  // Go To Module Editing Page Button in Feature Applications Dialog
-    featureLibraryRefreshButton: 'button:contains(" Refresh ")' ,  // Refresh Button in Feature Library Page
+    featureLibraryRefreshButton: '.all-library-refresh-btn',  // Refresh Button in Feature Library Page
     featureLoaderIcon: 'mat-progress-spinner[role="progressbar"]' ,  // Refresh Features Loader Icon
     featureLibraryShowAllButton: 'button:contains(" Show All ")' ,  //  Show All Button in Feature Library Page
     featureLibrarySearchBox: 'input[placeholder="Search Available Features"]' ,  // Search Box in Feature Library Page

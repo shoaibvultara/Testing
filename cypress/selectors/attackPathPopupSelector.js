@@ -22,6 +22,7 @@ module.exports = {
     attackPathLinkTreePopupLoadTreeButton:'input[value="load"]',
     attackPathLinkTreePopupCreateTreeButton:'input[value="create"]',
     attackPathDialogNextButton: 'button:contains("Next")',
+    attackPathDialogLinkCurrentLoadedTreeButton: 'button:contains(Link Current Loaded Tree)',
     attackPathDialogTreeName: 'input[type="text"]',
     attackPathDialogConfirmButton: 'button:contains("Confirm")',
 }

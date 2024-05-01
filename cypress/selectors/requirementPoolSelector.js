@@ -32,7 +32,7 @@ module.exports = {
     newReqDialogTypeFieldButton : 'mat-select[formcontrolname="type"]' ,  // Type Field Button in Add a New Requirement Dialog
     newReqDialogSnackBar : 'div[class="mat-mdc-snack-bar-label mdc-snackbar__label"]' ,  // Create New Requirement Snack Bar
     newReqDialogDisciplineFieldButton : 'mat-select[formcontrolname="discipline"]' ,  // Discipline Field Button in Add a New Requirement Dialog
-    requirementLibraryRefreshButton : 'button:contains(" Refresh ")',  // Refresh Button in Requirement Library Page
+    requirementLibraryRefreshButton : '.refresh-btn-in-library',  // Refresh Button in Requirement Library Page
     requirementLibraryRefreshLoader : 'mat-progress-spinner[role="progressbar"]' ,  // Refresh Loader 
     requirementLibraryShowAllButton : 'button:contains(" Show All ")',  // Show All Button in Requirement Library Page
     requirementLibrarySearchBox : 'input[matinput][placeholder="Search Available Requirements"]',  // Requirement Library Page Search Box

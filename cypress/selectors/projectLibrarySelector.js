@@ -8,6 +8,7 @@ module.exports = {
     librarySideNavRequirementAnchor: 'mat-nav-list > a:contains(Requirement)',
     librarySideNavPolicyAnchor: 'mat-nav-list > a:contains(Policy)',
     librarySideNavAttackActionAnchor: 'mat-nav-list > a:contains(Attack Action)',
+    librarySideNavDamageScenarioAnchor: 'mat-nav-list > a:contains(Damage Scenario)',
 
     //more button drop down options
     libraryMoreOptionsButton: 'button:contains(more_horiz)',
@@ -23,6 +24,7 @@ module.exports = {
     requirementLibraryDeleteButton: 'button:contains(delete)',
     requirementLibraryDescriptionCell: 'textarea[class*="requirement-page-description"]',
     reqLibraryAddUpdateRequirementDialog: 'add-update-requirement',
+    requirementLibraryDeleteIcon: 'mat-icon:contains(delete)',
 
     //goal library
     cybersecurityGoalTab: 'div[mattablabelwrapper]:contains(Cybersecurity Goal)',
@@ -32,11 +34,24 @@ module.exports = {
 
     //claim library
     cybersecurityClaimTab: 'div[mattablabelwrapper]:contains(Cybersecurity Claim)',
-    moreOptionsDeleteClaimButton: 'button:contains(Delete Claim)',    
+    moreOptionsDeleteClaimButton: 'button:contains(Delete Claim)',
 
     //policy library
     createNewPolicyButton: 'button:contains(Create New Policy)',
     deletePolicyIcon: 'mat-icon:contains(delete)',
     policyNumberTableCell: 'td[class*="mat-column-no"]',
     policyEnabledCheckbox: 'input[type="checkbox"]',
+    policyComparisonOperatorSelect: 'mat-form-field:contains(When risk is)',
+    //comparison operator options
+    policyLibraryLessThanOperator: 'mat-option:contains(less than)',
+    policyLibraryLessThanOrEqualToOperator: 'mat-option:contains(less than or equal to)',
+    policyLibraryEqualToOperator: 'mat-option:contains(equal to)',
+    policyLibraryGreaterThanOrEqualToOperator: 'mat-option:contains(greater than or equal to)',
+    policyLibraryGreaterThanOperator: 'mat-option:contains(greater than)',
+
+    //attack action library
+    attackActionLibraryDeleteButton: 'mat-icon:contains(delete)',
+
+    //damage scenario library
+    damageScenarioLibraryDeleteButton: 'mat-icon:contains(delete)',
 }

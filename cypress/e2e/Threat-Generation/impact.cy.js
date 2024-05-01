@@ -37,8 +37,9 @@ describe('Impact', () => {
 
   it('Threat No in Impact Popup (MAIN-TC-1626, MAIN-TC-1627)', () => {
     cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
+      cy.wait(3000);
       cy.get(navBarSelector.loader).should('not.exist');
-      cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();
+      cy.get(threatListViewSelector.threatListViewImpactButton).first().click();
     }).then(() => {
       cy.get(impactPopupSelector.impactPopup).should('be.visible').then(() => {
         cy.get(impactPopupSelector.impactPopupTitle).invoke('text').should('include', 'Impact for Threat #1')
@@ -50,11 +51,12 @@ describe('Impact', () => {
     cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
       let riskValue;
       let Rating;
-      cy.get(threatListViewSelector.threatListViewRiskButton).eq(0).invoke('text').then((text) => {
+      cy.get(threatListViewSelector.threatListViewRiskButton).first().invoke('text').then((text) => {
         riskValue = text.trim();
-        cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).invoke('text').then((text) => {
+        cy.get(threatListViewSelector.threatListViewImpactButton).first().invoke('text').then((text) => {
           Rating = text.trim();
-          cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();
+          cy.wait(3000);
+          cy.get(threatListViewSelector.threatListViewImpactButton).first().click();
           cy.get(impactPopupSelector.impactPopupRatingAndLevelParagraph).invoke('text').should('include', Rating)
         })
         cy.get(impactPopupSelector.impactPopupRatingAndLevelParagraph).invoke('text').should('include', riskValue);
@@ -64,49 +66,47 @@ describe('Impact', () => {
 
   it('Color dot with Each Impact Category (MAIN-TC-1645)', () => {
     cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
-      cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click()
-        .then(() => {
-          for (let i = 0; i < 4; i++) {
-            cy.get(impactPopupSelector.impactPopupCategoryDropDown).eq(i).click();
-            cy.get(impactPopupSelector.impactPopupCategoryDropdownModerateOption).click();
-          }
-        })
-        .then(() => {
-          for (let i = 0; i < 4; i++) {
-            cy.get(impactPopupSelector.impactPopupCategoryDropDownColor).eq(i).should('exist');
-          }
-        })
+      cy.get(threatListViewSelector.threatListViewImpactButton).first().click().then(() => {
+        cy.wait(2000);
+        for (let i = 0; i < 4; i++) {
+          cy.get(impactPopupSelector.impactPopupCategoryDropDown).eq(i).click();
+          cy.get(impactPopupSelector.impactPopupCategoryDropdownModerateOption).click();
+        }
+      }).then(() => {
+        for (let i = 0; i < 4; i++) {
+          cy.get(impactPopupSelector.impactPopupCategoryDropDownColor).eq(i).should('exist');
+        }
+      })
     })
   })
 
   it('Edit the Reviewed Threat(MAIN-TC-1681) ', () => {
-    cy.visit(Cypress.env('baseURL') + '/threats');
-    cy.get(threatListViewSelector.threatListViewReviewCheckBox).eq(0).click()//Marking threat as reviewed
-      .then(() => {
-        cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();
-      }).then(() => {
-        cy.get(impactPopupSelector.impactPopupCategoryDropDown).eq(0).should('not.be.enabled');
-        cy.get(impactPopupSelector.impactPopupDamageScenarioTextArea).should('not.be.enabled');
-      })
-    cy.get(impactPopupSelector.impactPopupCancelButton).click().then(() => {
+    cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
       cy.wait(3000);
-      cy.get(threatListViewSelector.threatListViewReviewCheckBox).eq(0).click({ force: true })//Marking threat as unreviewed
-      cy.wait(3000);
+      cy.get(threatListViewSelector.threatListViewReviewedTableDataCheckBox).first().check();//Marking threat as reviewed
+      cy.get(threatListViewSelector.threatListViewImpactButton).first().click();
     }).then(() => {
-      cy.get(threatListViewSelector.threatListViewReviewCheckBox).eq(0).click({ force: true })
-      cy.wait(3000);
+      cy.get(impactPopupSelector.impactPopupCategoryDropDown).first().should('not.be.enabled');
+      cy.get(impactPopupSelector.impactPopupDamageScenarioTextArea).should('not.be.enabled');
+      cy.get(impactPopupSelector.impactPopupCancelButton).click();
     }).then(() => {
-      cy.get(impactPopupSelector.impactPopupConfirmButton).click({ force: true });
-      cy.wait(3000);
+      cy.get(threatListViewSelector.threatListViewReviewedTableDataCheckBox).first().check(); //Marking threat as ready
+    }).then(() => {
+      cy.get(threatListViewSelector.threatListViewReviewedTableDataCheckBox).first().uncheck(); //Marking threat as unreviewed
+    }).then(() => {
+      cy.wait(2000);
+      cy.get(impactPopupSelector.impactPopupConfirmButton).last().click({ force: true });
+      cy.wait(1000);
     })
   })
 
   it('Verify that when the user changes the treatment and opens Impact, then "before & after treatment view" should appear (MAIN-TC-1682, MAIN-TC-1683)', () => {
     cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
-      cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click().then(() => {
+      cy.wait(3000);
+      cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).first().click().then(() => {
         cy.get(threatListViewSelector.threatTreatmentReduceOption).click();
       }).then(() => {
-        cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click({ force: true }).then(() => {
+        cy.get(threatListViewSelector.threatListViewImpactButton).first().click({ force: true }).then(() => {
           cy.get(impactPopupSelector.impactPopupCategoryHeading).should('include.text', '(After Treatment)');
           cy.get(impactPopupSelector.impactPopupDamageScenarioHeading).should('include.text', '(After Treatment)');
         })
@@ -116,10 +116,10 @@ describe('Impact', () => {
 
   it('Verify impact rating and risk level is updated according to the view(MAIN-TC-1684)', () => {
     cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
-      cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).click();
+      cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).first().click();
     })
     cy.get(threatListViewSelector.threatTreatmentRetainOption).click({ force: true }).then(() => {
-      cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();
+      cy.get(threatListViewSelector.threatListViewImpactButton).first().click();
     }).then(() => {
       for (let i = 0; i < 4; i++) {
         cy.get(impactPopupSelector.impactPopupCategoryDropDown).eq(i).click();

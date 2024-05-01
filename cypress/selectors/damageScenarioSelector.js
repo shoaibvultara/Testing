@@ -7,11 +7,12 @@ module.exports = {
     damageScenarioDialogConfirmButton: '.confirm-dialog-btn', //Dialog Confirm Button of Damage Scenarios
     damageScenarioTableIdThead: 'th:contains("ID")', //Id column header
     damageScenarioTableDescriptionThead: 'th:contains("Description")', //Description coulmn header
+    damageScenarioMoreActionButton : 'button:contains("more_horiz")',  //Event Dropdown action button
 
     damageScenarioDialogIdInput: '#mat-input-2', //Dialog Id Input 
     damageScenarioDialogDescriptionInput: '#mat-input-1', //Dialog Description Input
 
-    damageScenarioDeleteIconButton: '.delete-icon-btn', //Delete Button
+    damageScenarioDeleteButton: 'button:contains(Delete Damage Scenario)', //Delete Button
     damageScenarioDescriptionTextArea: 'textarea', //Text Area of Damage Scenarios
     damagaeScenaroiReplacementForm: 'mat-form-field:contains(Replace)', //DS selection list form 
     damageScenarioReplacementListOption: 'mat-option',// DS list option

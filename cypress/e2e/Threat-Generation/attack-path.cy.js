@@ -88,84 +88,111 @@ describe('Attack Path', () => {
   })
 
   it('Component Drop down (MAIN-TC-1559, MAIN-TC-1560, MAIN-TC-1602, MAIN-TC-1692)', () => {
-    cy.visit(Cypress.env('baseURL') + '/threats')
-    cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
-    cy.get(threatListViewSelector.threatListViewAttackPathDialog).should('exist');
-    cy.get(attackPathPopupSelector.attackPathDialogTitleHeader).invoke('text').should('include', 'Threat # 1')
-    cy.get(attackPathPopupSelector.attackPathDialogAddStepButton).click();
-    cy.get(attackPathPopupSelector.attackPathDialogStepComponent).eq(0).click();
-    cy.get(attackPathPopupSelector.attackPathDialogComponentSelectPanel).should('exist');
-    cy.get(threatListViewSelector.componentSelectPanelStepOneOption).click();
-    cy.get(attackPathPopupSelector.attackPathDialogDeleteButton).click();
-    cy.get(navBarSelector.confirmDialogueParagraph).invoke('text').should('include', 'Step #1');
-    cy.get(navBarSelector.confirmDialogueCloseButton).click();
-    cy.get(navBarSelector.confirmDialogueConfirmButton).click();
-    cy.wait(1000);
+    cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
+      cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
+    }).then(() => {
+      cy.get(threatListViewSelector.threatListViewAttackPathDialog).should('exist');
+      cy.get(attackPathPopupSelector.attackPathDialogTitleHeader).invoke('text').should('include', 'Threat # 1')
+      cy.get(attackPathPopupSelector.attackPathDialogAddStepButton).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogStepComponent).eq(0).click();
+      cy.get(attackPathPopupSelector.attackPathDialogComponentSelectPanel).should('exist');
+    }).then(() => {
+      cy.get(threatListViewSelector.componentSelectPanelStepOneOption).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogDeleteButton).click();
+      cy.get(navBarSelector.confirmDialogueParagraph).invoke('text').should('include', 'Step #1');
+    }).then(() => {
+      cy.get(navBarSelector.confirmDialogueCloseButton).click();
+    }).then(() => {
+      cy.get(navBarSelector.confirmDialogueConfirmButton).click();
+      cy.wait(1000);
+    })
   })
 
   it('Steps in Attack Path (MAIN-TC-1561, MAIN-TC-1565, MAIN-TC-1622)', () => {
-    cy.visit(Cypress.env('baseURL') + '/threats')
-    cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
-    cy.get(threatListViewSelector.threatListViewAttackPathDialog).should('exist');
-    cy.get(attackPathPopupSelector.attackPathDialogStepOneTableData).invoke('text').should('contain', '1');
-    cy.get(attackPathPopupSelector.attackPathDialogAddStepButton).click();
-    cy.get(attackPathPopupSelector.attackPathDialogStepComponent).eq(1).click();
-    cy.get(threatListViewSelector.componentSelectPanelStepTwoOption).click();
-    cy.get(attackPathPopupSelector.attackPathDialogStepTwoTableData).invoke('text').should('contain', '2');
-    //cy.get('.mdc-button__label').contains('Confirm').click();
+    cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
+      cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
+    }).then(() => {
+      cy.get(threatListViewSelector.threatListViewAttackPathDialog).should('exist');
+      cy.get(attackPathPopupSelector.attackPathDialogStepOneTableData).invoke('text').should('contain', '1');
+      cy.get(attackPathPopupSelector.attackPathDialogAddStepButton).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogStepComponent).eq(1).click();
+    }).then(() => {
+      cy.get(threatListViewSelector.componentSelectPanelStepTwoOption).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogStepTwoTableData).invoke('text').should('contain', '2');
+    })
   })
 
   it('Description in Attack Path (MAIN-TC-1563)', () => {
-    cy.visit(Cypress.env('baseURL') + '/threats')
-    cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
-    cy.get(attackPathPopupSelector.attackPathDialogDescriptionEmptyTextArea).type("Testing the Description");
-    cy.get(navBarSelector.confirmDialogueConfirmButton).click();
-    cy.get(threatListViewSelector.threatListViewAttackPathColumn).should('have.value', 'Testing the Description');
+    cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
+      cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogDescriptionEmptyTextArea).type("Testing the Description");
+      cy.get(navBarSelector.confirmDialogueConfirmButton).click();
+    }).then(() => {
+      cy.get(threatListViewSelector.threatListViewAttackPathColumn).should('have.value', 'Testing the Description');
+    })
   })
 
   it('Reviewed Threat (MAIN-TC-1566, MAIN-TC-1696,MAIN-TC-1697)', () => {
     cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
       cy.wait(3000);
-      cy.get(threatListViewSelector.threatListViewReviewCheckBox).check();// to mark it reviewed
+      cy.get(threatListViewSelector.threatListViewReviewedTableDataCheckBox).first().check();// to mark it reviewed
+    }).then(() => {
       cy.wait(500);
-      cy.get(threatListViewSelector.threatListViewReviewCheckBox).check();// to mark it reviewed
+      cy.get(threatListViewSelector.threatListViewReviewedTableDataCheckBox).first().check();// to mark it reviewed
+    }).then(() => {
       cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
-      cy.get(attackPathPopupSelector.attackPathDialogStepComponent).eq(0).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogStepComponent).first().click();
+    }).then(() => {
       cy.get(threatListViewSelector.componentSelectPanelStepTwoOption).should('not.exist');//Component Drop down not be shown
       cy.get(attackPathPopupSelector.attackPathDialogDescriptionFilledTextArea).click();
+    }).then(() => {
       cy.get(attackPathPopupSelector.attackPathDialogDescriptionPopUp).should('not.exist');
     })
   })
 
   it('New Fields in Attack Path & No of Threats (MAIN-TC-1603, MAIN-TC-1619)', () => {
-    cy.visit(Cypress.env('baseURL') + '/threats')
-    cy.wait(1000);
-    cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
-    cy.get(attackPathPopupSelector.attackPathDialogComponentTableHeader).should('exist');
-    cy.get(attackPathPopupSelector.attackPathDialogStepTableHeader).should('exist');
-    cy.get(attackPathPopupSelector.attackPathDialogDescriptionTableHeader).should('exist');
-    //cy.get('tr.mat-mdc-row').its('length').as('original_row');
-    cy.get(attackPathPopupSelector.attackPathDialogStepCount).invoke('text').should('include', "1");//as we have only 1 step
+    cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
+      cy.wait(1000);
+      cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogComponentTableHeader).should('exist');
+      cy.get(attackPathPopupSelector.attackPathDialogStepTableHeader).should('exist');
+      cy.get(attackPathPopupSelector.attackPathDialogDescriptionTableHeader).should('exist');
+      cy.get(attackPathPopupSelector.attackPathDialogStepCount).invoke('text').should('include', "1");//as we have only 1 step
+    })
   })
 
   it('Step is unaccessible (MAIN-TC-1624)', () => {
-    cy.visit(Cypress.env('baseURL') + '/threats')
-    cy.wait(1000);
-    cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
-    cy.get(attackPathPopupSelector.attackPathDialogStepOneTableData).should('not.be.enabled');
+    cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
+      cy.wait(1000);
+      cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogStepOneTableData).should('not.be.enabled');
+    })
   })
 
   it('Adding a New Step and Confirm Button (MAIN-TC-1694,MAIN-TC-1696, MAIN-TC-1803)', () => {
-    cy.visit(Cypress.env('baseURL') + '/threats');
-    cy.wait(1000);
-    cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
-    cy.get(attackPathPopupSelector.attackPathDialogAddStepButton).click();
-    cy.get(attackPathPopupSelector.attackPathDialogStepComponent).eq(1).should('have.value', '');
-    cy.get(attackPathPopupSelector.attackPathDialogDescriptionFilledTextArea).should('have.value', '');
-    cy.get(navBarSelector.confirmDialogueConfirmButton).should('not.be.enabled');
-    cy.get(attackPathPopupSelector.attackPathDialogStepComponent).eq(1).click();
-    cy.get(threatListViewSelector.componentSelectPanelStepTwoOption).click();
-    cy.get(navBarSelector.confirmDialogueConfirmButton).should('not.be.disabled');
+    cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
+      cy.wait(1000);
+      cy.get(threatListViewSelector.threatListViewAttackPathTextArea).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogAddStepButton).click();
+    }).then(() => {
+      cy.get(attackPathPopupSelector.attackPathDialogStepComponent).eq(1).should('have.value', '');
+      cy.get(attackPathPopupSelector.attackPathDialogDescriptionFilledTextArea).should('have.value', '');
+      cy.get(navBarSelector.confirmDialogueConfirmButton).should('not.be.enabled');
+      cy.get(attackPathPopupSelector.attackPathDialogStepComponent).eq(1).click();
+    }).then(() => {
+      cy.get(threatListViewSelector.componentSelectPanelStepTwoOption).click();
+    }).then(() => {
+      cy.get(navBarSelector.confirmDialogueConfirmButton).should('not.be.disabled');
+    })
   })
 })
 

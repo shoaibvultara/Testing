@@ -1,7 +1,7 @@
 module.exports = {
     modelingViewCanvas: '[id=drawingCanvas]',//drawing canvas(board)
 
-    componentLibraryMicrocontroller: '[id=microcontroller]',//microcontroller image
+    componentLibraryMicrocontroller: 'a[id=microcontroller]',//microcontroller image
     componentLibraryModule: '[id=generalModule]',//module image
     componentLibraryCommunicationLine: '[id=communicationPolyline]',//communication line image
     componentLibrarySensorInput: '[id="sensorInput"]',//sensor input component
@@ -27,6 +27,9 @@ module.exports = {
 
     componentSpecComponentNameInput: 'input[formcontrolname="formLimit"]',//component name input field
     componentSpecComponentModelInput: '[id=matSelectSelectedMicro]',//
+    propertyPanelModelingResultTab: 'div[role="tab"]:contains(Modeling Results)',
+    propertyPanelModelingResultTabPaginator: 'div.mat-mdc-paginator-range-label',
+    propertyPanelModelingResultTabTableRow: 'tr[mattooltipclass="modelingResultInfoTooltip"]',
 
     communicationLineSpecNameInput: 'input[formcontrolname=formLimit]',
     communicationLineSpecTransmissionSelect: '[id=transmission-media-field]',
@@ -53,6 +56,7 @@ module.exports = {
     assetComponentContentTextArea: 'div[role="presentation"]',  // Assets in the Component Content Text Area
 
     componentSpecFeatureSettingsModuleSelect: 'mat-select[role="combobox"]',
+    componentSpecFeatureSettingsModuleTextarea: 'textarea[role="combobox"]',
     componentSpecFeatureSettingsModuleTestOption: '[id=mat-option-3]',
     componentSpecFeaturesSettingsFeaturesSelect: 'input[id="microFeatureInput"]',
     componentSpecFeaturesSettingsFeaturesDropdownList: 'mat-option' ,
@@ -87,6 +91,7 @@ module.exports = {
     communicationLineAutoEmergencyBrakeLabel: 'label:contains(Automatic Emergency Brake)',
     communicationLineLaneDepartureAlertMessageLabel: 'label:contains(Lane Departure Alert message)',
     communicationLineLaneDepartureAlertSwCodeLabel: 'label:contains(Lane Departure Alert Software code)',
+    communicationLineLaneDepartureAlertSwProcessLabel: 'label:contains(Lane Departure Alert Software process)',
 
     modelingViewSnackBar: '.mat-mdc-snack-bar-label'//message snack bar
 }

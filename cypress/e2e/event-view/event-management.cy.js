@@ -133,7 +133,8 @@ describe('Event Management', () => {
       milestoneKey = 'MAIN-TC-2118';
       cy.createMilestone(milestoneKey);
     }).then(() => {
-      cy.wait(4000);
+      cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone MAIN-TC-2118 is created successfully.');
+    }).then(() => {
       cy.loadMilestone(milestoneKey);
     }).then(() => {
       cy.visit(Cypress.env('baseURL') + '/event'); //Go to Event Page

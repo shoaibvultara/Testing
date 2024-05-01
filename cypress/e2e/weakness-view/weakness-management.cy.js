@@ -121,28 +121,25 @@ describe('Weakness Management', () => {
     let cweCategoryHeader = 'CWE Category';
     let vulnerabilityAnalysisHeader = 'Vulnerability Analysis';
     let vulnerabilityLinkedHeader = 'Vulnerabilities Linked';
-    cy.visit(Cypress.env('baseURL')).then(() => {
-      cy.wait(1000);
-      cy.get(navBarSelector.navBarWeaknessListViewIcon).should('exist').click()
-    }).then(() => {
-        cy.get(weaknessSelector.weaknessContentTextArea).each(($weaknessContentTextArea) => {
-          cy.wrap($weaknessContentTextArea).should('be.visible'); // Assert that each feature content textarea are visible
-        }).then(() => {
-          cy.get(weaknessSelector.headerRow).contains(weaknessNoHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(dateIdentifiedHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(identificationMethodHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(sourceNoteHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(componentHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(attackSurfaceHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(assetHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(weaknessDescriptionHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(cweIdHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(cweWeaknessTypeHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(cweCategoryHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(vulnerabilityAnalysisHeader).should('be.visible');
-          cy.get(weaknessSelector.headerRow).contains(vulnerabilityLinkedHeader).should('be.visible');
-        })
+    cy.visit(Cypress.env('baseURL') + '/weaknesses').then(() => {
+      cy.get(weaknessSelector.weaknessContentTextArea).each(($weaknessContentTextArea) => {
+        cy.wrap($weaknessContentTextArea).should('be.visible'); // Assert that each feature content textarea are visible
+      }).then(() => {
+        cy.get(weaknessSelector.headerRow).contains(weaknessNoHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(dateIdentifiedHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(identificationMethodHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(sourceNoteHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(componentHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(attackSurfaceHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(assetHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(weaknessDescriptionHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(cweIdHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(cweWeaknessTypeHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(cweCategoryHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(vulnerabilityAnalysisHeader).should('be.visible');
+        cy.get(weaknessSelector.headerRow).contains(vulnerabilityLinkedHeader).should('be.visible');
       })
+    })
   })
 
   it('Verify the user is able to highlight the existing weaknesses (MAIN-TC-885)', () => {
@@ -176,6 +173,15 @@ describe('Weakness Management', () => {
     }).then(() => {
       cy.get(weaknessSelector.snackBarMessage).should('include.text', 'Weakness analysis updated successfully');
       cy.wait(2000);
+    }).then(() => {
+      cy.get(weaknessSelector.weaknessDropDownActionButton).first().click({ force: true});
+    }).then(() => {
+      cy.get(weaknessSelector.archiveWeaknessButton).click();
+    }).then(() => {
+      cy.get(weaknessSelector.globalConfirmButton).click();
+    }).then(() => {
+      cy.get(weaknessSelector.snackBarMessage).should('include.text', 'Weakness Archived Successfully');
+      cy.wait(1000);
     }).then(() => {
       cy.searchForWeaknessInArchivedListPage(weaknessDescription);
     })
@@ -211,6 +217,15 @@ describe('Weakness Management', () => {
     }).then(() => {
       cy.get(weaknessSelector.snackBarMessage).should('include.text', 'Weakness analysis updated successfully');
       cy.wait(2000);
+    }).then(() => {
+      cy.get(weaknessSelector.weaknessDropDownActionButton).first().click({ force: true});
+    }).then(() => {
+      cy.get(weaknessSelector.archiveWeaknessButton).click();
+    }).then(() => {
+      cy.get(weaknessSelector.globalConfirmButton).click();
+    }).then(() => {
+      cy.get(weaknessSelector.snackBarMessage).should('include.text', 'Weakness Archived Successfully');
+      cy.wait(1000);
     }).then(() => {
       cy.deleteWeaknessArchivedList();
     })

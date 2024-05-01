@@ -28,11 +28,7 @@ describe('Milestone Display Features', () => {
         cy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');
         cy.createMilestone(milestoneName).then(() => {
             cy.get('@postRequest').its('response.statusCode').should('eq', 200);
-            recurse(
-                () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                ($snackBar) => cy.wait(10),
-                { delay: 1000 }
-            )
+            cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone Automation_Milestone is created successfully.');
         });
     })
 
@@ -49,11 +45,7 @@ describe('Milestone Display Features', () => {
             cy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');
             cy.createMilestone(milestoneName).then(() => {
                 cy.get('@postRequest').its('response.statusCode').should('eq', 200);
-                recurse(
-                    () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                    ($snackBar) => cy.wait(10),
-                    { delay: 1000 }
-                )
+                cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone MAIN-TC-84 is created successfully.');
             });
             cy.get(navBarSelector.navBarProjectButton).click().then(() => {// Click project in navigation bar
                 cy.get(navBarSelector.projectListLoadMilestoneButton).should('be.enabled'); // load a milestone button
@@ -65,7 +57,7 @@ describe('Milestone Display Features', () => {
         cy.visit(Cypress.env('baseURL')).then(() => {
             milestoneName = 'Automation_Milestone';
             cy.loadMilestone(milestoneName).then(() => {
-                cy.get(navBarSelector.navBarRunTheModelIcon).should('be.disabled'); // Click run the model in navigation bar
+                cy.get(navBarSelector.navBarRunTheModelButton).should('be.disabled'); // Click run the model in navigation bar
             })
         })
     })
@@ -99,24 +91,20 @@ describe('Milestone Display Features', () => {
         })
     })
 
-    it('Verify the milestone name on the top left of the canvas and on milstone header in profile drop down when loaded(MAIN-TC-2051, MAIN-TC-1159, MAIN-TC-1165, MAIN-TC-1157)', () => {
+    it('Verify the milestone name on the top left of the canvas and on milstone header in profile drop down when loaded(MAIN-TC-2051, MAIN-TC-1159, MAIN-TC-1165, MAIN-TC-1157, MAIN-TC-1166)', () => {
         cy.visit(Cypress.env('baseURL')).then(() => {
             milestoneName = 'MAIN-TC-2051, MAIN-TC-1159, MAIN-TC-1165, MAIN-TC-1157';
             cy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');
             cy.createMilestone(milestoneName).then(() => {
                 cy.get('@postRequest').its('response.statusCode').should('eq', 200);
-                recurse(
-                    () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                    ($snackBar) => cy.wait(10),
-                    { delay: 1000 }
-                )
+                cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone MAIN-TC-2051, MAIN-TC-1159, MAIN-TC-1165, MAIN-TC-1157 is created successfully.');
             });
             cy.loadMilestone(milestoneName).then(() => {
                 cy.get(modelingViewSelector.modelingViewMilestoneNameDiv).should('exist');
                 cy.get(modelingViewSelector.modelingViewMilestoneNameDiv).invoke('text').then((text) => {
                     expect(text.length).to.be.at.most(34);//FIRST SUB OF MILESTONE NAME = 30 CHARS + SPACE CHAR + THREE DOTS
                 });
-                cy.get(navBarSelector.navBarProfileIcon).click();
+                cy.get(navBarSelector.navBarProfileButton).click();
                 cy.get(navBarSelector.profileListMilestoneHeader).should('include.text', 'Milestone: ' + milestoneName);
             })
         })
@@ -135,13 +123,7 @@ describe('Milestone Display Features', () => {
         cy.visit(Cypress.env('baseURL')).then(() => {
             milestoneName = 'Automation_Milestone_TC-2238';
             cy.createMilestone(milestoneName).then(() => {
-                recurse(
-                    () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                    ($snackBar) => cy.wait(10),
-                    { delay: 1000 }
-                ).then(($snackBar) => {
-                    expect($snackBar.last()).to.include.text('Milestone ' + milestoneName + ' is created successfully');
-                })
+                cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone Automation_Milestone_TC-2238 is created successfully.');
             });
         })
     })
@@ -150,20 +132,20 @@ describe('Milestone Display Features', () => {
         cy.visit(Cypress.env('baseURL')).then(() => {
             milestoneName = 'Automation_Milestone';
             cy.loadMilestone(milestoneName).then(() => {
-                cy.get(navBarSelector.navBarMilestoneIcon).should('exist');
+                cy.get(navBarSelector.navBarMilestoneButton).should('exist');
             })
         })
     })
 
     it('Verify that Milestone icon is not present before loading the milestone view and after closing it (MAIN-TC-2569)', () => {
         cy.visit(Cypress.env('baseURL')).then(() => {
-            cy.get(navBarSelector.navBarMilestoneIcon).should('not.exist');
+            cy.get(navBarSelector.navBarMilestoneButton).should('not.exist');
         })
     })
 
     it('Verify that if no milestone is loaded, the milestone field is showing "N/A" (MAIN-TC-1158)', () => {
         cy.visit(Cypress.env('baseURL')).then(() => {
-            cy.get(navBarSelector.navBarProfileIcon).click();
+            cy.get(navBarSelector.navBarProfileButton).click();
             cy.get(navBarSelector.profileListMilestoneHeader).should('have.text', 'Milestone: ' + 'N/A');
         })
     })
@@ -172,8 +154,8 @@ describe('Milestone Display Features', () => {
         cy.visit(Cypress.env('baseURL')).then(() => {
             milestoneName = 'Automation_Milestone';
             cy.loadMilestone(milestoneName).then(() => {
-                cy.get(navBarSelector.navBarMilestoneIcon).click({ force: true }).then(() => {
-                    cy.get(navBarSelector.navBarProfileIcon).click();
+                cy.get(navBarSelector.navBarMilestoneButton).click({ force: true }).then(() => {
+                    cy.get(navBarSelector.navBarProfileButton).click();
                     cy.get(navBarSelector.profileListMilestoneHeader).should('have.text', 'Milestone: ' + 'N/A');
                 })
             })
@@ -184,14 +166,44 @@ describe('Milestone Display Features', () => {
         cy.visit(Cypress.env('baseURL')).then(() => {
             milestoneName = 'Automation_Milestone';
             cy.loadMilestone(milestoneName).then(() => {
-                cy.get(navBarSelector.navBarProfileIcon).click();
+                cy.get(navBarSelector.navBarProfileButton).click();
                 cy.get(navBarSelector.profileListLogoutButton).click();
             })
             cy.wait(1000);
             cy.login();
             cy.loadProject(projectId);
             cy.visit(Cypress.env('baseURL')).then(() => {
-                cy.get(navBarSelector.navBarProfileIcon).click();
+                cy.get(navBarSelector.navBarProfileButton).click();
+                cy.get(navBarSelector.profileListMilestoneHeader).should('have.text', 'Milestone: ' + 'N/A');
+            })
+        })
+    })
+
+    it('Verify in modeling view, All buttons in edit menu should be disabled (MAIN-TC-95, MAIN-TC-89, MAIN-TC-388)', () => {
+        cy.visit(Cypress.env('baseURL')).then(() => {
+            milestoneName = 'Automation_Milestone';
+            cy.loadMilestone(milestoneName).then(() => {
+                cy.get(navBarSelector.navBarEditButton).click();
+            }).then(() => {
+                cy.get(navBarSelector.editListNewDesignButton).should('be.disabled');
+                cy.get(navBarSelector.editListRestoreThreatButton).should('be.disabled');
+                cy.get(navBarSelector.editListMapThreatListToWP29Button).should('be.disabled');
+                cy.get(navBarSelector.editListShowMappingButton).should('be.disabled');
+                cy.get(navBarSelector.editListRunTheModelButton).first().should('be.disabled');
+                cy.get(navBarSelector.editListStartOverRunTheModelButton).last().should('be.disabled');
+            })
+        })
+    })
+
+    it('Verify in navbar under project menu, "Switch to current project" button should be enabled (MAIN-TC-97)', () => {
+        cy.visit(Cypress.env('baseURL')).then(() => {
+            milestoneName = 'Automation_Milestone';
+            cy.loadMilestone(milestoneName).then(() => {
+                cy.get(navBarSelector.navBarProjectButton).click();
+            }).then(() => {
+                cy.get(navBarSelector.projectListSwitchToCurrentProjectButton).should('be.enabled').click();
+            }).then(() => {
+                cy.get(navBarSelector.navBarProfileButton).click();
                 cy.get(navBarSelector.profileListMilestoneHeader).should('have.text', 'Milestone: ' + 'N/A');
             })
         })

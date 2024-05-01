@@ -157,7 +157,7 @@ describe('Weakness Relation', () => {
         }).then(() => {
             cy.get(weaknessSelector.globalConfirmButton).click();
         }).then(() => {
-            cy.get(weaknessSelector.snackBarMessage).should('include.text','Changes saved successfully');
+            cy.get(weaknessSelector.snackBarMessage).should('include.text', 'Changes saved successfully');
         }).then(() => {
             cy.visit(Cypress.env('baseURL') + '/vulnerabilities');
             cy.get(vulnerabilityListViewSelector.vulnerabilityListViewMoreButton).first().click();
@@ -179,7 +179,7 @@ describe('Weakness Relation', () => {
                 .should('have.value', updatedAsset);
         }).then(() => {
             cy.get(weaknessSelector.globalConfirmButton).click();
-            cy.get(weaknessSelector.snackBarMessage).should('include.text','Weakness updated successfully.');
+            cy.get(weaknessSelector.snackBarMessage).should('include.text', 'Weakness updated successfully.');
         }).then(() => {
             cy.visit(Cypress.env('baseURL') + '/vulnerabilities');
             cy.get(vulnerabilityListViewSelector.vulnerabilityListViewMoreButton).first().click();
@@ -211,7 +211,7 @@ describe('Weakness Relation', () => {
             cy.visit(Cypress.env('baseURL') + '/weaknesses');
             cy.wait(1000);
         }).then(() => {
-            cy.get(weaknessSelector.weaknessDropDownActionButton).eq(0).click({ force: true} );
+            cy.get(weaknessSelector.weaknessDropDownActionButton).eq(0).click({ force: true });
         }).then(() => {
             cy.get(weaknessSelector.eventLinkingButton).click();
         }).then(() => {
@@ -226,7 +226,27 @@ describe('Weakness Relation', () => {
             cy.get(weaknessSelector.globalCheckBox).eq(0).check({ force: true }).should('be.checked');
             cy.get(weaknessSelector.globalConfirmButton).click();
         }).then(() => {
-            cy.get(weaknessSelector.snackBarMessage).should('include.text','Changes saved successfully');
+            cy.get(weaknessSelector.snackBarMessage).should('include.text', 'Changes saved successfully');
+        })
+    })
+
+    it('Verify that if user updated any field in Analyze Weakness dialog and clicked on cancel button in Confirmation box nothing is updated (MAIN-TC-2931)', () => {
+        cy.visit(Cypress.env('baseURL') + '/weaknesses').then(() => { // Go to Weakness Page
+            cy.createComponent().then(() => {
+                cy.addNewWeakness(weakness, weaknessDescription).then(() => {
+                    cy.get(weaknessSelector.vulnerabilityAnalysisButton).first().click({ force: true }).then(() => {
+                        cy.get(weaknessSelector.analyzeWeaknessExploitableButton).click().then(() => {
+                            cy.get(weaknessSelector.weaknessDropDownOptionList).eq(0).click();
+                        })
+                    }).then(() => {
+                        cy.get(weaknessSelector.globalCancelButton).click().then(() => {
+                            cy.get(weaknessSelector.globalConfirmButton).last().click().then(() => {
+                                cy.get(weaknessSelector.vulnerabilityAnalysisButton).should('be.visible');
+                            })
+                        })
+                    })
+                })
+            })
         })
     })
 })

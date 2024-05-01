@@ -25,13 +25,17 @@ module.exports = {
     threatListViewExpandThreatIcon: 'button:contains("unfold_more")',
     threatListViewExpandedThreatDiv: 'div[class^="expanded-threat-content"]',//'^' means, class name starts with...
     threatListViewSelectedNotiationSpan: 'span:contains("selected")',
-    threatListViewExpandedThreatAddIcon: 'mat-icon:contains(add)',
+    threatListViewExpandedThreatAddIcon: 'button:has(mat-icon:contains(add))',
     threatListViewAddGoalDialogDescription: 'textarea[class^="cybersecurity-goal-information"]',
     threatListViewAddNewGoalFromPool: 'mat-select:contains(New Goal)',
     threatListViewAddNewClaimFromPool: 'mat-select:contains(New Claim)',
     threatListViewAddClaimDialogDescription: 'textarea[class^="cybersecurity-goal-information"]',
+    threatListViewAddClaimDialogSelectField: 'mat-select',
     threatListViewExpandedRecordId: 'td[class*="mat-column-serial"]',
     threatListViewExpandedRecordContent: 'td[class*="mat-column-content"]',
+    threatListViewRemoveButton: 'button:contains(Remove)',
+    threatListViewCybersecurityRecordDialog: '.cybersecurity-goal-list',
+    threatListViewAddNewGoalSearchInput: 'textarea[ng-reflect-placeholder="Search"]',
 
     threatTreatmentNoTreatmentOption: 'mat-option:contains("no treatment")',
     threatTreatmentReduceOption: 'mat-option:contains("reduce")',
@@ -81,7 +85,7 @@ module.exports = {
     mapThreatToWP29DialogDoneButton: 'button:contains(Done)',
     mapThreatToWP29DialogAcknowledgeButton: 'button:contains(Acknowledge)',
 
-    threatListValidatedCheckbox: "#mat-mdc-checkbox-4-input",
+    threatListViewValidatedTableDataCheckBox: 'td[class*="mat-column-treatmentVal"] > mat-checkbox > div > div > input[type="checkbox"]',
     dialogCloseIcon: 'mat-icon:contains("close")',
     attackTreeButton: '.attack-tree-button',
     poolDialogRemoveButton: 'button:contains(Remove)',
@@ -90,4 +94,6 @@ module.exports = {
     threatListShowFilterButton: 'button:contains(Show Filter)',
     filterByGoalAndClaimButton: 'button:contains(Filter By Goals & Claims)',
     cybersecurityFilterContent: '.cybersecurity-filter-content',
+    threatListViewReviewedTableDataCheckBox: 'td[class*="mat-column-reviewed"] > mat-checkbox > div > div > input[type="checkbox"]',
+    threatListRow: 'tbody > tr',
 }

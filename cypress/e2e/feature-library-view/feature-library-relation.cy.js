@@ -69,8 +69,12 @@ describe('Feature Library Relations', () => {
         }).then(() => {
             cy.updateModuleName(moduleName, moduleNewName);
         }).then(() => {
-            cy.wait(2000);
-            cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
+            cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             let indexOfRecord = 0;
             cy.get(featureLibrarySelector.featureContentTextArea).each(($element) => {
@@ -95,8 +99,12 @@ describe('Feature Library Relations', () => {
         let featureName = 'TC_570_FTR_' + projectName.substring(20);
         cy.createNewFeature(featureName, assetName, featureType).then(() => {
             cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             let indexOfRecord = 0;
             cy.get(featureLibrarySelector.featureContentTextArea).each(($element) => {
@@ -154,7 +162,6 @@ describe('Feature Library Relations', () => {
                     .should('have.value', damageScenario);
             }).then(() => {
                 cy.get(featureLibrarySelector.confirmChangesButton).click();
-            }).then(() => {
                 cy.get(featureLibrarySelector.confirmChangesSnackbar).should('include.text', 'Feature sucessfully updated!');
             }).then(() => {
                 cy.deleteFeature(featureName);
@@ -224,7 +231,6 @@ describe('Feature Library Relations', () => {
                 }).then(() => {
                     cy.get(moduleLibrarySelector.moduleFeatureMoreOptionsButton).click({ force: true });
                     cy.get(moduleLibrarySelector.updateFeatureButton).click();
-                }).then(() => {
                     cy.get(moduleLibrarySelector.updateFeatureSnackBar).should('include.text', 'Feature updated successfully');
                     cy.get(navBarSelector.dialogCloseIcon).click();
                 }).then(() => {
@@ -271,7 +277,8 @@ describe('Feature Library Relations', () => {
         }).then(() => {
             cy.get(modelingViewSelector.drawingCanvasMicrocontroller).rightclick();
         }).then(() => {
-            cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect).click();
+            cy.wait(2000);
+            cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleTextarea).click();
         }).then(() => {
             cy.get(modelingViewSelector.componentSpecFeatureSettingFrontFacingCameraOption).click();
         }).then(() => {

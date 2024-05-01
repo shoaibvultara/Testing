@@ -15,6 +15,9 @@ module.exports = {
     claimPoolAddClaimSearchInput: 'input[ng-reflect-placeholder="Search for claim"]',
     goalPoolGoalPoolTabDiv: 'span.mdc-tab__text-label:contains(Cybersecurity Goal Pool)',
     searchForClaimLibraryBox: 'input[ng-reflect-placeholder="Search Available Claims"]',
+    addClaimToLibraryButton: 'button:contains(Add Claim to Library)',
+    noCybersecurityClaimFoundDescription: 'p:contains(No cybersecurity claim found)',
+    cybersecurityClaimPoolTitle: 'h1:contains(Cybersecurity Claim Pool)',
 
     //export to
     exportToReqIfButton: 'button:contains(Export to ReqIF)',

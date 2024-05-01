@@ -6,10 +6,9 @@ import { recurse } from 'cypress-recurse'
 Cypress.Commands.add('createNewFeature', (featureName, assetName, featureType) => {
     cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page
         cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-        cy.wait(1000);
-        cy.get(featureLibrarySelector.createNewFeatureButton).click()
+        cy.wait(2000);
+        cy.get(featureLibrarySelector.createNewFeatureButton).click();
     }).then(() => {
-        cy.wait(1000);
         recurse(() =>
             cy.get(featureLibrarySelector.featureNameFieldBox).clear().type(featureName),
             ($inputField) => $inputField.val() === featureName,
@@ -27,7 +26,6 @@ Cypress.Commands.add('createNewFeature', (featureName, assetName, featureType) =
     }).then(() => {
         cy.get(featureLibrarySelector.createFeatureButton).should('be.enabled').click();
         cy.wait(2000);
-    }).then(() => {
         cy.get(featureLibrarySelector.createNewFeatureSnackBar).should('include.text', 'New feature successfully created!')
     })
 })
@@ -67,7 +65,7 @@ Cypress.Commands.add('searchFeatureBox', (searchKey) => {
 Cypress.Commands.add('deleteFeature', (featureName) => {
     cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page 
         cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-        cy.wait(1000);
+        cy.wait(2000);
     }).then(() => {
         let indexOfRecord = 0;
         cy.get(featureLibrarySelector.featureContentTextArea).each(($element) => {
@@ -79,7 +77,6 @@ Cypress.Commands.add('deleteFeature', (featureName) => {
         }).then(() => {
             cy.get(featureLibrarySelector.deleteFeatureButton).should('exist').click();
             cy.get(featureLibrarySelector.featureLibraryConfirmToDeleteButton).click();
-        }).then(() => {
             cy.get(featureLibrarySelector.deleteFeatureSnackBar).should('include.text', 'Feature successfully deleted')
         })
     })
@@ -109,7 +106,6 @@ Cypress.Commands.add('linkWithModule', (featureName, featureRole, moduleName) =>
             cy.get(featureLibrarySelector.globalDropDownOptionList).contains(featureRole).click();
         }).then(() => {
             cy.get(featureLibrarySelector.confirmChangesButton).click();
-        }).then(() => {
             cy.get(navBarSelector.subsequentSnackBarElement).should('include.text', 'Feature sucessfully updated!');
         })
     })

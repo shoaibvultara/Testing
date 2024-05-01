@@ -33,11 +33,7 @@ describe('Milestone & Cybersecurity Pools Display', () => {
         cy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');
         cy.createMilestone(milestoneName).then(() => {
             cy.get('@postRequest').its('response.statusCode').should('eq', 200);
-            recurse(
-                () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                ($snackBar) => cy.wait(10),
-                { delay: 1000 }
-            )
+            cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone Automation_Milestone is created successfully.');
         });
     })
 
@@ -55,11 +51,7 @@ describe('Milestone & Cybersecurity Pools Display', () => {
         cy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');
         cy.createMilestone(milestoneName).then(() => {
             cy.get('@postRequest').its('response.statusCode').should('eq', 200);
-            recurse(
-                () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                ($snackBar) => cy.wait(10),
-                { delay: 1000 }
-            )
+            cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone MAIN-TC-2113 is created successfully.');
         });
         cy.loadMilestone(milestoneName);
         cy.get(modelingViewSelector.modelingViewMilestoneNameDiv).should('exist');
@@ -71,7 +63,7 @@ describe('Milestone & Cybersecurity Pools Display', () => {
         cy.visit(Cypress.env('baseURL'));
         cy.wait(1000);
         //req
-        const requirementName = 'Automation_Requirment';
+        const requirementName = 'Automation_Requirement';
         cy.addRequirement(requirementName);
         cy.wait(500);
         //bom
@@ -112,11 +104,7 @@ describe('Milestone & Cybersecurity Pools Display', () => {
         cy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');
         cy.createMilestone(milestoneName).then(() => {
             cy.get('@postRequest').its('response.statusCode').should('eq', 200);
-            recurse(
-                () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                ($snackBar) => cy.wait(10),
-                { delay: 1000 }
-            )
+            cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone MAIN-TC-2115-2116-2117-2119-2120-2121 is created successfully.');
         });
         cy.loadMilestone(milestoneName);
         cy.get(modelingViewSelector.modelingViewMilestoneNameDiv).should('exist');
@@ -137,8 +125,7 @@ describe('Milestone & Cybersecurity Pools Display', () => {
             cy.get(assumptionPageSelector.assumptionRowTextArea).should('have.value', 'Automation_Assumption');
         })
     })
-
-    })
+})
 
 describe('CLEANUP: Project Deletion', () => {
     it('Deleting The Project If Created', () => {

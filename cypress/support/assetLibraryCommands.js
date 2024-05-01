@@ -14,19 +14,12 @@ Cypress.Commands.add('createNewAsset', (assetName, assetType, subType, tagName) 
             { delay: 1000 })
             .should('have.value', assetName);
     }).then(() => {
-        cy.get(assetLibrarySelector.assetTypeFieldButton).click();
-        cy.get(assetLibrarySelector.globalDropDownOption).contains(assetType).click();
-    }).then(() => {
-        recurse(() =>
-            cy.get(assetLibrarySelector.tagsFieldBox).click().clear().type(tagName),
-            ($inputField) => $inputField.val() === tagName,
-            { delay: 1000 })
-            .should('have.value', tagName);
+        cy.get('mat-select[name="assetSubType"]').click();
+        cy.get('mat-option').eq(0).click();
     }).then(() => {
         cy.get(assetLibrarySelector.newAssetDialogConfirmButton).click();
-        cy.wait(2000);
     }).then(() => {
-        cy.get(assetLibrarySelector.snackBarMessage).should('include.text' , 'New asset created!')
+        cy.get(assetLibrarySelector.snackBarMessage).should('include.text' , 'New asset created!');
     })
 })
 
@@ -45,7 +38,7 @@ Cypress.Commands.add('showAllAssetButton', () => {
         cy.wait(2000);
         cy.get(projectLibrarySelector.librarySideNavAssetAnchor).click();  // Go to Asset tab
     }).then(() => {
-        cy.get(assetLibrarySelector.assetLibraryShowAllButton).should('exist').click();
+        cy.get(assetLibrarySelector.assetLibraryLoadMoreButton).should('exist').click();
         cy.get(assetLibrarySelector.assetLoaderIcon).should('exist');
     })
 })

@@ -6,6 +6,7 @@ import { recurse } from 'cypress-recurse';
 
 const navBarSelector = require('../selectors/navBarSelector.js');
 const modelingViewSelector = require('../selectors/modelingViewSelector.js');
+const threatListViewSelector = require('../selectors/threatListViewSelector.js');
 
 Cypress.Commands.add('dragAndDropModel', () => {
     const dataTransfer = new DataTransfer();
@@ -93,7 +94,7 @@ Cypress.Commands.add('createModel', () => {
         ).then(() => {
             cy.get(modelingViewSelector.drawingCanvasMicrocontroller).rightclick().then(() => {
                 //cy.get('mat-card-title:contains(Communication Line Spec)').should('not.exist').then(() => {
-                cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect).click().then(() => {
+                cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleTextarea).click().then(() => {
                     cy.get(modelingViewSelector.componentSpecFeatureSettingTestOption).click();
                 }).then(() => {
                     cy.get(modelingViewSelector.componentSpecFeatureSettingsSubmitButton).click();
@@ -109,7 +110,7 @@ Cypress.Commands.add('createModel', () => {
                 { delay: 1000 }
             ).then(() => {
                 cy.get(modelingViewSelector.drawingCanvasModule).rightclick().then(() => {
-                    cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect).click().then(() => {
+                    cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleTextarea).click().then(() => {
                         cy.get(modelingViewSelector.componentSpecFeatureSettingTestOption).click();
                     }).then(() => {
                         cy.get(modelingViewSelector.componentSpecFeatureSettingsSubmitButton).click();
@@ -140,10 +141,10 @@ Cypress.Commands.add('createModel', () => {
             })
         })
     }).then(() => {
-        cy.get(navBarSelector.navBarRunTheModelIcon).click().then(() => {
-            cy.get(navBarSelector.loader).should('be.visible'); //assertion to check if the loader is being shown
-            cy.wait(10000).then(() => {
-                cy.url().should('contain', '/threats');
+        cy.get(navBarSelector.navBarEditButton).click().then(() => {
+            cy.get(navBarSelector.editListRunTheModelButton).first().click();
+            cy.get(navBarSelector.loader).should('be.visible').then(() => { //assertion to check if the loader is being shown
+            cy.get(threatListViewSelector.threatListRow).should('have.length.at.least', 1) //assertion to check that threat list page is shown and contains at least one row
             })
         })
     })

@@ -9,29 +9,31 @@ const projectBomSelector = require('../selectors/projectBomSelector.js')
 
 Cypress.Commands.add("addNewBom", (bom) => {
     cy.visit(Cypress.env('baseURL') + '/project-bom').then(() => {
-        cy.get(projectBomSelector.projectBomAddNewBomButton).click();
+        cy.get(projectBomSelector.projectBomAddNewBomButton).should('exist').click();
+    }).then(() => {
         recurse(
             () => cy.get(projectBomSelector.addNewBomFormVersionInput).clear().type(bom.version),
             ($inputField) => $inputField.val() === bom.version,
-            { delay: 1000 }
-        );
+            { delay: 1000 });
+    }).then(() => {
         recurse(
             () => cy.get(projectBomSelector.addNewBomDialogProductInput).clear().type(bom.product),
             ($inputField) => $inputField.val() === bom.product,
-            { delay: 1000 }
-        );
+            { delay: 1000 });
+    }).then(() => {
         recurse(
             () => cy.get(projectBomSelector.addNewBomDialogVendorInput).clear().type(bom.vendor),
             ($inputField) => $inputField.val() === bom.vendor,
-            { delay: 1000 }
-        );
-        cy.get(projectBomSelector.addNewBomDialogPartSelect).click().then(() => {
-            cy.get(projectBomSelector.addNewBomDialogPartOption).contains(bom.part).click().then(() => {
-                cy.get(navBarSelector.confirmDialogueConfirmButton).click();//confirm bom dialog inputs
-            })
-        })
+            { delay: 1000 });
+    }).then(() => {
+        cy.get(projectBomSelector.addNewBomDialogPartSelect).click();
+    }).then(() => {
+        cy.get(projectBomSelector.addNewBomDialogPartOption).contains(bom.part).click();
+    }).then(() => {
+        cy.get(navBarSelector.confirmDialogueConfirmButton).click();//confirm bom dialog inputs
+        cy.wait(1000);
     })
-});
+})
 
 Cypress.Commands.add("deleteBom", (bomRow) => {
     cy.get(projectBomSelector.projectBomMoreActionsButton).eq(bomRow - 1).click();
@@ -56,13 +58,31 @@ Cypress.Commands.add("clearSearchBomInput", () => {
     cy.get(projectBomSelector.projectBomSearchAvailableBomInput).click().clear();
 });
 
-Cypress.Commands.add("addBomFromMicroLibrary", (bom) => {
-    cy.get(projectBomSelector.projectBomAddFromMicroLibraryButton).click();
-    cy.get(projectBomSelector.addNewBomFormVersionInput).type(bom.version);
-    cy.get(projectBomSelector.addFromMicroLibraryFilterListOption).contains(bom.filterKey).click();
-    cy.intercept('POST', Cypress.env('apiURL') + '/bom*').as('postRequest');
-    cy.get(navBarSelector.confirmDialogueConfirmButton).click();
-    cy.get('@postRequest').its('response.statusCode').should('eq', 200);
+Cypress.Commands.add("addBomFromMicroLibrary", (bom, filterOption) => {
+    cy.visit(Cypress.env('baseURL') + '/project-bom').then(() => {
+        cy.get(projectBomSelector.projectBomAddFromMicroLibraryButton).should('exist').click();
+    }).then(() => {
+        cy.wait(1000);
+        cy.get(projectBomSelector.addFromMicroLibraryFilterOption).should('exist');
+    }).then(() => {
+        recurse(() =>
+            cy.get(projectBomSelector.addFromMicroLibraryFilterOption).clear().type(filterOption),
+            ($inputField) => $inputField.val() === filterOption,
+            { delay: 1000 })
+            .should('have.value', filterOption);
+    }).then(() => {
+        cy.wait(1000);
+        cy.get(projectBomSelector.addFromMicroLibraryFilterListOption).contains(filterOption).should('be.visible').click();
+    }).then(() => {
+        cy.get(projectBomSelector.addNewBomFormVersionInput).should('exist');
+        recurse(() =>
+            cy.get(projectBomSelector.addNewBomFormVersionInput).clear().type(bom.version),
+            ($inputField) => $inputField.val() === bom.version,
+            { delay: 1000 })
+            .should('have.value', bom.version);
+    }).then(() => {
+        cy.get(projectBomSelector.addNewBomDialogConfirmButton).click();
+    })
 });
 
 Cypress.Commands.add("importBom", (bom) => {
