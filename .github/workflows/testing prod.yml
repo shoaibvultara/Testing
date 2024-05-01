@@ -20,13 +20,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Extract baseURL value from Cypress config
-      - name: Extract baseURL
-        id: extract-baseURL
-        run: |
-          BASE_URL=$(grep -oP '(?<=baseURL: ").*(?="#)' cypress.config.js)
-          echo "::set-output name=baseURL::$BASE_URL"
-
       # Update Cypress config with new values
       - name: Update Cypress config
         run: |
