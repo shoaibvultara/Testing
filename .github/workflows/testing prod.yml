@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+    
+      - name: Install node and cache dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
 
       # Install npm dependencies from the cypress directory
       - name: Install Dependencies
