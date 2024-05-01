@@ -20,25 +20,26 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Update cypress.config.js with new values
+      # Extract baseURL value from Cypress config
+      - name: Extract baseURL
+        id: extract-baseURL
+        run: |
+          BASE_URL=$(grep -oP '(?<=baseURL: ").*(?="#)' cypress.config.js)
+          echo "::set-output name=baseURL::$BASE_URL"
+
+      # Update Cypress config with new values
       - name: Update Cypress config
         run: |
-          sed -i 's|baseURL: "http://localhost:4200"|baseURL: "https://awsportal.vultara.com"|g' cypress.config.js
-          sed -i 's|apiURL: "http://localhost:4201/api"|apiURL: "https://awsportal.api.vultara.com/api"|g' cypress.config.js
-          sed -i 's|authURL: "http://localhost:4321/auth"|authURL: "https://awsportal.auth.vultara.com/auth"|g' cypress.config.js
-          sed -i 's|username: "vultara_automation_test"|username: "shoaibadmin"|g' cypress.config.js
-          sed -i 's|password: "tJVJhiHmlIWR"|password: "PAKistan@123"|g' cypress.config.js
-          
-          BASE_URL=$(awk -F'"' '/baseURL/{print $4}' cypress.config.js)
-          echo "::set-output name=base-url::$BASE_URL"
+          sed -i 's#baseURL: "http://localhost:4200"#baseURL: "https://awsportal.vultara.com"#' cypress.config.js
+          sed -i 's#apiURL: "http://localhost:4201/api"#apiURL: "https://awsportal.api.vultara.com/api"#' cypress.config.js
+          sed -i 's#authURL: "http://localhost:4202/auth"#authURL: "https://awsportal.auth.vultara.com/auth"#' cypress.config.js
+          sed -i 's#username: "vultara_automation_test"#username: "shoaibadmin"#' cypress.config.js
+          sed -i 's#password: "tJVJhiHmlIWR"#password: "PAKistan@123"#' cypress.config.js
+
+      # Print baseURL value
       - name: Print baseURL
-        run: |
-          echo "Base URL is $(grep -oP 'baseURL: "\K[^"]+' cypress.config.js)"
-        
-      # Run Cypress test for specific file with video recording
-      - name: Cypress run with video recording
-        uses: cypress-io/github-action@v6
-        with:
-          spec: cypress/e2e/customerEnvironment/highLevelTestCases.cy.jy --record --key f58d85e0-bb42-4a92-a3a8-c6772e247b5a
-          record: true # Enable video recording
-  
+        run: echo "Base URL: ${{ steps.extract-baseURL.outputs.baseURL }}"
+
+      # Run Cypress test for specific file with recording
+      - name: Cypress run
+        run: npx cypress run --record --key f58d85e0-bb42-4a92-a3a8-c6772e247b5a --spec cypress/e2e/customerEnvironment/highLevelTestCases.cy.js
