@@ -6,6 +6,7 @@ module.exports = defineConfig({
   env: {
     baseURL: "http://localhost:4200",
     apiURL: "http://localhost:4201/api",
+    authURL: "http://localhost:4321/auth",
     username: "vultara_automation_test",
     password: "tJVJhiHmlIWR",
     projectId: "tkumcu",
