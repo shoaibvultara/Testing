@@ -35,8 +35,7 @@ describe('Damage Scenario', () => {
             cy.visit(Cypress.env('baseURL'))
             cy.get(navBarSelector.navBarEditButton).click()
             cy.get(navBarSelector.editListRestoreThreatButton).should('contain', 'Restore Threat');
-            cy.visit(Cypress.env('baseURL'))
-            cy.get(navBarSelector.navBarThreatListViewIcon).click();
+            cy.visit(Cypress.env('baseURL') + '/threats');
             cy.get(navBarSelector.navBarEditButton).click()
             cy.get(navBarSelector.editListRestoreThreatButton).should('be.enabled');
       })
@@ -80,8 +79,9 @@ describe('Damage Scenario', () => {
             cy.get(damageScenarioSelector.damageScenarioDialogConfirmButton).should('be.enabled').click();
             cy.wait(2000);
             cy.get(damageScenarioSelector.damageScenarioDescriptionTextArea).should('have.length.at.least', 2);             //Verify the two entries of Damage Scenario
-            cy.get(damageScenarioSelector.damageScenarioDeleteIconButton).eq(1).click() //Deleting the second Damage scenario
-            cy.get(navBarSelector.confirmDialogueDeleteButton).click();
+            cy.get(damageScenarioSelector.damageScenarioMoreActionButton).eq(1).click();
+            cy.get(damageScenarioSelector.damageScenarioDeleteButton).click() //Deleting the second Damage scenario
+            cy.get(navBarSelector.confirmDialogueDeleteButton).last().click();
             cy.get(damageScenarioSelector.damageScenarioDescriptionTextArea).should('have.length.at.most', 1);
       })
 

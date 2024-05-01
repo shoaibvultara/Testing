@@ -29,6 +29,7 @@ module.exports = {
     generateTriggerLoader: '.la-3x > :nth-child(1)',  // Generate Trigger Loader Icon
     triggerNameTextArea: 'textarea.mat-mdc-input-element',
     editTriggerTextDialog: 'h1.global-dialog-title-style',
+    triggerNameTableData: 'td[class*="mat-column-name"]',
 
     // Search Trigger Box
     searchTriggerBox: 'input[placeholder="Search Triggers"]',  // Search Triggers Field box 

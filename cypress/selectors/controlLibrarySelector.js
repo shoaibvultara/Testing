@@ -3,7 +3,7 @@ module.exports = {
     newControlDialogFieldBox : 'mat-label:contains("Control")' ,  // Control Field Box
     newControlDialogConfirmButton : 'button:contains("Confirm")' ,  // Confirm Button in Add New Control Dialog
     newControlDialogCancelButton : 'button:contains("Cancel")' ,  // Cancel Button in Add New Control Dialog
-    controlLibraryRefreshButton : 'button:contains(" Refresh ")' ,  // Refresh Button in Control Library Page
+    controlLibraryRefreshButton : '.all-library-refresh-btn',  // Refresh Button in Control Library Page
     controlLibraryRefreshLoader : 'mat-progress-spinner[role="progressbar"]' ,  // Refresh Loader 
     controlLibraryShowAllButton : 'button:contains(" Show All ")' ,  // Show All Button in Control Library Page
     controlLibrarySearchBox : 'input[matinput][placeholder="Search Available Controls"]' ,  // Control Library Page Search Box

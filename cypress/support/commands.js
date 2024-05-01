@@ -81,11 +81,11 @@ Cypress.Commands.add('deleteProject', (projectKey) => {
       }).then(() => {
         cy.get(navBarSelector.projectListDeleteProjectButton).click({ force: true }).then(() => {
           let projectElement = navBarSelector.deleteProjectDialogWindow + ':contains(' + projectKey + ')';
-          if (cy.wrap(cy.get('body').find(projectElement).length)) {//project exists i.e != 0
+          if (cy.wrap(Cypress.$(projectElement).length)) {//project exists i.e != 0
             cy.get(navBarSelector.deleteProjectDialogWindow).contains(projectKey).click();
             cy.get(navBarSelector.deleteProjectDialogWindowContinueButton).click().then(() => {
               cy.intercept('DELETE', '*').as('deleteRequest');
-              cy.get(navBarSelector.confirmDialogueDeleteButton).click();
+              cy.get(navBarSelector.confirmDialogueDeleteButton).last().click();
               cy.wait(5000);
               cy.get('@deleteRequest').its('response.statusCode').should('eq', 200);
             });
@@ -141,6 +141,7 @@ Cypress.Commands.add('createMilestone', (milestoneKey) => {
     }).then(() => {
       cy.get(navBarSelector.projectListNewMilestoneButton).click(); // new milestone
       cy.get(navBarSelector.newMilestoneTitleHeader).should('exist');
+      cy.get(navBarSelector.confirmDialogueConfirmButton).last().should('not.be.enabled');
       recurse(
         // the commands to repeat, and they yield the input element
         () => cy.get(navBarSelector.newMilestoneNameInput).clear().type(milestoneKey),
@@ -149,7 +150,9 @@ Cypress.Commands.add('createMilestone', (milestoneKey) => {
         { delay: 1000 }
       ).should('have.value', milestoneKey).then(() => {// confirm that the milestoneKey was entered correctly
         cy.get(navBarSelector.confirmDialogueConfirmButton)
+          .last()
           .should('not.be.disabled') // Ensure the button is not disabled
+          .last()
           .click();
       });
     })

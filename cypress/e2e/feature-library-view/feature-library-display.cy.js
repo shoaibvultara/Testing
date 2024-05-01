@@ -10,6 +10,10 @@ describe('Feature Library Display', () => {
     var assetName;
     var featureType;
     var featureRole;
+    var safetyImpact;
+    var financialImpact;
+    var operationalImpact;
+    var privacyImpact;
 
     before(() => {//Creating Project
         cy.viewport(1920, 1080);
@@ -20,6 +24,10 @@ describe('Feature Library Display', () => {
             assetName = 'Ethernet message';
             featureType = 'Data Transmission';
             featureRole = 'Data Redirector';
+            safetyImpact = 'Moderate';
+            financialImpact = 'Negligible';
+            operationalImpact = 'Negligible';
+            privacyImpact = 'Moderate';
             cy.createProject(projectName);
         })
         cy.window().then((win) => {
@@ -40,12 +48,19 @@ describe('Feature Library Display', () => {
         })
     })
 
-    it('Verify the "Create New Feature" button working with empty String Feature Name:" " (MAIN-TC-509)', () => {
-        cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
-        cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-        cy.wait(1000);
-        cy.get(featureLibrarySelector.createNewFeatureButton).click().then(() => {
-            cy.get(featureLibrarySelector.featureNameFieldBox).click().clear();
+    it('Verify the "Create New Feature" button working with empty String Feature Name:" " (MAIN-TC-509, MAIN-TC-1111)', () => {
+        cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
+            cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
+        }).then(() => {
+            cy.get(featureLibrarySelector.createNewFeatureButton).click();
+            cy.wait(2000);
+            cy.get(featureLibrarySelector.featureNameFieldBox).click().clear()
+                .should('have.attr', 'maxlength', '65');
             cy.get(featureLibrarySelector.showAssetLibraryButton).click();
             cy.get(featureLibrarySelector.featureNameErrorMessage).should('be.visible');
             cy.get(featureLibrarySelector.createFeatureDisabledButton).should('be.disabled');
@@ -54,8 +69,12 @@ describe('Feature Library Display', () => {
 
     it('Verify the Searching of Available Assets in "Edit Feature" Dialog (MAIN-TC-552)', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             cy.get(featureLibrarySelector.createNewFeatureButton).click();
             cy.get(featureLibrarySelector.showAssetLibraryButton).click();
@@ -73,8 +92,12 @@ describe('Feature Library Display', () => {
 
     it('Verify the clicking at "Edit Feature" button (MAIN-TC-525, MAIN-TC-581)', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page 
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             cy.get(featureLibrarySelector.editFeatureButton).eq(0).click();
             cy.get(featureLibrarySelector.confirmChangesButton).should('be.visible');
@@ -88,8 +111,12 @@ describe('Feature Library Display', () => {
 
     it('Verify the user can read the feature in feature library tab (MAIN-TC-564, MAIN-TC-540)', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             cy.get(featureLibrarySelector.featureContentTextArea).each(($featureContentTextArea) => {
                 cy.wrap($featureContentTextArea).should('be.visible'); // Assert that each feature content textarea are visible
@@ -101,8 +128,12 @@ describe('Feature Library Display', () => {
         let featureName = 'TC_564_FTR>' + projectName;
         cy.createNewFeature(featureName, assetName, featureType).then(() => {
             cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             let indexOfRecord = 0;
             cy.get(featureLibrarySelector.featureContentTextArea).each(($element) => {
@@ -124,8 +155,12 @@ describe('Feature Library Display', () => {
         let featureName = 'TC_537_FTR>' + projectName;
         cy.createNewFeature(featureName, assetName, featureType).then(() => {
             cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             let indexOfRecord = 0;
             cy.get(featureLibrarySelector.featureContentTextArea).each(($element) => {
@@ -155,8 +190,12 @@ describe('Feature Library Display', () => {
         }).then(() => {
             cy.get(navBarSelector.dialogCloseIcon).click();
             cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             let indexOfRecord = 0;
             cy.get(featureLibrarySelector.featureContentTextArea).each(($element) => {
@@ -199,7 +238,6 @@ describe('Feature Library Display', () => {
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click(); // Go to Feature tab
         }).then(() => {
             cy.get(featureLibrarySelector.featureLibraryShowAllButton).click();
-        }).then(() => {
             cy.get(navBarSelector.circleProgressSpinner).should('exist');
             cy.get(navBarSelector.subsequentSnackBarElement)
                 .should('be.visible')
@@ -208,6 +246,66 @@ describe('Feature Library Display', () => {
         }).then(() => {
             cy.get(featureLibrarySelector.featureLibraryRefreshButton).click().then(() => {
                 cy.get(navBarSelector.circleProgressSpinner).should('exist');
+            })
+        })
+    })
+
+    it('"Damage Scenario" w.r.t create new feature (MAIN-TC-293, MAIN-TC-295, MAIN-TC-297, MAIN-TC-298)', () => {
+        let featureName = 'TC_297_FTR_' + projectName.substring(20);
+        let moduleName = 'check'
+        cy.createNewFeature(featureName, assetName, featureType).then(() => {
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
+            cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
+        }).then(() => {
+            let indexOfRecord = 0;
+            cy.get(featureLibrarySelector.featureContentTextArea).each(($element) => {
+                if ($element.text() == featureName) {
+                    cy.get(featureLibrarySelector.editFeatureButton).eq(indexOfRecord).click();
+                    return false;// to exist from the .each() loop
+                }
+            indexOfRecord++;
+            }).then(() => {
+                cy.wait(2000);
+                cy.get(featureLibrarySelector.addApplicationButton).click();
+            }).then(() => {
+                cy.get(featureLibrarySelector.confirmChangesButton).should('not.be.enabled');
+            }).then(() => {
+                cy.get(featureLibrarySelector.featureApplicationModuleFieldButton).last().should('exist').click();
+                cy.get(featureLibrarySelector.globalDropDownOptionList).contains(moduleName).click();
+            }).then(() => {
+                cy.get(featureLibrarySelector.featureApplicationFeatureRoleFieldButton).click();
+                cy.get(featureLibrarySelector.globalDropDownOptionList).contains(featureRole).click();
+            }).then(() => {
+                cy.get(featureLibrarySelector.confirmChangesButton).should('not.be.disabled');
+            }).then(() => {
+                cy.get(featureLibrarySelector.safetyImpactFieldBox).click();
+                cy.get(featureLibrarySelector.globalDropDownOptionList).contains(safetyImpact).click();
+            }).then(() => {
+                cy.get(featureLibrarySelector.damageScenarioTextDescription).eq(0).clear().should('have.value', '');
+            }).then(() => {
+                cy.get(featureLibrarySelector.financialImpactFieldBox).click();
+                cy.get(featureLibrarySelector.globalDropDownOptionList).contains(financialImpact).click();
+            }).then(() => {
+                cy.get(featureLibrarySelector.damageScenarioTextDescription).eq(1).clear().should('have.value', '');
+            }).then(() => {
+                cy.get(featureLibrarySelector.operationalImpactFieldBox).click();
+                cy.get(featureLibrarySelector.globalDropDownOptionList).contains(operationalImpact).click();
+            }).then(() => {
+                cy.get(featureLibrarySelector.damageScenarioTextDescription).eq(2).clear().should('have.value', '');
+            }).then(() => {
+                cy.get(featureLibrarySelector.privacyImpactFieldBox).click();
+                cy.get(featureLibrarySelector.globalDropDownOptionList).contains(privacyImpact).click();
+            }).then(() => {
+                cy.get(featureLibrarySelector.damageScenarioTextDescription).eq(3).clear().should('have.value', '');
+            }).then(() => {
+                cy.get(featureLibrarySelector.confirmChangesButton).should('not.be.disabled').click();
+                cy.get(featureLibrarySelector.confirmChangesSnackbar).should('include.text', 'Feature sucessfully updated!');
+            }).then(() => {
+                cy.deleteFeature(featureName);
             })
         })
     })

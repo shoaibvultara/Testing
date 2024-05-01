@@ -26,7 +26,7 @@ Cypress.Commands.add('deleteThreat', (deletionType, threatRow) => {
 
 Cypress.Commands.add('addNewThreat', () => {
     cy.visit(Cypress.env('baseURL') + '/threats').then(() => { // Go to Threats Page
-        cy.get(threatListViewSelector.threatListViewThreatActionsButton).should('be.visible').eq(0).click().then(() => {
+        cy.get(threatListViewSelector.threatListViewThreatActionsButton).first().scrollIntoView().should('be.visible').click().then(() => {
             cy.get(threatListViewSelector.dropDownActionsAddNewThreatButton).click().then(() => {
                 cy.get(threatListViewSelector.threatListViewSnackbar).should('include.text', 'added successfully');
             })
@@ -75,7 +75,7 @@ Cypress.Commands.add('editThreatScenario', (threatRow, newScenario) => {
 
 Cypress.Commands.add('changeFeasibilityMethod', (feasibilityMethod) => {
     cy.visit(Cypress.env('baseURL') + '/threats').then(() => { // Go to Threats Page
-        cy.get(navBarSelector.navBarProfileIcon).click().then(() => {
+        cy.get(navBarSelector.navBarProfileButton).click().then(() => {
             cy.get(navBarSelector.profileListProjectButton).click()
         }).then(() => {
             cy.get(navBarSelector.circleProgressSpinner).should('exist').then(() => {//wait for spinner to appear
@@ -161,7 +161,7 @@ Cypress.Commands.add('expandThreat', (threatRow) => {
     cy.visit(Cypress.env('baseURL') + '/threats').then(() => { // Go to Threats Page
         cy.get(threatListViewSelector.threatListViewExpandThreatIcon).eq(threatRow - 1).click({ force: true });//row of targeted threat, 0 based
     }).then(() => {
-        cy.get(threatListViewSelector.threatListViewExpandedThreatDiv).should('be.visible');
+        cy.get(threatListViewSelector.threatListViewExpandedThreatDiv).scrollIntoView().should('be.visible');
     })
 })
 

@@ -9,7 +9,6 @@ var projectName;
 describe('Asset Library Management', () => {
     var projectId;
     var assetName;
-    var updatedAssetName;
     var assetType;
     var subType;
     var tagName;
@@ -34,7 +33,6 @@ describe('Asset Library Management', () => {
         // Generate a random feature name
         cy.generateProjectName().then(($generatedName) => {
             assetName = 'ASET>' + $generatedName;
-            updatedAssetName = 'new ASET' + $generatedName;
             assetType = 'Computing Resource';
             subType = 'General Data';
             tagName = 'Automation_Test';
@@ -48,7 +46,7 @@ describe('Asset Library Management', () => {
         })
     })
 
-    it('Verify to add the new asset and verify Assets for a micro component (MAIN-TC-596, MAIN-TC-595, MAIN-TC-2559, MAIN-TC-912))', () => {
+    it('Verify to add the new asset and verify Assets for a micro component (MAIN-TC-596, MAIN-TC-595, MAIN-TC-2559, MAIN-TC-912, MAIN-TC-1205)', () => {
         let componentSpecFeature = 'test linking';
         cy.createNewAsset(assetName, assetType, subType, tagName).then(() => {
             cy.visit(Cypress.env("baseURL") + "/modeling");
@@ -60,7 +58,7 @@ describe('Asset Library Management', () => {
             cy.get(modelingViewSelector.drawingCanvasMicrocontroller).rightclick();
         }).then(() => {
             cy.wait(2000);
-            cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect).click();
+            cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleTextarea).click();
             cy.get(modelingViewSelector.componentSpecFeatureSettingTestOption).click();
         }).then(() => {
             cy.get(modelingViewSelector.componentSpecFeaturesSettingsFeaturesSelect).click();
@@ -89,88 +87,14 @@ describe('Asset Library Management', () => {
         }).then(() => {
             cy.get(modelingViewSelector.assetComponentSpinner).should('not.exist');
             cy.get(modelingViewSelector.assetComponentContentTextArea).contains(assetName).should('be.visible');
-        })
-    })
-
-    it('Verify the updated asset name is showing correctly in all its associated features (MAIN-TC-606, MAIN-TC-604)', () => {
-        cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page 
-            cy.wait(2000);
-            cy.get(projectLibrarySelector.librarySideNavAssetAnchor).click();  // Go to Asset tab
         }).then(() => {
-            let indexOfRecord = 0;
-            cy.get(assetLibrarySelector.assetNameContentTextArea).each(($element) => {
-                if ($element.val() === assetName) {
-                    cy.get(assetLibrarySelector.assetNameContentTextArea).eq(indexOfRecord).click().clear().type(updatedAssetName);
-                    cy.get(assetLibrarySelector.updateAssetButton).eq(indexOfRecord).click();
-                    cy.get(assetLibrarySelector.snackBarMessage).should('include.text', 'Asset successfully updated')
-                    return false;// to exist from the .each() loop
-                }
-                indexOfRecord++;
-            }).then(() => {
-                cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
-                cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-                cy.wait(3000);
-            }).then(() => {
-                cy.get(featureLibrarySelector.createNewFeatureButton).click();
-                cy.get(featureLibrarySelector.showAssetLibraryButton).click();
-            }).then(() => {
-                recurse(() =>
-                    cy.get(featureLibrarySelector.searchAvailableAssetFieldBox).click({ force: true }).clear().type(updatedAssetName),
-                    ($inputField) => $inputField.val() === updatedAssetName,
-                    { delay: 1000 })
-                    .should('have.value', updatedAssetName);
-            }).then(() => {
-                cy.get(featureLibrarySelector.assetChipDialog).contains(updatedAssetName).should('exist');
-            })
+            cy.deleteAsset(assetName);
         })
     })
 
-    it('Verify that if User clicked on "Delete" button in Confirmation to delete box of Asset tab in library page the asset is deleted successfully (MAIN-TC-2779, MAIN-TC-607, MAIN-TC-599)', () => {
-        cy.deleteAsset(updatedAssetName);
-    })
-
-    it('Verify the newly added asset is shown properly in feature library (MAIN-TC-543, MAIN-TC-544, MAIN-TC-554, MAIN-TC-584, MAIN-TC-590, MAIN-TC-591, MAIN-TC-603)', () => {
-        let assetName = 'TC-543_ASET>' + projectName;
+    it('Verify that if User clicked on "Delete" button in Confirmation to delete box of Asset tab in library page the asset is deleted successfully (MAIN-TC-2779, MAIN-TC-607, MAIN-TC-599, MAIN-TC-1722, MAIN-TC-1724)', () => {
+        let assetName = 'TC-2779_ASET>' + projectName;
         cy.createNewAsset(assetName, assetType, subType, tagName).then(() => {
-            cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
-        }).then(() => {
-            cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(3000);
-        }).then(() => {
-            cy.get(featureLibrarySelector.createNewFeatureButton).click();
-            cy.get(featureLibrarySelector.showAssetLibraryButton).click();
-        }).then(() => {
-            recurse(() =>
-                cy.get(featureLibrarySelector.searchAvailableAssetFieldBox).click({ force: true }).clear().type(assetName),
-                ($inputField) => $inputField.val() === assetName,
-                { delay: 1000 })
-                .should('have.value', assetName);
-        }).then(() => {
-            cy.get(featureLibrarySelector.assetChipDialog).contains(assetName).should('exist');
-            cy.get(navBarSelector.dialogCloseIcon).click();
-        }).then(() => {
-            cy.get(projectLibrarySelector.librarySideNavAssetAnchor).click();
-        }).then(() => {
-            recurse(() =>
-                cy.get(assetLibrarySelector.assetLibrarySearchBox).clear().type(assetName),
-                ($inputField) => $inputField.val() === assetName,
-                { delay: 1000 })
-                .should('have.value', assetName);
-        }).then(() => {
-            cy.get(navBarSelector.circleProgressSpinner).should('exist');
-            cy.get(assetLibrarySelector.assetNameContentTextArea).should('have.value', assetName);
-        }).then(() => {
-            cy.get(assetLibrarySelector.assetLibraryShowAllButton).click();
-        }).then(() => {
-            cy.get(navBarSelector.subsequentSnackBarElement)
-                .should('be.visible')
-                .and('include.text', 'All')
-                .and('include.text', 'assets in your asset library are shown');
-        }).then(() => {
-            cy.get(assetLibrarySelector.assetLibraryRefreshButton).click();
-        }).then(() => {
-            cy.get(navBarSelector.circleProgressSpinner).should('exist');
-        }).then(() => {
             cy.deleteAsset(assetName);
         })
     })
@@ -212,25 +136,32 @@ describe('Asset Library Management', () => {
         })
     })
 
-    it('Verify Updating the Asset Name to empty string in Feature Library (MAIN-TC-598)', () => {
-        let assetName = 'TC-598_ASET>' + projectName;
+    it('Verify Asset Retention After Searching Another asset Keyword Before Adding to Feature (MAIN-TC-3211)', () => {
+        let assetName = 'TC-3211_ASET>' + projectName;
         cy.createNewAsset(assetName, assetType, subType, tagName).then(() => {
-            cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page 
+            cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
         }).then(() => {
-            cy.get(projectLibrarySelector.librarySideNavAssetAnchor).click();  // Go to Asset tab
+            cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
             cy.wait(2000);
         }).then(() => {
-            let indexOfRecord = 0;
-            cy.get(assetLibrarySelector.assetNameContentTextArea).each(($element) => {
-                if ($element.val() === assetName) {
-                    cy.get(assetLibrarySelector.assetNameContentTextArea).eq(indexOfRecord).click().clear();
-                    cy.get(assetLibrarySelector.updateAssetButton).eq(indexOfRecord).should('not.be.enabled');
-                    return false;// to exist from the .each() loop
-                }
-                indexOfRecord++;
-            }).then(() => {
-                cy.deleteAsset(assetName);
-            })
+            cy.get(featureLibrarySelector.createNewFeatureButton).click();
+            cy.get(featureLibrarySelector.showAssetLibraryButton).click();
+        }).then(() => {
+            cy.get(featureLibrarySelector.assetChipDialog).contains('CAN message').click();
+        }).then(() => {
+            recurse(() =>
+                cy.get(featureLibrarySelector.searchAvailableAssetFieldBox).click({ force: true }).clear().type(assetName),
+                ($inputField) => $inputField.val() === assetName,
+                { delay: 1000 })
+                .should('have.value', assetName);
+        }).then(() => {
+            cy.get(featureLibrarySelector.assetChipDialog).contains(assetName).click();
+            cy.get(featureLibrarySelector.addToFeatureButton).should('exist').click();
+        }).then(() => {
+            cy.get(featureLibrarySelector.featureAssetDialog).last().should('contain', assetName).and('contain', 'CAN message');
+            cy.get(navBarSelector.dialogCloseIcon).click();
+        }).then(() => {
+            cy.deleteAsset(assetName);
         })
     })
 })

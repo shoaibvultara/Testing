@@ -32,7 +32,7 @@ Cypress.Commands.add('deleteCustomField' , () => {
         cy.get(systemConfigSelector.systemConfigSideNavCustomFieldAnchor).click();
         cy.wait(1000);
     }).then(() => {
-        cy.get(systemConfigSelector.customFieldDeleteIcon).first().click();
+        cy.get(systemConfigSelector.systemConfigDeleteIcon).first().click();
     }).then(() => {
         cy.get(systemConfigSelector.confirmToDeleteTextDialog).should('exist');
         cy.get(systemConfigSelector.confirmToDeleteButton).click();

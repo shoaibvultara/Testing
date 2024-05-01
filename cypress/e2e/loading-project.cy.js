@@ -15,21 +15,25 @@ describe('Loading a Project', () => {
     cy.login();
   });
 
-  it('Test Case 1: No Project is loaded After loaging In(MAIN-TC-1455, MAIN-TC-249)', () => {
-    cy.wait(2000);
+  it('Test Case 1: No Project is loaded After loading In (MAIN-TC-1455, MAIN-TC-249)', () => {
     cy.visit(Cypress.env('baseURL'));
-    cy.get(navBarSelector.navBarViewButton).click();
-    cy.get(navBarSelector.viewListAssumptionButton).should('not.be.enabled'); // Checking Modeling button is not enabled (project not loaded)
-    cy.wait(200);
-    cy.get(navBarSelector.viewListThreatListButton).should('not.be.enabled'); // Checking Threat List is not enabled (project not loaded)
-    cy.wait(200);
-    cy.get(navBarSelector.viewListVulnerabilityButton).should('not.be.enabled'); // Checking Vulnerability is not enabled (project not loaded)
-    cy.wait(200);
-    cy.get(navBarSelector.viewListDashboardButton).click();
-    cy.wait(500);
-    cy.get(navBarSelector.navBarProfileIcon).click();
-    cy.wait(500);
-    cy.get(navBarSelector.profileListMilestoneHeader).should('have.text', 'Milestone: ');
+    cy.wait(2000).then(() => {
+      cy.get(navBarSelector.navBarViewButton).click();
+    }).then(() => {
+      cy.get(navBarSelector.viewListAssumptionButton).should('not.be.enabled'); // Checking Modeling button is not enabled (project not loaded)
+      cy.wait(200);
+      cy.get(navBarSelector.viewListThreatListButton).should('not.be.enabled'); // Checking Threat List is not enabled (project not loaded)
+      cy.wait(200);
+      cy.get(navBarSelector.viewListVulnerabilityButton).should('not.be.enabled'); // Checking Vulnerability is not enabled (project not loaded)
+      cy.wait(200);
+      cy.get(navBarSelector.viewListDashboardButton).last().click();
+      cy.wait(500);
+    }).then(() => {
+      cy.get(navBarSelector.navBarProfileButton).click();
+      cy.wait(500);
+    }).then(() => {
+      cy.get(navBarSelector.profileListMilestoneHeader).should('have.text', 'Milestone: ');
+    })
   })
 
   it('Test Case 2 : Creating a New Project (MAIN-TC-846, MAIN-TC-2281)', () => {
@@ -47,14 +51,14 @@ describe('Loading a Project', () => {
     })
   });
 
-  it('Test Case 3: Creating a New Model (MAIN-TC-1986)', () => {
+  it('Test Case 3: Creating a New Model (MAIN-TC-1986, MAIN-TC-2467)', () => {
     cy.loadProject(projectId);
     // Visit another page if needed.
     cy.visit(Cypress.env("baseURL") + "/modeling");
     cy.url().should('contain', '/modeling');
     cy.wait(1000);
     //Drag and Drop if req.
-    cy.get(navBarSelector.navBarProfileIcon).click();
+    cy.get(navBarSelector.navBarProfileButton).click();
     // Testing if the cursor remains at default 
     cy.get(navBarSelector.profileListUsernameHeader) // Index 4 represents the 5th element (0-based index)
       .should('have.css', 'cursor', 'default');

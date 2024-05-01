@@ -1,6 +1,5 @@
-/node_modules
+./node_modules
 /cypress/reports
 /cypress/videos
 /cypress/screenshots
 /config.json
-

@@ -14,6 +14,8 @@ module.exports = {
     attackTreeCanvasZoomInButton:'button[mattooltip="zoom in"]',
     attackTreeCanvasZoomOutButton:'button[mattooltip="zoom out"]',
     attackTreeCanvasResetZoomButton:'button[mattooltip="reset zoom"]',
+    attackTreeCanvasSavedIcon: 'attack-tree-button.svg',
+    attackTreeCanvasUnsavedIcon: 'attack-tree-unsaved-changes-icon.svg',
 
     attackTreeDialogNode: '.blockIn',   //.eq(0)
     attackTreeDialogAND: '.blockIn',    //.eq(2)
@@ -23,6 +25,7 @@ module.exports = {
     attackTreeDialogDropDown: '.mat-mdc-menu-content',
     attackTreeDialogTreeDropDownNewTree: 'button:contains("New Tree")',
     attackTreeDialogTreeDropDownChange: 'button:contains("Change Tree Name")',
+    attackTreeDialogTreeDropDownDetailsButton: 'button:contains("Attack Tree Details")',
     attackTreeDialogTreeDropDownDeleteTree: 'button:contains("Delete Tree")',
     attackTreeDialogTreeDropDownLoadTree: 'button:contains("Load Tree")',
     attackTreeDialogTreeDropDownSaveTree: 'button:contains("Save Tree As")',
@@ -39,6 +42,13 @@ module.exports = {
     attackTreeDialogDeleteTreePopup: '.mat-mdc-dialog-surface',
     attackTreeDialogSelectTree: 'mat-selection-list[role="listbox"]',
     attackTreeDialogDeleteTreePopupDeleteButton: 'button:contains("Delete")',
+
+    //Attack Tree Details
+    attackTreeDialogEditAttackTreeDetailsPopup: '.mat-mdc-dialog-surface',
+    attackTreeDialogUpdateTreeNameInput: 'input[formcontrolname="name"]',
+    attackTreeDialogUpdateTreeNotesTextarea: 'textarea[formcontrolname="notes"]',
+    attackTreeDialogEditAttackTreeDetailsConfirmButton: 'button:contains(Confirm)',
+    attackTreeDialogEditAttackTreeDetailsCancelButton: 'button:contains(Cancel)',
 
     //Change Tree Name Popup
     attackTreeDialogChangeTreeNamePopup: '.mat-mdc-dialog-surface',
@@ -89,7 +99,7 @@ module.exports = {
     attackTreeCanvasComponentMenuLinkChildTreeOption: '.linkChildTree',
     attackTreeCanvasComponentMenuAssignValueOption: '.customFieldOption',
 
-    //Draging the child component
+    //Dragging the child component
     attackTreeCanvasDragChildComponentConfirmationDialog: '.cdk-overlay-pane',
     attackTreeCanvasDragChildComponentConfirmationDialogText: '.confirmation-dialog-message',
 
@@ -103,6 +113,13 @@ module.exports = {
 
     //Control 
     attackTreeCanvasControlPopup: '.mat-mdc-dialog-surface',
-    attackTreeCanvasControlPopupHeading: '.global-dialog-title-style'
+    attackTreeCanvasControlPopupHeading: '.global-dialog-title-style',
+    attackTreeCanvasControlAddNewControlButton: 'button:contains("+ New Control")',
+    attackTreeCanvasControlAddNewControlNameTextarea: 'textarea[class*="mat-mdc-input-element"]',
+    attackTreeCanvasControlConfirmButton: 'button:contains("Confirm")',
 
+    //When Control is added, Shield Icon added
+    attackTreeCanvasControlShieldIcon: '.controlShieldIcon',
+    attackTreeCanvasControlAnimation: '.blockWithAnimation',
+    attackTreeCanvasControlPopupHeading: '.global-dialog-title-style'
 }

@@ -97,7 +97,7 @@ describe('My Tasks Display', () => {
                             cy.get(weaknessSelector.weaknessPagination).should('contain', '1 of 1');
                         })
                     }).then(() => {
-                        cy.get(navBarSelector.navBarProfileIcon).click();
+                        cy.get(navBarSelector.navBarProfileButton).click();
                         cy.get(navBarSelector.profileListProjectNameHeader).first().should('contain', newProjectName);
                     })
                 })
@@ -207,7 +207,7 @@ describe('My Tasks Display', () => {
                             cy.get(weaknessSelector.weaknessPagination).should('contain', '1 of 1');
                         })
                     }).then(() => {
-                        cy.get(navBarSelector.navBarProfileIcon).click();
+                        cy.get(navBarSelector.navBarProfileButton).click();
                         cy.get(navBarSelector.profileListMilestoneHeader).should('contain', milestoneKey);
                     }).then(() => {
                         cy.visit(Cypress.env('baseURL') + '/user-profile');
@@ -223,7 +223,7 @@ describe('My Tasks Display', () => {
                             cy.get(eventSelector.eventPagination).should('contain', '1 of 1');
                         })
                     }).then(() => {
-                        cy.get(navBarSelector.navBarProfileIcon).click();
+                        cy.get(navBarSelector.navBarProfileButton).click();
                         cy.get(navBarSelector.profileListMilestoneHeader).should('contain', milestoneKey);
                     }).then(() => {
                         cy.visit(Cypress.env('baseURL') + '/user-profile');
@@ -239,7 +239,7 @@ describe('My Tasks Display', () => {
                             cy.get(vulnerabilityListViewSelector.vulnerabilityPagination).should('contain', '1 of 1');
                         })
                     }).then(() => {
-                        cy.get(navBarSelector.navBarProfileIcon).click();
+                        cy.get(navBarSelector.navBarProfileButton).click();
                         cy.get(navBarSelector.profileListMilestoneHeader).should('contain', milestoneKey);
                     })
                 })
@@ -250,7 +250,7 @@ describe('My Tasks Display', () => {
     it('Verify that all assigned tasks in My Task tab are present (MAIN-TC-3149, MAIN-TC-2533, MAIN-TC-2534)', () => {
         let responsibleUser = 'vultara_automation_test';
         cy.visit(Cypress.env('baseURL')).then(() => {
-            cy.get(navBarSelector.navBarProfileIcon).click();
+            cy.get(navBarSelector.navBarProfileButton).click();
             cy.get(navBarSelector.profileListUserProfileHeader).click();
         }).then(() => {
             cy.get(navBarSelector.myTaskSideNavAnchor).should('exist').click();

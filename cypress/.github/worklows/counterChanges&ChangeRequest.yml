@@ -1,0 +1,89 @@
+name: Transition Jira issue on PR review
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  process-jira-event:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Find Current Pull Request
+        id: find_pr
+        uses: jwalton/gh-find-current-pr@v1.3.3
+
+      - name: Print PR number
+        run: echo "PR_NUMBER=${{ steps.find_pr.outputs.pr }}" >> $GITHUB_ENV
+
+      - name: Count Changes
+        id: get-details
+        run: |
+          issueKey="${{ github.event.pull_request.head.ref }}"
+          echo "Extracted PR number: $PR_NUMBER"
+          if [ -z "$PR_NUMBER" ]; then
+            echo "PR_NUMBER not found. Skipping the remaining jobs."
+            exit 0
+          fi
+          # Get PR Additions using GraphQL
+          echo "Querying GitHub GraphQL API for PR details..."
+          RESPONSE=$(curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -d '{"query":"query { repository(owner: \"${{ github.repository_owner }}\", name: \"${{ github.event.repository.name }}\") { pullRequest(number: '$PR_NUMBER') { additions changedFiles } } }"}' \
+            https://api.github.com/graphql)
+          echo "API Response:"
+          echo "$RESPONSE"
+          # Extract additions
+          code_changes=$(echo "$RESPONSE" | jq -r '.data.repository.pullRequest.additions')
+          echo "Number of additions in PR: $code_changes"
+          echo "Code Changes: $code_changes"
+          echo "code_addition=$code_changes" >> $GITHUB_ENV
+
+          # Get PR Change Requests using GraphQL
+          echo "Querying GitHub GraphQL API for PR details..."
+          RESPONSE=$(curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -d '{"query":"query { repository(owner: \"${{ github.repository_owner }}\", name: \"${{ github.event.repository.name }}\") { pullRequest(number: '$PR_NUMBER') { reviews(first:100) { nodes { state } } } } }"}' \
+            https://api.github.com/graphql)
+          echo "API Response:"
+          echo "$RESPONSE"
+          # Extract reviews and filter out CHANGES_REQUESTED state
+          changes_requested_reviews=$(echo "$RESPONSE" | jq -r '.data.repository.pullRequest.reviews.nodes | map(select(.state == "CHANGES_REQUESTED")) | length')
+          echo "Number of changes requested: $changes_requested_reviews"
+          echo "changes_requested_reviews=$changes_requested_reviews" >> $GITHUB_ENV
+
+      - name: Update JIRA Custom Fields
+        if: steps.check_issue.outputs.result == '200'
+        run: |
+          jiraUsername="muhammad.shoaib@vultara.com"
+          jiraToken="${{ secrets.JIRA_API_TOKEN }}"
+          issueKey="${{ github.event.pull_request.head.ref }}"
+          code_changes="${{ env.code_changes }}"
+          change_requests_reviews="${{ env.changes_requested_reviews }}"
+          code_addition_numeric=$(printf "%.0f" "$code_addition")
+          change_request_reviews_numeric=$(printf "%.0f" "$change_requests_reviews")
+          # Update customfield_10103
+          curl -X PUT \
+              -H "Content-Type: application/json" \
+              -u "$jiraUsername:$jiraToken" \
+              -d '{
+                "fields": {
+                  "customfield_10103": "'"$code_addition"'"
+                }
+              }' \
+              "https://vultara.atlassian.net/rest/api/3/issue/${issueKey}"
+          # Update customfield_10104
+          curl -X PUT \
+              -H "Content-Type: application/json" \
+              -u "$jiraUsername:$jiraToken" \
+              -d '{
+                "fields": {
+                  "customfield_10104": "'"$change_requests_reviews"'"
+                }
+              }' \
+              "https://vultara.atlassian.net/rest/api/3/issue/${issueKey}"

@@ -34,7 +34,7 @@ Cypress.Commands.add('generateWordReport', () => {
                 cy.get(navBarSelector.generateButton).should('be.enabled').click().then(() => {
                     cy.intercept('GET', Cypress.env('apiURL') + '/allNotifications*').as('notificationRequest');
                     cy.get(navBarSelector.notificationSnackBar).should('include.text', ' Report creation is in progress.');
-                    cy.get(navBarSelector.navBarNotificationIcon).click().then(() => {
+                    cy.get(navBarSelector.navBarNotificationButton).click().then(() => {
                         cy.get(navBarSelector.notificationMenuOthersTab).click();
                         cy.get('@notificationRequest', { timeout: 60000 }).should('exist').then(() => {
                             cy.get('@notificationRequest').its('response.statusCode').should('eq', 200);

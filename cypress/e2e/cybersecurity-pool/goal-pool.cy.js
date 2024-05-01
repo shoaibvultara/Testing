@@ -115,7 +115,7 @@ describe('Cybersecurity Goal Pool', () => {
         });
     })
 
-    it('Verify the Cybersecurity goal dialogue box displays the correct goal description and could be added to library(MAIN-TC-28, MAIN-TC-121)', () => {
+    it('Verify the Cybersecurity goal dialogue box displays the correct goal description and could be added to library(MAIN-TC-28, MAIN-TC-121, MAIN-TC-250)', () => {
         cy.visit(Cypress.env('baseURL') + '/cybersecurity-goal').then(() => {
             let goalName = 'Content Before Update';
             cy.addGoal(goalName).then(() => {
@@ -177,7 +177,7 @@ describe('Cybersecurity Goal Pool', () => {
             cy.get(cybersecurityPoolSelector.goalPoolGoalContentTextArea).should('include.value', goalName)
         }).then(() => {
             recurse(
-                () => cy.get(projectLibrarySelector.searchForGoalInput).clear().type(goalName),
+                () => cy.get(projectLibrarySelector.searchForGoalInput).clear({ force: true }).type(goalName),
                 ($inputField) => $inputField.val() === goalName,
                 { delay: 1000 }
             )

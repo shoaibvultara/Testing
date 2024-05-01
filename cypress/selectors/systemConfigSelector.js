@@ -5,7 +5,17 @@ module.exports = {
     systemConfigSideNavVulnerabilitySlaAnchor: 'mat-nav-list > a:contains(Vulnerability SLA)',
     systemConfigSideNavRiskDeterminationAnchor: 'mat-nav-list > a:contains(Risk Determination)',
     systemConfigSideNavFeasibilityAndImpactExpandAnchor: 'mat-panel-title:contains(Feasibility and Impact)',
-    systemConfigSideNavImpactRatingAnchor: 'mat-nav-list > a:contains(Impact Rating)',
+    systemConfigSideNavImpactRatingAnchor: 'a:contains(Impact Rating)',
+
+    //Impact Rating Tab
+    impactRatingAddOrEditImpactButton: '[data-cy="AddOrEditImpactButton"]',
+    addNewImpactDialogLevelNameInput: '[data-cy="ImpactLevelNameInputField"]',
+    addNewImpactDialogDamageScenarioTextarea: '[data-cy="ImpactDamageScenarioForEveryCategoryInputField"]',
+    impactRatingSafetyTitleHeader: '.system-page-impact-category-title:contains(Safety)',
+    impactRatingFinancialTitleHeader: '.system-page-impact-category-title:contains(Financial)',
+    impactRatingPrivacyTitleHeader: '.system-page-impact-category-title:contains(Privacy)',
+    impactRatingOperationalTitleHeader: '.system-page-impact-category-title:contains(Operational)',
+    impactRatingDamageScenarioTableRow: 'tr.impact-rating-table-body-list',
 
     //Custom fields Tab
     customFieldPageText: 'h1:contains(Custom Fields)',
@@ -15,8 +25,7 @@ module.exports = {
     addCustomCategoryField: 'mat-select[formcontrolname="category"]',
     addCustomTypeField: 'mat-select[formcontrolname="type"]',
     customFieldDialogCancelButton: 'button:contains(Cancel)',
-    customFieldDialogConfirmButton: 'button:contains(Confirm)', 
-    customFieldDeleteIcon: 'mat-icon:contains(delete)',
+    customFieldDialogConfirmButton: 'button:contains(Confirm)',
     customFieldNameContentArea: 'td[class*="mat-column-name"]',
 
     //global system Config
@@ -24,4 +33,8 @@ module.exports = {
     confirmToDeleteButton: 'button:contains(Delete)',
     confirmToDeleteTextDialog: 'h1:contains(CONFIRM TO DELETE)',
     systemConfigSnackBar: 'div[class="mat-mdc-snack-bar-label mdc-snackbar__label"]',
+    pageContentTable: 'table',
+    systemConfigDeleteIcon: 'mat-icon:contains(delete)',
+    systemConfigConfirmationHint: 'mat-hint:contains(Type confirm to continue)',
+    SystemConfigConfirmationInput: 'input[placeholder="Type confirm"]',
 }

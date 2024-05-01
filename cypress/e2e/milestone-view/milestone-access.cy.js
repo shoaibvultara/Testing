@@ -1,5 +1,6 @@
 import { recurse } from 'cypress-recurse'
 const navBarSelector = require('../../selectors/navBarSelector.js');
+const modelingViewSelector = require('../../selectors/modelingViewSelector.js');
 const threatListViewSelector = require('../../selectors/threatListViewSelector.js');
 var projectName;
 
@@ -29,11 +30,7 @@ describe('Milestone Access Privileges', () => {
         cy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');
         cy.createMilestone(milestoneName).then(() => {
             cy.get('@postRequest').its('response.statusCode').should('eq', 200);
-            recurse(
-                () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                ($snackBar) => cy.wait(10),
-                { delay: 1000 }
-            )
+            cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone Automation_Milestone is created successfully.');
         });
     })
 
@@ -43,21 +40,17 @@ describe('Milestone Access Privileges', () => {
         cy.loadProject(projectId);
     })
 
-    it('Verify the Milestone creation process (MAIN-TC-1794)', () => {
+    it('Verify the Milestone creation process (MAIN-TC-1794, MAIN-TC-54)', () => {
         cy.visit(Cypress.env('baseURL'));
         milestoneName = 'MAIN-TC-1794';
         cy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');
         cy.createMilestone(milestoneName).then(() => {
             cy.get('@postRequest').its('response.statusCode').should('eq', 200);
-            recurse(
-                () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                ($snackBar) => cy.wait(10),
-                { delay: 1000 }
-            )
+            cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone MAIN-TC-1794 is created successfully.');
         });
     })
 
-    it('Verify the user should be able to Load Milestone on all pages (MAIN-TC-844)', () => {
+    it('Verify the user should be able to Load Milestone on all pages (MAIN-TC-844, MAIN-TC-1501, MAIN-TC-1575)', () => {
         //Goal
         cy.visit(Cypress.env('baseURL') + '/cybersecurity-goal');
         cy.get(navBarSelector.navBarProjectButton).click(); // Click project in navigation bar
@@ -86,52 +79,51 @@ describe('Milestone Access Privileges', () => {
         cy.visit(Cypress.env('baseURL') + '/weaknesses');
         cy.get(navBarSelector.navBarProjectButton).click(); // Click project in navigation bar
         cy.get(navBarSelector.projectListLoadMilestoneButton).should('be.enabled'); // load a milestone
+        //modeling view
+        cy.visit(Cypress.env("baseURL") + "/modeling");
+        cy.get(modelingViewSelector.componentLibraryDfdProcess).should('have.text', 'DFD-Process');//components are visibile
     })
 
-    it('Verify user shall not be able to edit anything when milestone is loaded in threatListView page (MAIN-TC-1361, MAIN-TC-2163)', () => {
-        milestoneName = 'MAIN-TC-1361-2163';
+    it('Verify user shall not be able to edit anything when milestone is loaded in threatListView page (MAIN-TC-1361, MAIN-TC-2163, MAIN-TC-90, MAIN-TC-91, MAIN-TC-92, MAIN-TC-93)', () => {
+        milestoneName = 'MAIN-TC-1361-2163-90-91-92-93';
         cy.createModel();//create a model to generate threats to test
         cy.intercept('POST', Cypress.env('apiURL') + '/milestones/projectMilestoneDb*').as('postRequest');
         cy.createMilestone(milestoneName).then(() => {
             cy.get('@postRequest').its('response.statusCode').should('eq', 200);
-            recurse(
-                () => cy.get(navBarSelector.subsequentSnackBarElement).should('have.length', 2),//both snack bars appeared
-                ($snackBar) => cy.wait(10),
-                { delay: 1000 }
-            )
+            cy.get(navBarSelector.subsequentSnackBarElement).should('contain', 'Milestone MAIN-TC-1361-2163-90-91-92-93 is created successfully.');
         });
         cy.loadMilestone(milestoneName);
         cy.visit(Cypress.env('baseURL') + '/threats').then(() => {
             //more actions button
-            cy.get(threatListViewSelector.threatListViewThreatActionsButton).eq(0).should('have.css', 'pointer-events', 'none');
+            cy.get(threatListViewSelector.threatListViewThreatActionsButton).first().should('have.css', 'pointer-events', 'none');
             //validation button
-            cy.get(threatListViewSelector.threatListViewThreatCheckBoxInput).eq(4).should('have.css', 'pointer-events', 'none');
+            cy.get(threatListViewSelector.threatListViewValidatedTableDataCheckBox).first().should('have.css', 'pointer-events', 'none');
             //review button
-            cy.get(threatListViewSelector.threatListViewThreatCheckBoxInput).eq(3).should('have.css', 'pointer-events', 'none');
+            cy.get(threatListViewSelector.threatListViewReviewedTableDataCheckBox).first().should('have.css', 'pointer-events', 'none');
             //treatment selection
-            cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).eq(0).should('have.css', 'user-select', 'none');
+            cy.get(threatListViewSelector.threatListViewThreatTreatmentSelect).first().should('have.css', 'user-select', 'none');
             //threat selection
             cy.get(threatListViewSelector.threatListViewThreatCheckBoxInput).eq(1).should('have.css', 'pointer-events', 'none');
             //threat scenario dialog
-            cy.get(threatListViewSelector.threatListViewThreatScenarioTextArea).eq(0).click();
+            cy.get(threatListViewSelector.threatListViewThreatScenarioTextArea).first().click();
             cy.get(threatListViewSelector.threatScenarioCheckCircleIcon).should('not.exist');
             //attack path dialog
-            cy.get(threatListViewSelector.threatListViewAttackPathColumn).eq(0).click();
+            cy.get(threatListViewSelector.threatListViewAttackPathColumn).first().click();
             cy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled').then(() => {
                 cy.get(threatListViewSelector.dialogCloseIcon).click();
             });
             //damage scenario dialog
-            cy.get(threatListViewSelector.threatListViewDamageScenarioColumn).eq(0).click();
+            cy.get(threatListViewSelector.threatListViewDamageScenarioColumn).first().click();
             cy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled').then(() => {
                 cy.get(threatListViewSelector.confirmDialogCancelButton).click();
             });
             //feasibility dialog
-            cy.get(threatListViewSelector.threatListViewFeasibilityButton).eq(0).click();
+            cy.get(threatListViewSelector.threatListViewFeasibilityButton).first().click();
             cy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled').then(() => {
                 cy.get(threatListViewSelector.confirmDialogCancelButton).click();
             });
             //impact dialog
-            cy.get(threatListViewSelector.threatListViewImpactButton).eq(0).click();
+            cy.get(threatListViewSelector.threatListViewImpactButton).first().click();
             cy.get(navBarSelector.confirmDialogueConfirmButton).should('be.disabled');
         });
     })
@@ -140,7 +132,7 @@ describe('Milestone Access Privileges', () => {
         cy.visit(Cypress.env('baseURL'));
         milestoneName = 'Automation_Milestone';
         cy.loadMilestone(milestoneName).then(() => {
-            cy.get(navBarSelector.navBarProfileIcon).click();
+            cy.get(navBarSelector.navBarProfileButton).click();
             cy.get(navBarSelector.profileListProjectButton).click();
             cy.get(navBarSelector.ProjectDialogProjectNotesTextArea).should('be.disabled');
         })

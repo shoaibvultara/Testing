@@ -59,6 +59,7 @@ describe('Module Library Action', () => {
     it('Verify the working "X" button in "Edit/Delete module features" (MAIN-TC-482)', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page (It redirects to Module page by default)
             cy.wait(2000);
+        }).then(() => {
             let indexOfRecord = 0;
             cy.get(moduleLibrarySelector.moduleNameContentTextArea).each(($element) => {
                 if ($element.val() === moduleName) {
@@ -90,43 +91,41 @@ describe('Module Library Action', () => {
     })
 
     it('Verify the working of "Show All" button and module category is properly updated (MAIN-TC-439, MAIN-TC-461, MAIN-TC-463, MAIN-TC-464)', () => {
+        let oldCategoryName = 'Before_' + projectName.substring(20);
+        let newCategoryName = 'After_' + projectName.substring(20);
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page (It redirects to Module page by default)
-            let oldCategoryName = 'Before_' + projectName.substring(20);
-            let newCategoryName = 'After_' + projectName.substring(20);
-            cy.get(moduleLibrarySelector.moduleLibraryShowAllButton).click().then(() => {
-                cy.get(moduleLibrarySelector.refreshModulesLoader).should('not.exist')
+            cy.get(moduleLibrarySelector.moduleLibraryShowAllButton).click();
+        }).then(() => {
+            cy.get(moduleLibrarySelector.refreshModulesLoader).should('not.exist')
+        }).then(() => {
+            cy.get(navBarSelector.subsequentSnackBarElement)
+                .should('be.visible')
+                .and('include.text', 'All')
+                .and('include.text', 'modules in your component library are shown');
+        }).then(() => {
+            cy.addModuleCategory(oldCategoryName);
+        }).then(() => {
+            cy.get(moduleLibrarySelector.moduleNameCancelButton).click({ force: true })
+        }).then(() => {
+            cy.get(moduleLibrarySelector.moduleArrowDropdownButton).click();
+        }).then(() => {
+            cy.get(moduleLibrarySelector.editModuleCategoryButton).click();
+        }).then(() => {
+            cy.get(moduleLibrarySelector.moduleCategoryNameInputField).each(($category) => {
+                if ($category.val() === oldCategoryName) {
+                    recurse(() =>
+                        cy.get($category).clear().type(newCategoryName),
+                        ($inputField) => $inputField.val() === newCategoryName,
+                        { delay: 1000 })
+                    return false;
+                }
             }).then(() => {
-                cy.get(navBarSelector.subsequentSnackBarElement)
-                    .should('be.visible')
-                    .and('include.text', 'All')
-                    .and('include.text', 'modules in your component library are shown');
+                cy.get(navBarSelector.confirmDialogueConfirmButton).click();
+                cy.get(navBarSelector.subsequentSnackBarElement).should('include.text', 'Category has been updated');
             }).then(() => {
-                cy.addModuleCategory(oldCategoryName).then(() => {
-                    cy.get(moduleLibrarySelector.moduleNameCancelButton).click({ force: true })
-                })
+                cy.get(moduleLibrarySelector.moduleLibraryPageCategoryTextArea).first().click();
             }).then(() => {
-                cy.get(moduleLibrarySelector.moduleArrowDropdownButton).click().then(() => {
-                    cy.get(moduleLibrarySelector.editModuleCategoryButton).click().then(() => {
-                        cy.get(moduleLibrarySelector.moduleCategoryNameInputField).each(($category) => {
-                            if ($category.val() === oldCategoryName) {
-                                recurse(() =>
-                                    cy.get($category).clear().type(newCategoryName),
-                                    ($inputField) => $inputField.val() === newCategoryName,
-                                    { delay: 1000 }
-                                )
-                                return false;
-                            }
-                        }).then(() => {
-                            cy.get(navBarSelector.confirmDialogueConfirmButton).click().then(() => {
-                                cy.get(navBarSelector.subsequentSnackBarElement).should('include.text', 'Category has been updated');
-                            })
-                        })
-                    })
-                })
-            }).then(() => {
-                cy.get(moduleLibrarySelector.moduleLibraryPageCategoryTextArea).first().click().then(() => {
-                    cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(newCategoryName).should('exist');
-                })
+                cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(newCategoryName).should('exist');
             })
         })
     })

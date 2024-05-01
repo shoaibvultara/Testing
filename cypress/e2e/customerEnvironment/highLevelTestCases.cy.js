@@ -14,7 +14,7 @@ const weaknessSelector = require('../../selectors/weaknessSelector.js');
 
 import { recurse } from 'cypress-recurse'
 var projectName;
-var projectId 
+var projectId;
 
 describe('Customer Environment Testting', () => {
     before(() => {              //Creating Project
@@ -113,7 +113,7 @@ describe('Customer Environment Testting', () => {
         })
     })
 
-    it('Cybesecurity Pool : Adding new Control, Goal, Damage Scenario',()=>{
+    it('Cybesecurity Pool : Adding new Control, Goal, Damage Scenario', () => {
         //Adding cybersecurity control
         cy.addControl("Automation Cybersecurity Control");
     })

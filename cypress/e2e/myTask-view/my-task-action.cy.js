@@ -94,7 +94,7 @@ describe('My Tasks Action', () => {
         })
     })
 
-    it('Verify that when the user clicks on the weakness in the Task List, that weakness is in the Archived list of the weakness (MAIN-TC-2783)', () => {
+    it('Verify that when the user clicks on the weakness in the Task List, that weakness is in the Archived list of the weakness (MAIN-TC-2783, MAIN-TC-2932)', () => {
         let weaknessDescription = 'TC_2783: Weakness is being Automated';
         cy.addNewWeakness(weakness, weaknessDescription).then(() => {
             cy.wait(1000);
@@ -113,6 +113,16 @@ describe('My Tasks Action', () => {
             cy.get(weaknessSelector.globalConfirmButton).click();
         }).then(() => {
             cy.get(weaknessSelector.snackBarMessage).should('include.text', 'Weakness analysis updated successfully');
+            cy.wait(2000);
+        }).then(() => {
+            cy.get(weaknessSelector.weaknessDropDownActionButton).first().click({ force: true});
+        }).then(() => {
+            cy.get(weaknessSelector.archiveWeaknessButton).click();
+        }).then(() => {
+            cy.get(weaknessSelector.globalConfirmButton).click();
+        }).then(() => {
+            cy.get(weaknessSelector.snackBarMessage).should('include.text', 'Weakness Archived Successfully');
+            cy.wait(1000);
         }).then(() => {
             cy.visit(Cypress.env('baseURL') + '/user-profile');
             cy.get(navBarSelector.myTaskSideNavAnchor).click();
@@ -260,6 +270,7 @@ describe('My Tasks Action', () => {
         cy.generateProjectName().then(($generatedName) => {
             let newProjectName = $generatedName;
             cy.createProject(newProjectName).then(() => {
+                cy.get(navBarSelector.loader).should('not.exist');
                 cy.visit(Cypress.env('baseURL') + '/event').then(() => { //Go to Event Page
                     cy.wait(2000);
                     cy.get(eventSelector.addNewEventButton).click();
@@ -301,7 +312,7 @@ describe('My Tasks Action', () => {
                         cy.get(eventSelector.eventPagination).should('contain', '1 of 1');
                     })
                 }).then(() => {
-                    cy.get(navBarSelector.navBarProfileIcon).click();
+                    cy.get(navBarSelector.navBarProfileButton).click();
                     cy.get(navBarSelector.profileListProjectNameHeader).first().should('contain', newProjectName);
                 })
             }).then(() => {

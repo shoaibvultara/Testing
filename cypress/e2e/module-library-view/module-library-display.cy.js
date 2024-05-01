@@ -56,10 +56,11 @@ describe('Module Library Display', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page (It redirects to Module page by default)
             cy.createNewModule(moduleName, moduleCategory);
             cy.wait(2000);
-            cy.editModuleFeature(moduleName, featureName, featureRole).then(() => {
-                cy.get(moduleLibrarySelector.closeEditModuleFeatureDialogButton).click();
-            })
+            cy.editModuleFeature(moduleName, featureName, featureRole);
+        }).then(() => {
+            cy.get(moduleLibrarySelector.closeEditModuleFeatureDialogButton).click();
             cy.wait(2000);
+        }).then(() => {
             let indexOfRecord = 0;
             cy.get(moduleLibrarySelector.moduleNameContentTextArea).each(($element) => {
                 if ($element.val() === moduleName) {
@@ -69,44 +70,43 @@ describe('Module Library Display', () => {
                 indexOfRecord++;
             }).then(() => {
                 cy.get(moduleLibrarySelector.editModuleFeaturesButton).should('exist').click();
-                cy.get(moduleLibrarySelector.expandMoreButton).click().then(() => {
-                    cy.get(moduleLibrarySelector.safetyImpactFieldBox).click();
-                    cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(safetyImpact).click();
-                    recurse(() =>
-                        cy.get(moduleLibrarySelector.damageScenarioTextDescription).eq(0).clear().type(damageScenario),
-                        ($inputField) => $inputField.val() === damageScenario,
-                        { delay: 1000 })
-                        .should('have.value', damageScenario).then(() => {
-                            cy.get(moduleLibrarySelector.financialImpactFieldBox).click();
-                            cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(financialImpact).click();
-                            recurse(() =>
-                                cy.get(moduleLibrarySelector.damageScenarioTextDescription).eq(1).clear().type(damageScenario),
-                                ($inputField) => $inputField.val() === damageScenario,
-                                { delay: 1000 })
-                                .should('have.value', damageScenario).then(() => {
-                                    cy.get(moduleLibrarySelector.operationalImpactFieldBox).click();
-                                    cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(operationalImpact).click();
-                                    recurse(() =>
-                                        cy.get(moduleLibrarySelector.damageScenarioTextDescription).eq(2).clear().type(damageScenario),
-                                        ($inputField) => $inputField.val() === damageScenario,
-                                        { delay: 1000 })
-                                        .should('have.value', damageScenario).then(() => {
-                                            cy.get(moduleLibrarySelector.privacyImpactFieldBox).click();
-                                            cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(privacyImpact).click();
-                                            recurse(() =>
-                                                cy.get(moduleLibrarySelector.damageScenarioTextDescription).eq(3).clear().type(damageScenario),
-                                                ($inputField) => $inputField.val() === damageScenario,
-                                                { delay: 1000 })
-                                                .should('have.value', damageScenario).then(() => {
-                                                    cy.get(moduleLibrarySelector.moduleFeatureMoreOptionsButton).click({ force: true });
-                                                    cy.get(moduleLibrarySelector.updateFeatureButton).click().then(() => {
-                                                        cy.get(moduleLibrarySelector.updateFeatureSnackBar).should('include.text', 'Feature updated successfully');
-                                                    })
-                                                })
-                                        })
-                                })
-                        })
-                })
+                cy.get(moduleLibrarySelector.expandMoreButton).click();
+            }).then(() => {
+                cy.get(moduleLibrarySelector.safetyImpactFieldBox).click();
+                cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(safetyImpact).click();
+                recurse(() =>
+                    cy.get(moduleLibrarySelector.damageScenarioTextDescription).eq(0).clear().type(damageScenario),
+                    ($inputField) => $inputField.val() === damageScenario,
+                    { delay: 1000 })
+                    .should('have.value', damageScenario);
+            }).then(() => {
+                cy.get(moduleLibrarySelector.financialImpactFieldBox).click();
+                cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(financialImpact).click();
+                recurse(() =>
+                    cy.get(moduleLibrarySelector.damageScenarioTextDescription).eq(1).clear().type(damageScenario),
+                    ($inputField) => $inputField.val() === damageScenario,
+                    { delay: 1000 })
+                    .should('have.value', damageScenario);
+            }).then(() => {
+                cy.get(moduleLibrarySelector.operationalImpactFieldBox).click();
+                cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(operationalImpact).click();
+                recurse(() =>
+                    cy.get(moduleLibrarySelector.damageScenarioTextDescription).eq(2).clear().type(damageScenario),
+                    ($inputField) => $inputField.val() === damageScenario,
+                    { delay: 1000 })
+                    .should('have.value', damageScenario);
+            }).then(() => {
+                cy.get(moduleLibrarySelector.privacyImpactFieldBox).click();
+                cy.get(moduleLibrarySelector.globalDropDownOptionList).contains(privacyImpact).click();
+                recurse(() =>
+                    cy.get(moduleLibrarySelector.damageScenarioTextDescription).eq(3).clear().type(damageScenario),
+                    ($inputField) => $inputField.val() === damageScenario,
+                    { delay: 1000 })
+                    .should('have.value', damageScenario);
+            }).then(() => {
+                cy.get(moduleLibrarySelector.moduleFeatureMoreOptionsButton).click({ force: true });
+                cy.get(moduleLibrarySelector.updateFeatureButton).click();
+                cy.get(moduleLibrarySelector.updateFeatureSnackBar).should('include.text', 'Feature updated successfully');
             })
         })
     })
@@ -114,27 +114,26 @@ describe('Module Library Display', () => {
     it('Verify modules are fetched from DB & the updated module name should reflect properly in Module library (MAIN-TC-472, MAIN-TC-26)', () => {
         let tempModuleName = 'TC472' + moduleName.substring(9);
         cy.createNewModule(tempModuleName, moduleCategory).then(() => {
-            cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page (It redirects to Module page by default)
-                cy.wait(2000);
-                let indexOfRecord = 0;
-                cy.get(moduleLibrarySelector.moduleNameContentTextArea).each(($element) => {
-                    if ($element.val() === tempModuleName) {
-                        recurse(() =>
-                            cy.get(moduleLibrarySelector.moduleNameContentTextArea).eq(indexOfRecord).clear().type(updatedModuleName),
-                            ($inputField) => $inputField.val() === updatedModuleName,
-                            { delay: 1000 }
-                        )
-                        cy.get(moduleLibrarySelector.moduleMoreOptionsButton).eq(indexOfRecord).click({ force: true });
-                        return false;// to exist from the .each() loop
-                    }
-                    indexOfRecord++;
-                }).then(() => {
-                    cy.get(moduleLibrarySelector.commitModuleButton).should('exist').click().then(() => {
-                        cy.get(moduleLibrarySelector.commitModuleSnackBar).should('include.text', ' Module database updated!').then(() => {
-                            cy.deleteModule(updatedModuleName);
-                        })
-                    })
-                })
+            cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page (It redirects to Module page by default)
+            cy.wait(2000);
+        }).then(() => { 
+            let indexOfRecord = 0;
+            cy.get(moduleLibrarySelector.moduleNameContentTextArea).each(($element) => {
+                if ($element.val() === tempModuleName) {
+                    recurse(() =>
+                        cy.get(moduleLibrarySelector.moduleNameContentTextArea).eq(indexOfRecord).clear().type(updatedModuleName),
+                        ($inputField) => $inputField.val() === updatedModuleName,
+                        { delay: 1000 }
+                    )
+                    cy.get(moduleLibrarySelector.moduleMoreOptionsButton).eq(indexOfRecord).click({ force: true });
+                    return false;// to exist from the .each() loop
+                }
+                indexOfRecord++;
+            }).then(() => {
+                cy.get(moduleLibrarySelector.commitModuleButton).should('exist').click();
+                cy.get(moduleLibrarySelector.commitModuleSnackBar).should('include.text', ' Module database updated!');
+            }).then(() => {
+                cy.deleteModule(updatedModuleName);
             })
         })
     })
@@ -151,9 +150,8 @@ describe('Module Library Display', () => {
                 }
                 indexOfRecord++;
             }).then(() => {
-                cy.get(moduleLibrarySelector.commitModuleButton).should('exist').click().then(() => {
-                    cy.get(moduleLibrarySelector.commitModuleSnackBar).should('include.text', "Module name can't be empty!");
-                })
+                cy.get(moduleLibrarySelector.commitModuleButton).should('exist').click();
+                cy.get(moduleLibrarySelector.commitModuleSnackBar).should('include.text', "Module name can't be empty!");
             })
         })
     })
@@ -162,39 +160,38 @@ describe('Module Library Display', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page (It redirects to Module page by default)
             cy.get(moduleLibrarySelector.createNewModuleButton).should('exist').click();
             cy.wait(1000);
-            cy.get(moduleLibrarySelector.moduleNameDialogText).should('be.visible').then(() => {
-                recurse(() =>
-                    cy.get(moduleLibrarySelector.moduleNameTextAreaField).should('exist').click().clear().type(moduleName),
-                    ($inputField) => $inputField.val() === moduleName,
-                    { delay: 1000 })
-                    .should('have.value', moduleName).then(() => {
-                        cy.get(moduleLibrarySelector.moduleNameDisabledConfirmButton).should('be.disabled').then(() => {
-                            cy.get(moduleLibrarySelector.moduleNameCancelButton).click();
-                        })
-                    })
-            }).then(() => {
-                cy.get(moduleLibrarySelector.moduleNameDialogText).should('not.exist').then(() => {
-                    cy.get(moduleLibrarySelector.moduleLibraryRefreshButton).click().then(() => {
-                        cy.get(moduleLibrarySelector.refreshModulesLoader).should('exist');
-                    }).then(() => {
-                        cy.get(moduleLibrarySelector.moduleLibraryShowAllButton).click().then(() => {
-                            cy.get(moduleLibrarySelector.refreshModulesLoader).should('exist');
-                        })
-                    })
-                })
-            }).then(() => {
-                cy.deleteModule(moduleName);
-            })
+            cy.get(moduleLibrarySelector.moduleNameDialogText).should('be.visible');
+        }).then(() => {
+            recurse(() =>
+                cy.get(moduleLibrarySelector.moduleNameTextAreaField).should('exist').click().clear().type(moduleName),
+                ($inputField) => $inputField.val() === moduleName,
+                { delay: 1000 })
+                .should('have.value', moduleName);
+        }).then(() => {
+            cy.get(moduleLibrarySelector.moduleNameDisabledConfirmButton).should('be.disabled');
+        }).then(() => {
+            cy.get(moduleLibrarySelector.moduleNameCancelButton).click();
+        }).then(() => {
+            cy.get(moduleLibrarySelector.moduleNameDialogText).should('not.exist');
+        }).then(() => {
+            cy.get(moduleLibrarySelector.moduleLibraryRefreshButton).click();
+            cy.get(moduleLibrarySelector.refreshModulesLoader).should('exist');
+        }).then(() => {
+            cy.get(moduleLibrarySelector.moduleLibraryShowAllButton).click();
+            cy.get(moduleLibrarySelector.refreshModulesLoader).should('exist');
+        }).then(() => {
+            cy.deleteModule(moduleName);
         })
     })
 
-    it('Verify in Module Name creation dialog, The Module name should not be an empty name (MAIN-TC-449, MAIN-TC-459)', () => {
+    it('Verify in Module Name creation dialog, The Module name should not be an empty name (MAIN-TC-449, MAIN-TC-459, MAIN-TC-1167)', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page (It redirects to Module page by default)
             cy.get(moduleLibrarySelector.createNewModuleButton).should('exist').click();
             cy.wait(1000);
         }).then(() => {
             cy.get(moduleLibrarySelector.moduleNameDialogText).should('be.visible');
-            cy.get(moduleLibrarySelector.moduleNameTextAreaField).should('exist').click();
+            cy.get(moduleLibrarySelector.moduleNameTextAreaField).should('exist')
+                .should('have.attr', 'maxlength', '65').click();
         }).then(() => {
             cy.get(moduleLibrarySelector.moduleNameDialogText).click();
         }).then(() => {

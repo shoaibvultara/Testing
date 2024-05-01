@@ -58,7 +58,7 @@ describe('Modeling Automation', () => {
         cy.get(modelingViewSelector.drawingCanvasModule)
           .rightclick()
           .then(() => {
-            cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect)
+            cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleTextarea)
               .should('have.value', '');
           });
       });
@@ -142,7 +142,9 @@ describe('Modeling Automation', () => {
       }).then(() => {
         cy.visit(Cypress.env("baseURL"));
       }).then(() => {
-        cy.get(navBarSelector.navBarModelingViewIcon).click();
+        cy.get(navBarSelector.navBarViewButton).click().then(()=>{
+          cy.get(navBarSelector.viewListModelingButton).click();
+        })
       }).then(() => {
         cy.url().should('contain', '/modeling');
       }).then(() => {
@@ -193,27 +195,27 @@ describe('Modeling Automation', () => {
   it('Verifying the Navigation Bar Buttons and Shortcuts (MAIN-TC-154, MAIN-TC-1326, MAIN-TC-153, MAIN-TC-149, MAIN-TC-150)', () => {
     // Visit another page if needed.
     cy.visit(Cypress.env("baseURL") + "/modeling").then(() => {
-      cy.get(navBarSelector.navBarProfileIcon).click({ force: true })
+      cy.get(navBarSelector.navBarProfileButton).click({ force: true })
         .get(navBarSelector.profileListUserProfileHeader).should('include.text', 'User Profile'); //Verifying the User Profile Drop down
     })
     cy.visit(Cypress.env("baseURL")).then(() => {
-      cy.get(navBarSelector.navBarProfileIcon).click()
+      cy.get(navBarSelector.navBarProfileButton).click()
         .get(navBarSelector.profileListChangePasswordHeader).click() //Change Password 
         .get(navBarSelector.changePasswordForm).should('exist');
     })
     cy.visit(Cypress.env("baseURL")).then(() => {
-      cy.get(navBarSelector.navBarNotificationIcon).click()
+      cy.get(navBarSelector.navBarNotificationButton).click()
         .get(navBarSelector.notificationMenu).should('exist'); //Notification Test 
     })
     cy.visit(Cypress.env("baseURL")).then(() => {
-      cy.get(navBarSelector.navBarThreatListViewIcon).click({ force: true })
+      cy.get(navBarSelector.navBarThreatListViewButton).click({ force: true })
         .wait(2000)
         .url().should('include', '/threats'); //Threat List
     })
     cy.visit(Cypress.env("baseURL")).then(() => {
-      cy.get(navBarSelector.navBarVulnerabilityListViewIcon).click({ force: true })
+      cy.get(navBarSelector.navBarVulnerabilityListViewButton).click({ force: true })
         .wait(2000)
-        .url().should('include', '/vulnerabilities'); //Culnerability List
+        .url().should('include', '/vulnerabilities'); //Vulnerability List
     })
   })
 })

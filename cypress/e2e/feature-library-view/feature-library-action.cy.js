@@ -55,7 +55,6 @@ describe('Feature Library Actions', () => {
                 cy.get(featureLibrarySelector.featureContentTextArea).should('have.text', featureName);
             }).then(() => {
                 cy.get(featureLibrarySelector.featureLibraryShowAllButton).click();
-            }).then(() => {
                 cy.get(navBarSelector.subsequentSnackBarElement)
                     .should('be.visible')
                     .and('include.text', 'All')
@@ -66,8 +65,12 @@ describe('Feature Library Actions', () => {
 
     it('Verify updating the Asset Name in Feature Library (MAIN-TC-597, MAIN-TC-534, MAIN-TC-513, MAIN-TC-521, MAIN-TC-533)', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             let indexOfRecord = 0;
             cy.get(featureLibrarySelector.featureContentTextArea).each(($element) => {
@@ -78,7 +81,7 @@ describe('Feature Library Actions', () => {
                 indexOfRecord++;
             }).then(() => {
                 recurse(() =>
-                    cy.get(featureLibrarySelector.featureNameFieldBox).click().clear().type(updatedFeatureName),
+                    cy.get(featureLibrarySelector.featureNameFieldBox).clear().type(updatedFeatureName),
                     ($inputField) => $inputField.val() === updatedFeatureName,
                     { delay: 1000 })
                     .should('have.value', updatedFeatureName);
@@ -92,8 +95,12 @@ describe('Feature Library Actions', () => {
 
     it('Verify the "Add to feature" button adds the asset in Feature Asset bar (MAIN-TC-519)', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
             cy.get(featureLibrarySelector.createNewFeatureButton).click();
         }).then(() => {
             cy.get(featureLibrarySelector.showAssetLibraryButton).should('be.visible').click();
@@ -106,8 +113,12 @@ describe('Feature Library Actions', () => {
 
     it('Verify the working of "Show more assets" button (MAIN-TC-548, MAIN-TC-550)', () => {
         cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
             cy.get(featureLibrarySelector.createNewFeatureButton).click();
         }).then(() => {
             cy.get(featureLibrarySelector.showAssetLibraryButton).should('be.visible').click();
@@ -123,25 +134,29 @@ describe('Feature Library Actions', () => {
     })
 
     it('Verify that User is able to chain the features through memory chips (MAIN-TC-913)', () => {
-        let componentSpecFeature = 'test linking';
-        cy.visit(Cypress.env("baseURL") + "/modeling").then(() => {
-            const dataTransfer = new DataTransfer();
-            cy.get(modelingViewSelector.componentLibraryMicrocontroller).trigger('dragstart', { dataTransfer, force: true });
-            cy.get(modelingViewSelector.modelingViewCanvas).trigger('drop', { dataTransfer, force: true, clientX: 400, clientY: 400 });
-        }).then(() => {
-            cy.wait(2000);
-            cy.get(modelingViewSelector.drawingCanvasMicrocontroller).rightclick()
-            cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleSelect).click();
-            cy.get(modelingViewSelector.componentSpecFeatureSettingTestOption).click();
-        }).then(() => {
-            cy.get(modelingViewSelector.componentSpecFeaturesSettingsFeaturesSelect).click()
-            cy.get(modelingViewSelector.componentSpecFeaturesSettingsFeaturesDropdownList).contains(componentSpecFeature).click();
-        }).then(() => {
-            cy.get(modelingViewSelector.addFeatureRoleFieldButton).click();
-            cy.get(modelingViewSelector.addFeatureRoleDropdownList).first().click();
-        }).then(() => {
-            cy.get(modelingViewSelector.addFeatureConfirmButton).last().click();
-            cy.get(modelingViewSelector.componentSpecFeatureSettingsSubmitButton).click()
+        let featureName = 'FTR_TC_913'+ projectName.substring(20);
+        cy.createNewFeature(featureName, assetName, featureType).then(() => {
+            cy.visit(Cypress.env("baseURL") + "/modeling").then(() => {
+                const dataTransfer = new DataTransfer();
+                cy.get(modelingViewSelector.componentLibraryMicrocontroller).trigger('dragstart', { dataTransfer, force: true });
+                cy.get(modelingViewSelector.modelingViewCanvas).trigger('drop', { dataTransfer, force: true, clientX: 400, clientY: 400 });
+            }).then(() => {
+                cy.wait(2000);
+                cy.get(modelingViewSelector.drawingCanvasMicrocontroller).rightclick()
+                cy.get(modelingViewSelector.componentSpecFeatureSettingsModuleTextarea).click();
+                cy.get(modelingViewSelector.componentSpecFeatureSettingTestOption).click();
+            }).then(() => {
+                cy.get(modelingViewSelector.componentSpecFeaturesSettingsFeaturesSelect).click()
+                cy.get(modelingViewSelector.componentSpecFeaturesSettingsFeaturesDropdownList).contains(featureName).click();
+            }).then(() => {
+                cy.get(modelingViewSelector.addFeatureRoleFieldButton).click();
+                cy.get(modelingViewSelector.addFeatureRoleDropdownList).first().click();
+            }).then(() => {
+                cy.get(modelingViewSelector.addFeatureConfirmButton).last().click();
+                cy.get(modelingViewSelector.componentSpecFeatureSettingsSubmitButton).click()
+            }).then(() => {
+                cy.deleteFeature(featureName);
+            })
         })
     })
 
@@ -150,9 +165,12 @@ describe('Feature Library Actions', () => {
         cy.createNewFeature(featureName, assetName, featureType).then(() => {
             cy.linkWithModule(featureName, featureRole, moduleName);
         }).then(() => {
-            cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
         }).then(() => {
             let indexOfRecord = 0;
             cy.get(featureLibrarySelector.featureContentTextArea).each(($element) => {
@@ -179,9 +197,12 @@ describe('Feature Library Actions', () => {
         cy.createNewModule(moduleName, moduleCategory).then(() => {
             cy.updateModuleName(moduleName, moduleNewName);
         }).then(() => {
-            cy.visit(Cypress.env('baseURL') + '/library'); // Go to Library Page
+            cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
             cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-            cy.wait(1000);
+            cy.wait('@featureGetRequest');
+            cy.get('@featureGetRequest').then((request)=>{
+                expect(request.response.statusCode).to.be.oneOf([200, 304]);
+            })
             cy.get(featureLibrarySelector.createNewFeatureButton).click();
         }).then(() => {
             cy.wait(2000);
@@ -201,11 +222,14 @@ describe('Feature Library Actions', () => {
         let featureName = 'TC_382_FTR>' + projectName;
         cy.createNewFeature(featureName, assetName, featureType).then(() => {
             cy.visit(Cypress.env('baseURL') + '/library').then(() => { // Go to Library Page
+                cy.intercept('GET', Cypress.env('apiURL') + '/features/featureassetlib*').as('featureGetRequest');
                 cy.get(projectLibrarySelector.librarySideNavFeatureAnchor).click();  // Go to Feature tab
-                cy.wait(1000);
-                cy.get(featureLibrarySelector.createNewFeatureButton).click()
+                cy.wait('@featureGetRequest');
+                cy.get('@featureGetRequest').then((request)=>{
+                    expect(request.response.statusCode).to.be.oneOf([200, 304]);
+                })
+                cy.get(featureLibrarySelector.createNewFeatureButton).click();
             }).then(() => {
-                cy.wait(1000);
                 recurse(() =>
                     cy.get(featureLibrarySelector.featureNameFieldBox).clear().type(featureName),
                     ($inputField) => $inputField.val() === featureName,
@@ -223,7 +247,6 @@ describe('Feature Library Actions', () => {
             }).then(() => {
                 cy.get(featureLibrarySelector.createFeatureButton).should('be.enabled').click();
                 cy.wait(1000);
-            }).then(() => {
                 cy.get(featureLibrarySelector.createNewFeatureSnackBar).should('include.text', 'Duplicating Feature names is not allowed');
                 cy.get(navBarSelector.dialogCloseIcon).click();
             }).then(() => {

@@ -82,15 +82,17 @@ describe('Login Test', () => {
     cy.getCookie('accessToken').should('exist');
   });
 
-  it('Disable Modling and Threat List Buton when No project loaded (MAIN-TC-249)', () => {
+  it('Disable Modeling and Threat List Buttons when No project is loaded (MAIN-TC-249)', () => {
     cy.get(loginSelector.loginUsernameInput).type(Cypress.env('username')); // Replace with your username
     cy.get(loginSelector.loginPasswordInput).type(Cypress.env('password')); //Replace with password
     cy.get(loginSelector.loginLabelButton).click(); //clicking the login button
     cy.wait(1000);
     cy.visit(Cypress.env('baseURL'));
     cy.wait(200);
-    cy.get(navBarSelector.navBarModelingViewIcon).should('not.be.enabled');
-    cy.get(navBarSelector.navBarThreatListViewIcon).should('not.be.enabled');
+    cy.get(navBarSelector.navBarViewButton).click().then(() => {
+      cy.get(navBarSelector.viewListModelingButton).should('not.be.enabled');
+    })
+    cy.get(navBarSelector.navBarThreatListViewButton).should('not.be.enabled');
   })
 
   it('Should not call the APIs before Login (MAIN-TC-387, MAIN-TC-386, MAIN-TC-385)', () => {

@@ -15,7 +15,7 @@ module.exports = {
     weaknessCweIdFieldBox: 'input[formcontrolname="cweId"]',  // CWE ID Field Box
     weaknessCweWeaknessTypeFieldButton: 'mat-label:contains("CWE Weakness Type")',  // CWE Weakness Type Field Button
     weaknessCweWeaknessCategoryFieldButton: 'mat-label:contains("CWE Weakness Category")',  // CWE Weakness Category Field Button
-    weaknessActiveListRefreshButton: 'button:contains(" Refresh ")',  // Weakness Active List Tab Refresh Button
+    weaknessActiveListRefreshButton: '#refresh-weakness-list',  // Weakness Active List Tab Refresh Button
     weaknessActiveListSearchFieldBox: 'input[matinput][placeholder="Search"]',  // Weakness Active List Tab Search Box
     vulnerabilityAnalysisButton: 'div.weakness-vulnerability-analysis-status-label.vulnerability-analysis-label-not-started:contains("Not started")',
     analyzeWeaknessExploitableButton: 'mat-select[formcontrolname="exploitable"]',  // Exploitable Field Box in Analyze Weakness Dialog
@@ -25,7 +25,7 @@ module.exports = {
 
     // Weakness Archived List Page Action Buttons
     weaknessArchivedListPageTab: 'span.mdc-tab__text-label:contains("Archived List")',  // Weakness Archived List Page Tab
-    weaknessArchivedListRefreshButton: 'button:contains(" Refresh ")',  // Weakness Archived List Tab Refresh Button
+    weaknessArchivedListRefreshButton: '#refresh-weakness-list',  // Weakness Archived List Tab Refresh Button
     weaknessArchivedListSearchFieldBox: 'input[matinput][placeholder="Search"]',  // Weakness Archived List Tab Search Box
 
     // Weakness Dropdown Action Buttons
@@ -50,4 +50,5 @@ module.exports = {
     headerRow: 'tr[mat-header-row]',
     weaknessDescriptionContentArea: 'td[class*="mat-column-weaknessDescription"]',
     weaknessPagination: 'mat-paginator',
+    archiveWeaknessButton: 'button:contains("Archive Weakness")',
 }
