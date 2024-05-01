@@ -10,8 +10,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Install npm dependencies
+      # Install npm dependencies from the cypress directory
       - name: Install Dependencies
+        working-directory: cypress  # Change directory to the cypress directory
         run: npm install
 
       # Run Cypress test for specific file
