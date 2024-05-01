@@ -28,7 +28,9 @@ jobs:
           sed -i 's#authURL: "http://localhost:4202/auth"#authURL: "https://awsportal.auth.vultara.com/auth"#' cypress.config.js
           sed -i 's#username: "vultara_automation_test"#username: "shoaibadmin"#' cypress.config.js
           sed -i 's#password: "tJVJhiHmlIWR"#password: "PAKistan@123"#' cypress.config.js
-
+          
+          BASE_URL=$(awk -F'"' '/baseURL/{print $4}' cypress.config.js)
+          echo "::set-output name=base-url::$BASE_URL"
       # Run Cypress test for specific file
       - name: Cypress run
         uses: cypress-io/github-action@v6
