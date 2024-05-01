@@ -31,6 +31,10 @@ jobs:
           
           BASE_URL=$(awk -F'"' '/baseURL/{print $4}' cypress.config.js)
           echo "::set-output name=base-url::$BASE_URL"
+      - name: Print baseURL
+        run: |
+          echo "Base URL is $(grep -oP 'baseURL: "\K[^"]+' cypress.config.js)"
+        
       # Run Cypress test for specific file
       - name: Cypress run
         uses: cypress-io/github-action@v6
